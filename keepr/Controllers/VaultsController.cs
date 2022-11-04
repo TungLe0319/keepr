@@ -35,8 +35,7 @@ public class VaultsController : ControllerBase {
   
 
     [HttpGet("{vaultId}")]
-  
-    public ActionResult<Vault> GetById(int vaultId)
+   public ActionResult<Vault> GetById(int vaultId)
     {
       try
       {
@@ -62,6 +61,7 @@ public class VaultsController : ControllerBase {
         {
         throw new Exception("You are a bad user..... or your token is crappy... 🤷");
         }
+        newVaultData.Creator = userInfo;
         newVaultData.CreatorId = userInfo?.Id;
         Vault newVault = _vaultService.CreateVault(newVaultData);
         return Ok(newVault);

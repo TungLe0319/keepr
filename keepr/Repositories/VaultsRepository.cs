@@ -27,25 +27,22 @@ public class VaultsRepository : BaseRepo
 
   }
 
-  internal Vault GetById(int vaultId)
+  internal Vault GetById(int id)
   {
     var sql = @"
           SELECT 
             v.*,
-            COUNT(k.id) AS KeepCount,
             a.* 
           FROM vaults v
           JOIN accounts a ON a.id = v.creatorId
-          LETT JOIN keeps k ON k.vaultId = v.id
-          WHERE v.id =  @vaultId 
-          GROUP BY v.id
+          WHERE v.id =  @id 
           ;";
 
     return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
     {
       v.Creator = p;
       return v;
-    }, new { vaultId }).FirstOrDefault();
+    }, new { id }).FirstOrDefault();
 
 
   }
@@ -59,7 +56,7 @@ public class VaultsRepository : BaseRepo
             vaults (
               name,
               description,
-              coverImg
+              coverImg,
               isPrivate,
               creatorId
             )

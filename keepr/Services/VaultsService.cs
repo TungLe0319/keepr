@@ -46,7 +46,7 @@ _vaultRepo.DeleteVault(vaultId);
   internal Vault EditVault(Vault vaultData, string accountId)
   {
 Vault original = GetById(vaultData.Id);
-if( original.CreatorId == accountId)
+if( original.CreatorId != accountId)
 {
 throw new Exception("Unauthorized not yours...");
 }

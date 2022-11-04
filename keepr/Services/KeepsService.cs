@@ -12,7 +12,7 @@ public class KeepsService {
   internal string DeleteKeep(int keepId, string userId)
   {
  Keep keep = GetById(keepId);
- if( keep.CreatorId == userId)
+ if( keep.CreatorId != userId)
  {
  throw new Exception("Unauthorized not yours...");
  }
@@ -34,5 +34,32 @@ return " Successfully deleted your keep";
     throw new Exception("Invalid Keep Id");
     }
     return keep;
+  }
+
+  internal Keep CreateKeep(Keep data)
+  {
+  return _keepRepo.CreateKeep(data);
+  }
+
+  internal List<Keep> GetAllKeeps()
+  {
+ 
+  return _keepRepo.GetAllKeeps();
+  }
+
+  internal Keep EditKeep(Keep keepData, string userId)
+  {
+Keep original = GetById(keepData.Id);
+if( original.CreatorId != userId)
+{
+throw new Exception("Unauthorized not yours...");
+}
+
+original.Name = keepData.Name;
+original.Description = keepData.Description;
+
+Keep updated = _keepRepo.EditKeep(original);
+return updated;
+
   }
 }
