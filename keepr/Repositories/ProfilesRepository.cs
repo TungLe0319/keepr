@@ -13,7 +13,7 @@ public class ProfilesRepository
 
   internal Profile GetById(string id)
   {
-    string sql = "SELECT * FROM profiles WHERE id = @id";
+    string sql = "SELECT * FROM accounts WHERE id = @id";
     return _db.QueryFirstOrDefault<Profile>(sql, new { id });
   }
 

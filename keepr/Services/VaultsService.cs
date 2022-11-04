@@ -64,8 +64,15 @@ return updated;
 
   }
 
-  // internal List<VaultKeep> GetKeepsByVaultId(int vaultId)
-  // {
-  // return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
-  // }
+  internal List<Keep> GetKeepsByVaultId(int vaultId)
+  {
+ List<Keep>  keeps= _keepRepo.GetKeepsByVaultId(vaultId);
+
+ if( keeps == null)
+ {
+ throw new Exception("Invalid VaultId");
+ }
+ return keeps;
+  }
+
 }

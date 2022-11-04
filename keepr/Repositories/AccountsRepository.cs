@@ -15,11 +15,13 @@ public class AccountsRepository
     return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
   }
 
-  internal Account GetById(string id)
+ public Account GetById(string id)
   {
     string sql = "SELECT * FROM accounts WHERE id = @id";
     return _db.QueryFirstOrDefault<Account>(sql, new { id });
   }
+
+
 
   internal Account Create(Account newAccount)
   {

@@ -16,11 +16,13 @@ public class VaultKeepRepository : BaseRepo
   {
     var sql = @"
             INSERT INTO
-            vaultkeeps(
+            vaultKeeps(
+              creatorId,
             vaultId,
             keepId
              )
             VALUES (
+              @CreatorId,
             @VaultId,
             @KeepId
              );
@@ -31,6 +33,5 @@ public class VaultKeepRepository : BaseRepo
 
     return vaultKeep;
   }
-
 
 }

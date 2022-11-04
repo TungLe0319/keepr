@@ -57,6 +57,22 @@ public class KeepsRepository : BaseRepo
        return data;
   }
 
+  internal List<Keep> GetKeepsForProfiles(string profileId)
+  {
+     var sql = @"
+                 SELECT 
+                 k.*,
+                 a.*
+                 FROM keeps k
+                 JOIN accounts a ON a.id = k.creatorId
+                 WHERE k.creatorId = @profileId
+                      ;";
+    return _db.Query<Keep,Profile,Keep>(sql,(keep,profile)=>{
+      keep.Creator = profile;
+      return keep;
+    }, new {profileId}).ToList();
+  }
+
   internal List<Keep> GetAllKeeps()
   {
     var sql = @"
@@ -75,6 +91,22 @@ public class KeepsRepository : BaseRepo
         return keep;
       }).ToList();
   
+  }
+
+  internal List<Keep> GetKeepsByVaultId(int vaultId)
+  {
+  string sql = @"
+              SELECT
+              k.*,
+              a.*
+              FROM keeps k
+              JOIN accounts a ON a.id = k.creatorId
+              WHERE k.vaultId = @vaultId
+                   ;";
+ return _db.Query<Keep,Profile,Keep>(sql,(keep,profile)=>{
+  keep.Creator = profile;
+  return keep;
+ }, new {vaultId}).ToList();
   }
 
   internal Keep EditKeep(Keep original)

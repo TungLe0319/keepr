@@ -41,6 +41,11 @@ return " Successfully deleted your keep";
   return _keepRepo.CreateKeep(data);
   }
 
+  internal List<Keep> GetKeepsForProfiles(string profileId)
+  {
+   return _keepRepo.GetKeepsForProfiles(profileId);
+  }
+
   internal List<Keep> GetAllKeeps()
   {
  
@@ -61,5 +66,10 @@ original.Description = keepData.Description;
 Keep updated = _keepRepo.EditKeep(original);
 return updated;
 
+  }
+
+  internal List<Keep> GetKeepsByVaultId(int vaultId)
+  {
+return _keepRepo.GetKeepsByVaultId(vaultId);
   }
 }
