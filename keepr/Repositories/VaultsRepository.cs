@@ -27,27 +27,49 @@ public class VaultsRepository : BaseRepo
 
   }
 
-  internal Vault GetById(int id)
+  public Vault GetById(int vaultId)
   {
     var sql = @"
           SELECT 
             v.*,
+            COUNT(k.id) AS KeepCount,
             a.* 
           FROM vaults v
           JOIN accounts a ON a.id = v.creatorId
-          WHERE v.id =  @id 
+          LEFT JOIN keeps k ON k.vaultId = v.id
+          WHERE v.id =  @vaultId 
+          GROUP BY v.id
           ;";
 
     return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
     {
       v.Creator = p;
       return v;
-    }, new { id }).FirstOrDefault();
+    }, new { vaultId }).FirstOrDefault();
 
 
   }
 
+  internal List<Vault> GetMyVaults(string creatorId)
+  {
+    var sql = @"
+           SELECT 
+           v. *,
+           COUNT(k.id) AS KeepCount,
+           a.*
+           FROM vaults v
+           JOIN accounts a ON a.id = v.creatorId
+           JOIN keeps k ON k.vaultId = v.id   
+           GROUP BY v.id  
+                ; ";
+    return _db.Query<Vault, Profile, Vault>(sql, (myVault, profile) =>
+     {
+       myVault.Creator = profile;
+ 
+       return myVault;
+     }).ToList();
 
+  }
 
   internal Vault CreateVault(Vault data)
   {
@@ -56,14 +78,14 @@ public class VaultsRepository : BaseRepo
             vaults (
               name,
               description,
-              coverImg,
+              img,
               isPrivate,
               creatorId
             )
             VALUES (
               @Name,
               @Description,
-              @CoverImg,
+              @Img,
               @IsPrivate,
               @CreatorId
             );
@@ -80,10 +102,8 @@ public class VaultsRepository : BaseRepo
     string sql = @"
               UPDATE vaults SET
               name = @Name,
-              description = @Description,
-              coverImg = @CoverImg,
               isPrivate = @IsPrivate
-              WHERE id = @Id LIMIT 1
+              WHERE id = @Id 
                    ;";
 
     original.UpdatedAt = DateTime.Now;

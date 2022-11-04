@@ -40,6 +40,11 @@ public class VaultsController : ControllerBase {
       try
       {
         Vault vault = _vaultService.GetById(vaultId);
+        if( vault == null)
+        {
+        throw new Exception("bad Id");
+        }
+        
         return Ok(vault);
       }
       catch (Exception e)
@@ -47,10 +52,26 @@ public class VaultsController : ControllerBase {
         return BadRequest(e.Message);
       }
     }
-  
 
 
-    [HttpPost]
+
+  // [HttpGet("{vaultId}/keeps")]
+  // public ActionResult<List<VaultKeep>> GetKeepsByVaultId(int vaultId)
+  // {
+  //   try
+  //   {
+  //     List<VaultKeep> vaultKeeps = _vaultService.GetKeepsByVaultId(vaultId);
+  //     return Ok(vaultKeeps);
+  //   }
+  //   catch (Exception e)
+  //   {
+  //     return BadRequest(e.Message);
+  //   }
+  // }
+
+
+
+  [HttpPost]
    [Authorize]
     public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault newVaultData)
     {

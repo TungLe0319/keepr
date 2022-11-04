@@ -3,11 +3,13 @@ namespace keepr.Services;
 public class VaultsService{
   private readonly VaultsRepository _vaultRepo;
   private readonly KeepsRepository _keepRepo;
+  private readonly VaultKeepRepository _vaultKeepRepo;
 
-  public VaultsService(VaultsRepository vaultRepo, KeepsRepository keepRepo)
+  public VaultsService(VaultsRepository vaultRepo, KeepsRepository keepRepo, VaultKeepRepository vaultKeepRepo)
   {
     _vaultRepo = vaultRepo;
     _keepRepo = keepRepo;
+    _vaultKeepRepo = vaultKeepRepo;
   }
 
   internal List<Vault> GetAllVaults()
@@ -23,6 +25,8 @@ return _vaultRepo.GetAllVaults();
   {
   throw new Exception("Invalid vaultId");
   }
+
+
   
 return vault;
   }
@@ -35,7 +39,7 @@ return vault;
   internal void DeleteVault(int vaultId, string accountId)
   {
 Vault vault = GetById(vaultId);
-if( vault.CreatorId == accountId)
+if( vault.CreatorId != accountId)
 {
 throw new Exception("Unauthorized, not yours..");
 }
@@ -54,12 +58,14 @@ throw new Exception("Unauthorized not yours...");
 
 original.Name = vaultData.Name;
 original.IsPrivate = vaultData.IsPrivate;
-original.Description = vaultData.Description;
-original.CoverImg = vaultData.CoverImg == "//thiscatdoesnotexist.com" ? original.CoverImg : vaultData.CoverImg;
-original.KeepCount = vaultData.KeepCount;
-
+original.Img = vaultData.Img;
 Vault updated = _vaultRepo.EditVault(original);
 return updated;
 
   }
+
+  // internal List<VaultKeep> GetKeepsByVaultId(int vaultId)
+  // {
+  // return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
+  // }
 }

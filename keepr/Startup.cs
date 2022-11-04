@@ -41,6 +41,10 @@ public class Startup
   
   services.AddTransient<KeepsRepository>();
   services.AddTransient<KeepsService>();
+
+
+  services.AddTransient<VaultKeepRepository>();
+  services.AddTransient<VaultKeepsService>();
   }
 
   private void ConfigureCors(IServiceCollection services)
