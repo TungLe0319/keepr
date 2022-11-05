@@ -3,21 +3,36 @@ import { Keep } from "../models/Keep.js";
 import { api } from "./AxiosService.js";
 
 class KeepsService {
-   setActive(keep){
-    AppState.activeKeep = keep
- 
+  async setActive(keep) {
+    AppState.activeKeep = keep;
+    let id = AppState.activeKeep.id;
+    await api.get(`api/keeps/${id}`);
+    AppState.activeKeep.views++;
   }
-  async getById(id){
-    const res = await api.get(`api/keeps/${id}`)
-    AppState.activeKeep = new Keep(res.data)
+  async getById(id) {
+    const res = await api.get(`api/keeps/${id}`);
+    AppState.activeKeep = new Keep(res.data);
   }
   async getAllKeeps() {
     const res = await api.get("api/keeps");
-         console.log('[keeps]',res.data);
-         let keeps = res.data.map((k) => new Keep(k));
-        AppState.keeps = 
-        [...AppState.keeps,...keeps]
-         console.log(AppState.keeps);
+    console.log("[keeps]", res.data);
+    let keeps = res.data.map((k) => new Keep(k));
+    AppState.keeps = [...AppState.keeps, ...keeps];
+    console.log(AppState.keeps);
+  }
+
+
+  async getAllKeeps() {
+    
+    const res = await api.get("api/keeps",{
+      params :{
+        offSet:offSet
+      }
+    });
+    console.log("[keeps]", res.data);
+    let keeps = res.data.map((k) => new Keep(k));
+    AppState.keeps = [...AppState.keeps, ...keeps];
+    console.log(AppState.keeps);
   }
   async createKeep(keepData) {
     const res = await api.put("api/keeps", keepData);

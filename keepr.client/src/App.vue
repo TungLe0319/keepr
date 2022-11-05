@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="bg-light">
     <router-view />
   </main>
   <ModalComponent id="activeKeep">

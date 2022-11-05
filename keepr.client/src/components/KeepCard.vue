@@ -45,8 +45,12 @@ export default {
     return {
       editable,
 
-      setActive() {
-        keepsService.setActive(props.keep);
+    async   setActive() {
+     try {
+         await    keepsService.setActive(props.keep);
+       } catch (error) {
+         Pop.error(error,'[setActive]')
+       }
       },
     };
   },

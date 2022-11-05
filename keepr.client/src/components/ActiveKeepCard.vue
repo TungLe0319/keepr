@@ -1,7 +1,7 @@
 <template>
   <div class="modal-body p-0" v-if="keep">
-    <div class="row">
-      <div class="col-md-6">
+    <div class="row ">
+      <div class="col-md-6 pictureCol">
         <img
           :src="keep.img"
           alt=""
@@ -95,8 +95,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-modal-body {
-  height: 60vh;
-  width: 60vw;
-}
+
 </style>

@@ -5,11 +5,11 @@ namespace keepr.Controllers;
 
 public class VaultsController : ControllerBase
 {
+  #region READONLY
   private readonly Auth0Provider _auth0;
   private readonly VaultsService _vaultService;
   private readonly KeepsService _keepService;
   private readonly VaultKeepsService _vaultKeepService;
-
   public VaultsController(Auth0Provider auth0, VaultsService vaultService, KeepsService keepService, VaultKeepsService vaultKeepService)
   {
     _auth0 = auth0;
@@ -17,6 +17,7 @@ public class VaultsController : ControllerBase
     _keepService = keepService;
     _vaultKeepService = vaultKeepService;
   }
+  #endregion
 
   [HttpGet]
   public ActionResult<List<Vault>> GetAllVault()
@@ -39,12 +40,7 @@ public class VaultsController : ControllerBase
   {
     try
     {
-
-
-
       Vault vault = _vaultService.GetById(vaultId);
-
-
       return Ok(vault);
     }
     catch (Exception e)
@@ -61,16 +57,13 @@ public class VaultsController : ControllerBase
     try
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-
       if (userInfo == null) //not logged in or bad token
       {
-        List<VaultedKeep> publicKeeps = _vaultKeepService.GetPublicKeeps(vaultId);
+        List<VaultedKeep> publicKeeps = _vaultKeepService.GetKeepsByVaultId(vaultId);
         return Ok(publicKeeps);
       }
 
-
       List<VaultedKeep> vaultKeeps = _vaultKeepService.GetVaultedKeepById(vaultId);
-
       return Ok(vaultKeeps);
     }
     catch (Exception e)
@@ -89,7 +82,7 @@ public class VaultsController : ControllerBase
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
       if (userInfo == null || userInfo.Id == null)
       {
-        throw new Exception("You are a bad user..... or your token is crappy... 🤷");
+        throw new Exception("Bad BearerToken");
       }
       newVaultData.Creator = userInfo;
       newVaultData.CreatorId = userInfo?.Id;
@@ -109,10 +102,6 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-      // if (userInfo == null || userInfo.Id == null)
-      // {
-      //   throw new Exception("Bad Token... ");
-      // }
       _vaultService.DeleteVault(vaultId, userInfo?.Id);
       return Ok("Vault deleted");
     }

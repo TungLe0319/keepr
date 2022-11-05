@@ -182,9 +182,10 @@ export default {
   border-radius: 2px;
 } */
 .modal-body {
-  background-image: url(https://www.pixelstalk.net/wp-content/uploads/images6/21-9-HD-Wallpaper-Free-download.jpg);
-  background-size: cover;
-  background-position: center;
-  box-shadow: 1px 1px 10px rgba(243, 236, 236, 0.308);
+
+}
+
+.modal{
+  
 }
 </style>

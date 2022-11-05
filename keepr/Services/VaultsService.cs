@@ -45,15 +45,12 @@ public class VaultsService
 
   internal void DeleteVault(int vaultId, string accountId)
   {
-
     Vault vault = GetById(vaultId);
-
     if (vault.CreatorId != accountId)
     {
-      throw new Exception("Unauthorized, not yours..");
+      throw new Exception("Unauthorized not yours..");
     }
     _vaultRepo.DeleteVault(vaultId);
-
   }
 
   internal Vault EditVault(Vault vaultData, string accountId)

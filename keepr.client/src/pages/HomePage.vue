@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row masonry">
-      <div class="col-md-2" v-for="k in keeps" :key="k.id">
+      <div class="col-md-2 mt-4" v-for="k in keeps" :key="k.id">
         <KeepCard :keep="k" />
       </div>
     </div>
@@ -26,6 +26,23 @@ export default {
       } catch (error) {
         Pop.error(error, "[getAllKeeps]");
       }
+    }
+async function getKeepsByScroll(){
+  try {
+      await keepsService.getKeepsByScroll()
+    } catch (error) {
+      Pop.error(error,'[getKeepsByScroll]')
+    }
+}
+      function infiniteScroll() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
+          getKeepsByScroll()
+        }
+      };
     }
 
     return {

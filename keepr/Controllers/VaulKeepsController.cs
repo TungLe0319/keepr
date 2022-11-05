@@ -1,10 +1,12 @@
 namespace keepr.Controllers;
+
+
 [ApiController]
 [Route("api/[controller]")]
 
 public class VaultKeepsController : ControllerBase
 {
-  #region readOnly
+  #region READONLY
   private readonly Auth0Provider _auth0;
   private readonly VaultsService _vaultService;
   private readonly KeepsService _keepService;
@@ -25,14 +27,12 @@ public class VaultKeepsController : ControllerBase
     try
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-
       if (userInfo == null || userInfo.Id == null)
       {
-        throw new Exception("Bad Token");
+        throw new Exception("Bad BearerToken");
       }
       vaultKeep.CreatorId = userInfo.Id;
       VaultKeep newVaultKeep = _vKeep.CreateVaultKeep(vaultKeep);
-
       return Ok(newVaultKeep);
     }
     catch (Exception e)

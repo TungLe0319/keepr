@@ -2,7 +2,7 @@ namespace keepr.Services;
 
 public class VaultKeepsService
 {
-
+  #region READONLY
   private readonly VaultsRepository _vaultRepo;
   private readonly KeepsRepository _keepRepo;
   private readonly VaultKeepRepository _vaultKeepRepo;
@@ -13,6 +13,7 @@ public class VaultKeepsService
     _keepRepo = keepRepo;
     _vaultKeepRepo = vaultKeepRepo;
   }
+  #endregion
 
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
   {
@@ -36,20 +37,18 @@ public class VaultKeepsService
     {
       throw new Exception("Private ");
     }
-
-    return _vaultKeepRepo.GetVaultedKeepById(vaultId);
-
+    return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }
 
 
-  internal List<VaultedKeep> GetPublicKeeps(int vaultId)
+  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
   {
     Vault vault = _vaultRepo.GetById(vaultId);
     if (vault.IsPrivate == true)
     {
       throw new Exception("Private Vault");
     }
-    return _vaultKeepRepo.GetVaultedKeepById(vaultId);
+    return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }
 
   internal string DeleteVaultKeep(int vaultKeepId, string accountId)

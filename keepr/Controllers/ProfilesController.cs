@@ -5,6 +5,7 @@ namespace keepr.Controllers;
 
 public class ProfilesController : ControllerBase
 {
+  #region READONLY
   private readonly AccountService _accountService;
   private readonly Auth0Provider _auth0Provider;
   private readonly ProfilesService _profileService;
@@ -19,14 +20,13 @@ public class ProfilesController : ControllerBase
     _keepService = keepService;
     _vaultService = vaultService;
   }
+  #endregion
 
   [HttpGet("{profileId}/keeps")]
   public ActionResult<List<Keep>> GetKeepsByForProfiles(string profileId)
   {
     try
     {
-
-
       List<Keep> profileKeeps = _keepService.GetKeepsForProfiles(profileId);
       return Ok(profileKeeps);
     }
@@ -36,7 +36,7 @@ public class ProfilesController : ControllerBase
     }
   }
 
-[HttpGet("{profileId}/vaults")]
+  [HttpGet("{profileId}/vaults")]
   public ActionResult<List<Vault>> GetVaultsForProfiles(string profileId)
   {
     try
@@ -50,14 +50,11 @@ public class ProfilesController : ControllerBase
     }
   }
 
- [HttpGet("{profileId}")]
+  [HttpGet("{profileId}")]
   public ActionResult<Profile> GetById(string profileId)
   {
-
     try
     {
-      ;
-
       Profile profile = _profileService.GetById(profileId);
       return Ok(profile);
     }
@@ -67,13 +64,12 @@ public class ProfilesController : ControllerBase
     }
   }
 
- [HttpGet]
+  [HttpGet]
   public async Task<ActionResult<List<Profile>>> GetAllProfile()
   {
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-
       List<Profile> profile = _profileService.GetAllProfile(userInfo);
       return Ok(profile);
     }

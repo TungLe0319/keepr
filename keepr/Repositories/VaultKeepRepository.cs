@@ -34,7 +34,7 @@ public class VaultKeepRepository : BaseRepo
   //when doing anything, return getbyId
 
 
-  internal List<VaultedKeep> GetVaultedKeepById(int vaultId)
+  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
   {
     string sql = @"
               SELECT
