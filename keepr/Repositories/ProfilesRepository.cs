@@ -30,7 +30,7 @@ public class ProfilesRepository
 
   internal List<Profile> GetAllProfiles()
   {
-     string sql = @"
+    string sql = @"
                  SELECT 
                  *
                  FROM 
