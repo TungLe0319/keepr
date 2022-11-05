@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class=" c-grid">
-      <div class="grid-item" v-for="k in keeps" :key="k.id">
+    <div class="row masonry">
+      <div class="col-md-2" v-for="k in keeps" :key="k.id">
         <KeepCard :keep="k" />
       </div>
     </div>

@@ -3,6 +3,14 @@ import { Keep } from "../models/Keep.js";
 import { api } from "./AxiosService.js";
 
 class KeepsService {
+   setActive(keep){
+    AppState.activeKeep = keep
+ 
+  }
+  async getById(id){
+    const res = await api.get(`api/keeps/${id}`)
+    AppState.activeKeep = new Keep(res.data)
+  }
   async getAllKeeps() {
     const res = await api.get("api/keeps");
          console.log('[keeps]',res.data);

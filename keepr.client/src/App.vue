@@ -5,21 +5,25 @@
   <main>
     <router-view />
   </main>
-  
+  <ModalComponent id="activeKeep">
+<ActiveKeepCard :keep="keep" v-if="keep" />
+  </ModalComponent>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import ActiveKeepCard from "./components/ActiveKeepCard.vue"
 import Navbar from './components/Navbar.vue'
 
 export default {
   setup() {
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      keep: computed(() => AppState.activeKeep),
     }
   },
-  components: { Navbar }
+  components: { Navbar, ActiveKeepCard }
 }
 </script>
 <style lang="scss">
