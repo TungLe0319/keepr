@@ -14,7 +14,7 @@ public class ProfilesRepository
   internal Profile GetById(string id)
   {
     string sql = "SELECT * FROM accounts WHERE id = @id";
-    return _db.QueryFirstOrDefault<Profile>(sql, new { id });
+    return _db.Query<Profile>(sql, new { id }).FirstOrDefault();
   }
 
   internal Profile Create(Profile newProfile)
@@ -26,6 +26,18 @@ public class ProfilesRepository
               (@Name, @Picture, @Email, @Id)";
     _db.Execute(sql, newProfile);
     return newProfile;
+  }
+
+  internal List<Profile> GetAllProfiles()
+  {
+     string sql = @"
+                 SELECT 
+                 *
+                 FROM 
+                 accounts 
+                 
+                      ;";
+    return _db.Query<Profile>(sql).ToList();
   }
 
   internal Profile Edit(Profile update)

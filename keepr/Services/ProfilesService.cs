@@ -22,4 +22,9 @@ throw new Exception("Invalid profileId");
 }
 return profile;
   }
+
+  internal List<Profile> GetAllProfile(Account userInfo)
+  {
+   return _profileRepo.GetAllProfiles();
+  }
 }

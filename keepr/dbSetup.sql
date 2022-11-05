@@ -9,16 +9,6 @@ CREATE TABLE IF NOT EXISTS accounts(
   coverImg VARCHAR(255)
 ) default charset utf8 COMMENT '';
 
-CREATE TABLE
-    IF NOT EXISTS profiles(
-        id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
-        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-        name varchar(255) COMMENT 'User Name',
-        picture varchar(255) COMMENT 'User Picture',
-        coverImg VARCHAR(255)
-    ) default charset utf8 COMMENT '';
-
 CREATE TABLE IF NOT EXISTS vaults(
   id INT NOT NULL  PRIMARY KEY AUTO_INCREMENT  ,
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
@@ -40,9 +30,7 @@ CREATE TABLE IF NOT EXISTS keeps(
   img VARCHAR(255) NOT NULL,
   views INT NOT NULL ,
 creatorId VARCHAR(255) NOT NULL,
-vaultId  INT,
-FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE  ,
-FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE 
+FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE 
 ) default charset utf8 COMMENT '';
 
 CREATE TABLE IF NOT EXISTS vaultKeeps(
@@ -57,3 +45,7 @@ CREATE TABLE IF NOT EXISTS vaultKeeps(
  FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE  
 ) default charset utf8 COMMENT '';
 
+DROP TABLE vaultKeeps;
+DROP TABLE keeps;
+DROP TABLE vaults;
+DROP Table accounts;

@@ -93,21 +93,6 @@ public class KeepsRepository : BaseRepo
   
   }
 
-  internal List<Keep> GetKeepsByVaultId(int vaultId)
-  {
-  string sql = @"
-              SELECT
-              k.*,
-              a.*
-              FROM keeps k
-              JOIN accounts a ON a.id = k.creatorId
-              WHERE k.vaultId = @vaultId
-                   ;";
- return _db.Query<Keep,Profile,Keep>(sql,(keep,profile)=>{
-  keep.Creator = profile;
-  return keep;
- }, new {vaultId}).ToList();
-  }
 
   internal Keep EditKeep(Keep original)
   {

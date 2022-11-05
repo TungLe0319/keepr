@@ -10,9 +10,9 @@ public class Vault : IHasCreator
   public string Description { get; set; }
 
   [Required]
-  public string Img { get; set; }
+  public string Img { get; set; } = "//thiscatdoesnotexist.com";
 
-  public bool IsPrivate { get; set; } = false;
+  public bool? IsPrivate { get; set; }
 
 
   // public string Tags {get;set; } = "";

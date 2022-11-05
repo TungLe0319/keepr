@@ -32,13 +32,10 @@ public class VaultsRepository : BaseRepo
     var sql = @"
           SELECT 
             v.*,
-            COUNT(k.id) AS KeepCount,
             a.* 
           FROM vaults v
           JOIN accounts a ON a.id = v.creatorId
-          LEFT JOIN keeps k ON k.vaultId = v.id
-          WHERE v.id =  @vaultId 
-          GROUP BY v.id
+          WHERE v.id =  @vaultId
           ;";
 
     return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
@@ -94,7 +91,7 @@ public class VaultsRepository : BaseRepo
 
     data.Id = _db.ExecuteScalar<int>(sql, data);
 
-    return data;
+    return GetById(data.Id);
   }
 
   internal Vault EditVault(Vault original)
@@ -102,6 +99,7 @@ public class VaultsRepository : BaseRepo
     string sql = @"
               UPDATE vaults SET
               name = @Name,
+              img = @Img,
               isPrivate = @IsPrivate
               WHERE id = @Id 
                    ;";
@@ -113,7 +111,7 @@ public class VaultsRepository : BaseRepo
       throw new Exception("Unable to update");
     }
 
-    return original;
+    return GetById(original.Id);
   }
 
   internal void DeleteVault(int vaultId)

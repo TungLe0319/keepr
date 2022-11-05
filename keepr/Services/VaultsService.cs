@@ -56,23 +56,24 @@ throw new Exception("Unauthorized not yours...");
 }
 
 
-original.Name = vaultData.Name;
-original.IsPrivate = vaultData.IsPrivate;
-original.Img = vaultData.Img;
+original.Name = vaultData.Name ?? original.Name;
+original.IsPrivate = vaultData.IsPrivate  ?? original.IsPrivate;
+original.Description = vaultData.Description ?? original.Description;
+original.Img = vaultData.Img ?? original.Img;
 Vault updated = _vaultRepo.EditVault(original);
 return updated;
 
   }
 
-  internal List<Keep> GetKeepsByVaultId(int vaultId)
-  {
- List<Keep>  keeps= _keepRepo.GetKeepsByVaultId(vaultId);
+//   internal List<Keep> GetKeepsByVaultId(int vaultId)
+//   {
+//  List<Keep>  keeps= _keepRepo.GetKeepsByVaultId(vaultId);
 
- if( keeps == null)
- {
- throw new Exception("Invalid VaultId");
- }
- return keeps;
-  }
+//  if( keeps == null)
+//  {
+//  throw new Exception("Invalid VaultId");
+//  }
+//  return keeps;
+//   }
 
 }

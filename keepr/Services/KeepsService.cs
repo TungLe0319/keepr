@@ -68,8 +68,5 @@ return updated;
 
   }
 
-  internal List<Keep> GetKeepsByVaultId(int vaultId)
-  {
-return _keepRepo.GetKeepsByVaultId(vaultId);
-  }
+
 }

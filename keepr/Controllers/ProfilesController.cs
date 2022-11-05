@@ -1,7 +1,8 @@
 namespace keepr.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
+
 public class ProfilesController : ControllerBase
 {
   private readonly AccountService _accountService;
@@ -36,11 +37,32 @@ private readonly ProfilesService _profileService;
   }
 
     [HttpGet("{profileId}")]
-    public ActionResult<Profile> GetById(string profileId)
+    public  ActionResult<Profile> GetById(string profileId)
+    {
+
+      try
+      {
+    ;
+    
+        Profile profile = _profileService.GetById(profileId);
+        return Ok(profile);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+  
+
+  
+    [HttpGet]
+    public async  Task<ActionResult<List<Profile>>> GetAllProfile()
     {
       try
       {
-        Profile profile = _profileService.GetById(profileId);
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+        List<Profile> profile = _profileService.GetAllProfile(userInfo);
         return Ok(profile);
       }
       catch (Exception e)
