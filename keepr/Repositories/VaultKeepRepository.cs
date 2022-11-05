@@ -30,14 +30,14 @@ public class VaultKeepRepository : BaseRepo
                  ; ";
 
     vaultKeep.Id = _db.ExecuteScalar<int>(sql, vaultKeep);
-// vaultKeep.CreatedAt = new DateTime();
-// vaultKeep.UpdatedAt  = new DateTime(); TO AVOID THIS
+    // vaultKeep.CreatedAt = new DateTime();
+    // vaultKeep.UpdatedAt  = new DateTime(); TO AVOID THIS
     return GetById(vaultKeep.Id);
   }
-//when doing anything, return getbyId
+  //when doing anything, return getbyId
 
 
-  internal List<KeptKeep> GetKeepsByVaultId(int vaultId)
+  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
   {
     string sql = @"
               SELECT
@@ -51,7 +51,7 @@ public class VaultKeepRepository : BaseRepo
               WHERE vKeep.vaultId = @vaultId
               GROUP BY vKeep.id
                    ;";
-    return _db.Query<KeptKeep, Profile, KeptKeep>(sql, (keep, profile) =>
+    return _db.Query<VaultedKeep, Profile, VaultedKeep>(sql, (keep, profile) =>
     {
       keep.Creator = profile;
       return keep;

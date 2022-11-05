@@ -15,7 +15,7 @@ public class VaultKeep : IDbItem<int>
 }
 
 
-public class KeptKeep : Keep
+public class VaultedKeep : Keep
 {
   public int KeepId { get; set; }
   public int VaultId { get; set; }

@@ -3,7 +3,8 @@ namespace keepr.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 
-public class VaultsController : ControllerBase {
+public class VaultsController : ControllerBase
+{
   private readonly Auth0Provider _auth0;
   private readonly VaultsService _vaultService;
   private readonly KeepsService _keepService;
@@ -18,47 +19,47 @@ public class VaultsController : ControllerBase {
   }
 
   [HttpGet]
-    public ActionResult<List<Vault>> GetAllVault()
+  public ActionResult<List<Vault>> GetAllVault()
+  {
+    try
     {
-      try
-      {
-        List<Vault> vaults = _vaultService.GetAllVaults();
-        return Ok(vaults);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
+      List<Vault> vaults = _vaultService.GetAllVaults();
+      return Ok(vaults);
     }
-  
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
-    [HttpGet("{vaultId}")]
-   public ActionResult<Vault> GetById(int vaultId)
+
+  [HttpGet("{vaultId}")]
+  public ActionResult<Vault> GetById(int vaultId)
+  {
+    try
     {
-      try
+      Vault vault = _vaultService.GetById(vaultId);
+      if (vault == null)
       {
-        Vault vault = _vaultService.GetById(vaultId);
-        if( vault == null)
-        {
         throw new Exception("bad Id");
-        }
-        
-        return Ok(vault);
       }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
+
+      return Ok(vault);
     }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
 
 
   [HttpGet("{vaultId}/keeps")]
-  public ActionResult<List<KeptKeep>> GetKeepsByVaultId(int vaultId)
+  public ActionResult<List<VaultedKeep>> GetKeepsByVaultId(int vaultId)
   {
     try
     {
-      List<KeptKeep> vaultKeeps = _vaultKeepService.GetKeepsByVaultId(vaultId);
+      List<VaultedKeep> vaultKeeps = _vaultKeepService.GetKeepsByVaultId(vaultId);
       return Ok(vaultKeeps);
     }
     catch (Exception e)
@@ -69,26 +70,26 @@ public class VaultsController : ControllerBase {
 
 
   [HttpPost]
-   [Authorize]
-    public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault newVaultData)
+  [Authorize]
+  public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault newVaultData)
+  {
+    try
     {
-      try
+      var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+      if (userInfo == null || userInfo.Id == null)
       {
-        var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-        if( userInfo == null || userInfo.Id == null)
-        {
         throw new Exception("You are a bad user..... or your token is crappy... 🤷");
-        }
-        newVaultData.Creator = userInfo;
-        newVaultData.CreatorId = userInfo?.Id;
-        Vault newVault = _vaultService.CreateVault(newVaultData);
-        return Ok(newVault);
       }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
+      newVaultData.Creator = userInfo;
+      newVaultData.CreatorId = userInfo?.Id;
+      Vault newVault = _vaultService.CreateVault(newVaultData);
+      return Ok(newVault);
     }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
   [HttpDelete("{vaultId}")]
   [Authorize]
@@ -123,5 +124,5 @@ public class VaultsController : ControllerBase {
     }
   }
 
-  
+
 }

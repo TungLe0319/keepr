@@ -19,12 +19,13 @@ public class VaultKeepsService
     return _vaultKeepRepo.CreateVaultKeep(vaultKeep);
   }
 
-  public VaultKeep GetById(int id){
+  public VaultKeep GetById(int id)
+  {
     VaultKeep vaultKeep = _vaultKeepRepo.GetById(id);
     return vaultKeep;
   }
 
-  internal List<KeptKeep> GetKeepsByVaultId(int vaultId)
+  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
   {
     return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }
