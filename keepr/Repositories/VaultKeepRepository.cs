@@ -37,7 +37,7 @@ public class VaultKeepRepository : BaseRepo
   //when doing anything, return getbyId
 
 
-  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
+  internal List<VaultedKeep> GetVaultedKeepById(int vaultId)
   {
     string sql = @"
               SELECT
@@ -70,15 +70,16 @@ public class VaultKeepRepository : BaseRepo
                 AND v.isPrivate = false
                 GROUP BY v.id
                      ;";
-   return _db.Query<Vault,Profile,Vault>(sql,(vault,profile)=>{
-    vault.Creator = profile;
-    return vault;
-   }, new {profileId}).ToList();
+    return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
+    {
+      vault.Creator = profile;
+      return vault;
+    }, new { profileId }).ToList();
   }
 
   internal bool DeleteVaultKeep(int id)
   {
-   return _db.Execute("DELETE FROM vaultKeeps WHERE id =  @id", new {id}) == 1;
+    return _db.Execute("DELETE FROM vaultKeeps WHERE id =  @id", new { id }) == 1;
   }
 
   internal VaultKeep GetById(int vaultKeepId)

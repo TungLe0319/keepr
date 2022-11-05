@@ -37,7 +37,7 @@ public class VaultKeepsService
       throw new Exception("Private ");
     }
 
-    return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
+    return _vaultKeepRepo.GetVaultedKeepById(vaultId);
 
   }
 
@@ -49,7 +49,7 @@ public class VaultKeepsService
     {
       throw new Exception("Private Vault");
     }
-    return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
+    return _vaultKeepRepo.GetVaultedKeepById(vaultId);
   }
 
   internal string DeleteVaultKeep(int vaultKeepId, string accountId)
