@@ -12,9 +12,9 @@
       <div
         class="col-md-6 d-flex flex-column justify-content-between "
       >
-        <div class="d-flex justify-content-center mt-2">
+        <div class="d-flex justify-content-center mt-2 align-items-center">
           <i class="mdi mdi-eye  ">{{ keep.views }}</i>
-          <i class="mdi mdi-delete fs-1"></i>
+          <i class="mdi mdi-more selectable ms-3 fs-5"></i>
         </div>
         <div>
           <div>
@@ -26,7 +26,21 @@
         </div>
         <div>
           <div  class="d-flex justify-content-between">
-            <h3>{{ keep.name }}</h3>
+            <div class="d-flex">
+            <div class="btn-group">
+  <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+  {{keep.name}}
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div>
+<button class="btn btn-info "> save</button>
+            </div>
               <span class="m-2">
                 <router-link :to="{name: 'Profile', params:{ id: keep.id }}" > 
                 
