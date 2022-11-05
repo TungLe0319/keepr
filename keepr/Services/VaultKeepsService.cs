@@ -16,7 +16,7 @@ public class VaultKeepsService
 
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
   {
-//TODO clean up
+    //TODO clean up
     VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
 
 
@@ -29,7 +29,7 @@ public class VaultKeepsService
     return vaultKeep;
   }
 
-  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
+  internal List<VaultedKeep> GetVaultedKeepById(int vaultId)
   {
     Vault vault = _vaultRepo.GetById(vaultId);
     if (vault.IsPrivate == true)

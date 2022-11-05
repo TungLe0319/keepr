@@ -40,16 +40,16 @@ public class VaultsController : ControllerBase
     try
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-    
+
 
       Vault vault = _vaultService.GetById(vaultId);
-      
+
 
       if (vault == null)
       {
         throw new Exception("bad Id");
       }
-      
+
 
       return Ok(vault);
     }
@@ -67,15 +67,15 @@ public class VaultsController : ControllerBase
     try
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-   
-    if( userInfo == null) //not logged in or bad token
-    {
+
+      if (userInfo == null) //not logged in or bad token
+      {
         List<VaultedKeep> publicKeeps = _vaultKeepService.GetPublicKeeps(vaultId);
         return Ok(publicKeeps);
-    }
-    
+      }
 
-      List<VaultedKeep> vaultKeeps = _vaultKeepService.GetKeepsByVaultId(vaultId);
+
+      List<VaultedKeep> vaultKeeps = _vaultKeepService.GetVaultedKeepById(vaultId);
 
       return Ok(vaultKeeps);
     }
