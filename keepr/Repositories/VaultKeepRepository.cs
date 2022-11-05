@@ -3,11 +3,6 @@ namespace keepr.Repositories;
 public class VaultKeepRepository : BaseRepo
 {
 
-
-
-
-
-
   public VaultKeepRepository(IDbConnection db) : base(db)
   {
   }
@@ -32,6 +27,8 @@ public class VaultKeepRepository : BaseRepo
     vaultKeep.Id = _db.ExecuteScalar<int>(sql, vaultKeep);
     // vaultKeep.CreatedAt = new DateTime();
     // vaultKeep.UpdatedAt  = new DateTime(); TO AVOID THIS
+
+
     return GetById(vaultKeep.Id);
   }
   //when doing anything, return getbyId
@@ -58,7 +55,7 @@ public class VaultKeepRepository : BaseRepo
     }, new { vaultId }).ToList();
   }
 
-  internal List<Vault> GetVaultsForProfiles(string profileId)
+  internal List<Vault> GetVaultsByProfileId(string profileId)
   {
     string sql = @"
                 SELECT 

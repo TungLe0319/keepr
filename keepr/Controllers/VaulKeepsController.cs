@@ -4,11 +4,11 @@ namespace keepr.Controllers;
 
 public class VaultKeepsController : ControllerBase
 {
+  #region readOnly
   private readonly Auth0Provider _auth0;
   private readonly VaultsService _vaultService;
   private readonly KeepsService _keepService;
   private readonly VaultKeepsService _vKeep;
-
   public VaultKeepsController(Auth0Provider auth0, VaultsService vaultService, KeepsService keepService, VaultKeepsService vKeep)
   {
     _auth0 = auth0;
@@ -16,6 +16,7 @@ public class VaultKeepsController : ControllerBase
     _keepService = keepService;
     _vKeep = vKeep;
   }
+  #endregion
 
   [HttpPost]
   [Authorize]
@@ -29,10 +30,8 @@ public class VaultKeepsController : ControllerBase
       {
         throw new Exception("Bad Token");
       }
-
       vaultKeep.CreatorId = userInfo.Id;
       VaultKeep newVaultKeep = _vKeep.CreateVaultKeep(vaultKeep);
-
 
       return Ok(newVaultKeep);
     }

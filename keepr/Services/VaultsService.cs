@@ -2,21 +2,22 @@ namespace keepr.Services;
 
 public class VaultsService
 {
+
+  #region readOnly
   private readonly VaultsRepository _vaultRepo;
   private readonly KeepsRepository _keepRepo;
   private readonly VaultKeepRepository _vaultKeepRepo;
-
   public VaultsService(VaultsRepository vaultRepo, KeepsRepository keepRepo, VaultKeepRepository vaultKeepRepo)
   {
     _vaultRepo = vaultRepo;
     _keepRepo = keepRepo;
     _vaultKeepRepo = vaultKeepRepo;
   }
-
+#endregion
+ 
   internal List<Vault> GetAllVaults()
   {
     return _vaultRepo.GetAllVaults();
-
   }
 
   internal Vault GetById(int vaultId)
@@ -28,10 +29,12 @@ public class VaultsService
     {
       throw new Exception("Invalid vaultId");
     }
+
     if (vault.IsPrivate == true)
     {
-      throw new Exception("Invalid [example]");
+      throw new Exception("Private Vault");
     }
+
     return vault;
   }
 
@@ -42,7 +45,9 @@ public class VaultsService
 
   internal void DeleteVault(int vaultId, string accountId)
   {
+
     Vault vault = GetById(vaultId);
+
     if (vault.CreatorId != accountId)
     {
       throw new Exception("Unauthorized, not yours..");
@@ -54,30 +59,21 @@ public class VaultsService
   internal Vault EditVault(Vault vaultData, string accountId)
   {
     Vault original = GetById(vaultData.Id);
+
     if (original.CreatorId != accountId)
     {
       throw new Exception("Unauthorized not yours...");
     }
 
-
     original.Name = vaultData.Name ?? original.Name;
     original.IsPrivate = vaultData.IsPrivate ?? original.IsPrivate;
     original.Description = vaultData.Description ?? original.Description;
     original.Img = vaultData.Img ?? original.Img;
+
     Vault updated = _vaultRepo.EditVault(original);
+
     return updated;
 
   }
-
-  //   internal List<Keep> GetKeepsByVaultId(int vaultId)
-  //   {
-  //  List<Keep>  keeps= _keepRepo.GetKeepsByVaultId(vaultId);
-
-  //  if( keeps == null)
-  //  {
-  //  throw new Exception("Invalid VaultId");
-  //  }
-  //  return keeps;
-  //   }
 
 }
