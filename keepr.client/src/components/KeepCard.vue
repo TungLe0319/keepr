@@ -1,7 +1,13 @@
 <template>
-  <div class="card">
-    <img src="" alt="" title="keep" />
-    <div class="card-img-overlay"></div>
+  <div class=" card elevation-5 rounded">
+    <img :src="keep.img" alt="" title="keep" class="test img-fluid" />
+    <div class="card-img-overlay border-none">
+      <span>
+        <p>{{keep.name}}</p>
+      </span>
+      <span> <img :src="keep.creator.picture" alt="" class="pImg rounded" height="30">
+      </span>
+    </div>
   </div>
 </template>
 
@@ -30,4 +36,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

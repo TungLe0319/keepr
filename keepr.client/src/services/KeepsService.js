@@ -3,6 +3,14 @@ import { Keep } from "../models/Keep.js";
 import { api } from "./AxiosService.js";
 
 class KeepsService {
+  async getAllKeeps() {
+    const res = await api.get("api/keeps");
+         console.log('[keeps]',res.data);
+         let keeps = res.data.map((k) => new Keep(k));
+        AppState.keeps = 
+        [...AppState.keeps,...keeps]
+         console.log(AppState.keeps);
+  }
   async createKeep(keepData) {
     const res = await api.put("api/keeps", keepData);
     let newKeep = new Keep(res.data);

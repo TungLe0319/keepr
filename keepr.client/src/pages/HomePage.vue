@@ -1,42 +1,52 @@
 <template>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-
+  <div class="container">
+    <div class=" c-grid">
+      <div class="grid-item" v-for="k in keeps" :key="k.id">
+        <KeepCard :keep="k" />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import { onMounted } from "vue";
+import KeepCard from "../components/KeepCard.vue";
+import { keepsService } from "../services/KeepsService.js";
+import { logger } from "../utils/Logger.js";
+import { computed } from "vue";
+import { AppState } from "../AppState";
 export default {
   setup() {
+    onMounted(() => {
+      getAllKeeps();
+    });
+    async function getAllKeeps() {
+      try {
+        await keepsService.getAllKeeps();
+      } catch (error) {
+        Pop.error(error, "[getAllKeeps]");
+      }
+    }
 
     return {
-      keeps: computed
-    }
-  }
-}
+      keeps: computed(() => AppState.keeps),
+    };
+  },
+  components: { KeepCard },
+};
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
+//when screen is 768px OR LESS
+@media only screen and (min-width: 768px){
 
-  .home-card {
-    width: 50vw;
+  .c-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%,1fr));
+    grid-auto-rows:4rem;
+    grid-gap:1rem;
 
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
   }
+  .grid-item{margin: 0;}
 }
 </style>
