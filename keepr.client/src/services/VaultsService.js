@@ -30,9 +30,5 @@ class VaultsService {
     AppState.vaults.splice(index, 1);
   }
 
-
-  async getVaultedKeeps(){
-    
-  }
 }
 export const vaultsService = new VaultsService();

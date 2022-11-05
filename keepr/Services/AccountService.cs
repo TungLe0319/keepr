@@ -34,14 +34,10 @@ public class AccountService
     return _repo.Edit(original);
   }
 
-  internal List<Vault> GetMyVaults(string creatorId)
+  internal List<Vault> GetMyVaults(string accountId)
   {
 
- 
-
-  return _vRepo.GetMyVaults(creatorId);
-
-
+  return _repo.GetMyVaults(accountId);
  
   }
 

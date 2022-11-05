@@ -53,24 +53,27 @@ public class KeepsRepository : BaseRepo
                  ; ";
    
        data.Id = _db.ExecuteScalar<int>(sql, data);
-     
+   
        return data;
   }
 
-  internal List<Keep> GetKeepsForProfiles(string profileId)
+  internal List<Keep> GetKeepsForProfiles(string id)
   {
      var sql = @"
                  SELECT 
                  k.*,
+                 COUNT(vKeep.id) AS Kept,
                  a.*
                  FROM keeps k
                  JOIN accounts a ON a.id = k.creatorId
-                 WHERE k.creatorId = @profileId
+                 LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.Id
+                 WHERE k.creatorId = @id
+                 GROUP BY k.id
                       ;";
     return _db.Query<Keep,Profile,Keep>(sql,(keep,profile)=>{
       keep.Creator = profile;
       return keep;
-    }, new {profileId}).ToList();
+    }, new {id}).ToList();
   }
 
   internal List<Keep> GetAllKeeps()

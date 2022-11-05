@@ -15,7 +15,7 @@ public class AccountsRepository
     return _db.QueryFirstOrDefault<Account>(sql, new { userEmail });
   }
 
- public Account GetById(string id)
+  public Account GetById(string id)
   {
     string sql = "SELECT * FROM accounts WHERE id = @id";
     return _db.QueryFirstOrDefault<Account>(sql, new { id });
@@ -44,6 +44,29 @@ public class AccountsRepository
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;
+  }
+
+  internal List<Vault> GetMyVaults(string accountId)
+  {
+
+    var sql = @"
+           SELECT 
+           v. *,
+           a.*
+           FROM vaults v
+           JOIN accounts a ON a.id = v.creatorId   
+           WHERE v.creatorId = @accountId
+           GROUP BY v.id  
+                ; ";
+    return _db.Query<Vault, Profile, Vault>(sql, (myVault, profile) =>
+     {
+       myVault.Creator = profile;
+
+       return myVault;
+     }, new {accountId}).ToList();
+
+
+
   }
 }
 

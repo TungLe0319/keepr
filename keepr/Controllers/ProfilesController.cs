@@ -7,7 +7,7 @@ public class ProfilesController : ControllerBase
 {
   private readonly AccountService _accountService;
   private readonly Auth0Provider _auth0Provider;
-private readonly ProfilesService _profileService;
+  private readonly ProfilesService _profileService;
   private readonly KeepsService _keepService;
   private readonly VaultKeepsService _vaultService;
 
@@ -21,13 +21,13 @@ private readonly ProfilesService _profileService;
   }
 
   [HttpGet("{profileId}/keeps")]
-  public async Task<ActionResult<List<Keep>>> GetKeepsByForProfiles()
+  public ActionResult<List<Keep>> GetKeepsByForProfiles(string profileId)
   {
     try
     {
-      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
 
-     List< Keep> profileKeeps = _keepService.GetKeepsForProfiles(userInfo?.Id);
+
+      List<Keep> profileKeeps = _keepService.GetKeepsForProfiles(profileId);
       return Ok(profileKeeps);
     }
     catch (Exception e)
@@ -36,39 +36,56 @@ private readonly ProfilesService _profileService;
     }
   }
 
-    [HttpGet("{profileId}")]
-    public  ActionResult<Profile> GetById(string profileId)
-    {
 
-      try
-      {
-    ;
-    
-        Profile profile = _profileService.GetById(profileId);
-        return Ok(profile);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
+
+  [HttpGet("{profileId}/vaults")]
+  public ActionResult<List<Vault>> GetVaultsForProfiles(string profileId)
+  {
+    try
+    {
+      List<Vault> vaults = _profileService.GetVaultsForProfiles(profileId);
+      return Ok(vaults);
     }
-  
-
-  
-    [HttpGet]
-    public async  Task<ActionResult<List<Profile>>> GetAllProfile()
+    catch (Exception e)
     {
-      try
-      {
+      return BadRequest(e.Message);
+    }
+  }
+
+
+  [HttpGet("{profileId}")]
+  public ActionResult<Profile> GetById(string profileId)
+  {
+
+    try
+    {
+      ;
+
+      Profile profile = _profileService.GetById(profileId);
+      return Ok(profile);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
+
+
+  [HttpGet]
+  public async Task<ActionResult<List<Profile>>> GetAllProfile()
+  {
+    try
+    {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
 
-        List<Profile> profile = _profileService.GetAllProfile(userInfo);
-        return Ok(profile);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
+      List<Profile> profile = _profileService.GetAllProfile(userInfo);
+      return Ok(profile);
     }
-  
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
 }

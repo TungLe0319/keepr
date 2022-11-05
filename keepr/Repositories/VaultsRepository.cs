@@ -36,6 +36,7 @@ public class VaultsRepository : BaseRepo
           FROM vaults v
           JOIN accounts a ON a.id = v.creatorId
           WHERE v.id =  @vaultId
+          
           ;";
 
     return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
@@ -47,26 +48,6 @@ public class VaultsRepository : BaseRepo
 
   }
 
-  internal List<Vault> GetMyVaults(string creatorId)
-  {
-    var sql = @"
-           SELECT 
-           v. *,
-           COUNT(k.id) AS KeepCount,
-           a.*
-           FROM vaults v
-           JOIN accounts a ON a.id = v.creatorId
-           JOIN keeps k ON k.vaultId = v.id   
-           GROUP BY v.id  
-                ; ";
-    return _db.Query<Vault, Profile, Vault>(sql, (myVault, profile) =>
-     {
-       myVault.Creator = profile;
- 
-       return myVault;
-     }).ToList();
-
-  }
 
   internal Vault CreateVault(Vault data)
   {
