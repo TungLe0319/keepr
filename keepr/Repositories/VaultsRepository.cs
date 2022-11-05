@@ -84,8 +84,6 @@ public class VaultsRepository : BaseRepo
               isPrivate = @IsPrivate
               WHERE id = @Id 
                    ;";
-
-    original.UpdatedAt = DateTime.Now;
     var rows = _db.Execute(sql, original);
     if (rows != 1)
     {

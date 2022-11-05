@@ -24,25 +24,16 @@ public class VaultKeepsController : ControllerBase
     try
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+
       if (userInfo == null || userInfo.Id == null)
       {
-        throw new Exception("Bad Token... ");
+        throw new Exception("Bad Token");
       }
-      
+
       vaultKeep.CreatorId = userInfo.Id;
-      if( vaultKeep.CreatorId != userInfo.Id)
-      {
-      throw new Exception("Unauthorized");
-      }
-      
       VaultKeep newVaultKeep = _vKeep.CreateVaultKeep(vaultKeep);
 
-      if( newVaultKeep.CreatorId != userInfo.Id)
-      {
-      throw new Exception("Unauthorized");
-      }
-      
-      
+
       return Ok(newVaultKeep);
     }
     catch (Exception e)

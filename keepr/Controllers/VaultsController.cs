@@ -34,22 +34,22 @@ public class VaultsController : ControllerBase
 
 
   [HttpGet("{vaultId}")]
+
   public async Task<ActionResult<Vault>> GetById(int vaultId)
   {
     try
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-      if (userInfo == null || userInfo.Id == null)
-      {
-        throw new Exception("Bad Token... ");
-      }
+    
 
       Vault vault = _vaultService.GetById(vaultId);
+      
 
       if (vault == null)
       {
         throw new Exception("bad Id");
       }
+      
 
       return Ok(vault);
     }
@@ -67,13 +67,16 @@ public class VaultsController : ControllerBase
     try
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-      if (userInfo == null || userInfo.Id == null)
-      {
-        throw new Exception("Bad Token");
-      }
+   
+    if( userInfo == null) //not logged in or bad token
+    {
+        List<VaultedKeep> publicKeeps = _vaultKeepService.GetPublicKeeps(vaultId);
+        return Ok(publicKeeps);
+    }
+    
 
       List<VaultedKeep> vaultKeeps = _vaultKeepService.GetKeepsByVaultId(vaultId);
-      
+
       return Ok(vaultKeeps);
     }
     catch (Exception e)
@@ -112,10 +115,10 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-      if (userInfo == null || userInfo.Id == null)
-      {
-        throw new Exception("Bad Token... ");
-      }
+      // if (userInfo == null || userInfo.Id == null)
+      // {
+      //   throw new Exception("Bad Token... ");
+      // }
       _vaultService.DeleteVault(vaultId, userInfo?.Id);
       return Ok("Vault deleted");
     }

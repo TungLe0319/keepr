@@ -16,8 +16,11 @@ public class VaultKeepsService
 
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
   {
-    
-    return _vaultKeepRepo.CreateVaultKeep(vaultKeep);
+//TODO clean up
+    VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
+
+
+    return newVaultKeep;
   }
 
   public VaultKeep GetById(int id)
@@ -28,14 +31,25 @@ public class VaultKeepsService
 
   internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
   {
-Vault vault = _vaultRepo.GetById(vaultId);
-if( vault.IsPrivate == true)
-{
-throw new Exception("Private");
-}
+    Vault vault = _vaultRepo.GetById(vaultId);
+    if (vault.IsPrivate == true)
+    {
+      throw new Exception("Private ");
+    }
 
     return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
-    
+
+  }
+
+
+  internal List<VaultedKeep> GetPublicKeeps(int vaultId)
+  {
+    Vault vault = _vaultRepo.GetById(vaultId);
+    if (vault.IsPrivate == true)
+    {
+      throw new Exception("Private Vault");
+    }
+    return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }
 
   internal string DeleteVaultKeep(int vaultKeepId, string accountId)
@@ -59,4 +73,5 @@ throw new Exception("Private");
     }
     return "Successfully removed from vault";
   }
+
 }

@@ -11,10 +11,13 @@ public class KeepsRepository : BaseRepo
     var sql = @"
         SELECT 
           k.*,
+          COUNT(vKeep.id) AS Kept,
           a.* 
         FROM keeps k
         JOIN accounts a ON a.id = k.creatorId
+        LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.id
         WHERE k.id =  @id 
+        GROUP BY k.id
         ;";
 
     return _db.Query<Keep, Profile, Keep>(sql, (k, p) =>
@@ -103,7 +106,10 @@ public class KeepsRepository : BaseRepo
                UPDATE keeps SET
                
                name = @Name,
-               description = @Description
+               img = @Img,
+               description = @Description,
+               views = @Views
+               
                WHERE id = @Id LIMIT 1
                     ;";
      var rows = _db.Execute(sql, original);
@@ -112,6 +118,6 @@ public class KeepsRepository : BaseRepo
        throw new Exception("Unable to update" );
      }
  
-     return original;
+     return GetById(original.Id);
   }
 }

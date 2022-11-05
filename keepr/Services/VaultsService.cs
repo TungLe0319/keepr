@@ -23,18 +23,15 @@ public class VaultsService
   {
 
     Vault vault = _vaultRepo.GetById(vaultId);
-  
+
     if (vault == null)
     {
       throw new Exception("Invalid vaultId");
     }
-
-if( vault.IsPrivate == true)
-{
-throw new Exception("Invalid [example]");
-}
-
-
+    if (vault.IsPrivate == true)
+    {
+      throw new Exception("Invalid [example]");
+    }
     return vault;
   }
 

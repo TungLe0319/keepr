@@ -33,8 +33,8 @@ public class KeepsController : ControllerBase
 
 
   [HttpPost]
- [Authorize]
-  public async Task<ActionResult<Keep>> CreateKeep([FromBody]Keep data)
+  [Authorize]
+  public async Task<ActionResult<Keep>> CreateKeep([FromBody] Keep data)
   {
     try
     {
@@ -68,11 +68,12 @@ public class KeepsController : ControllerBase
 
   [HttpGet("{keepId}")]
 
-  public ActionResult<Keep> GetById(int keepId)
+  public async Task<ActionResult<Keep>> GetById(int keepId)
   {
     try
     {
-      Keep keep = _keepService.GetById(keepId);
+      Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+      Keep keep = _keepService.GetById(keepId, userInfo?.Id);
       return Ok(keep);
     }
     catch (Exception e)
@@ -89,7 +90,7 @@ public class KeepsController : ControllerBase
     {
       Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
       keepData.Id = keepId;
-      Keep keep = _keepService.EditKeep(keepData,userInfo?.Id);
+      Keep keep = _keepService.EditKeep(keepData, userInfo?.Id);
       return Ok(keep);
     }
     catch (Exception e)

@@ -36,9 +36,7 @@ public class ProfilesController : ControllerBase
     }
   }
 
-
-
-  [HttpGet("{profileId}/vaults")]
+[HttpGet("{profileId}/vaults")]
   public ActionResult<List<Vault>> GetVaultsForProfiles(string profileId)
   {
     try
@@ -52,8 +50,7 @@ public class ProfilesController : ControllerBase
     }
   }
 
-
-  [HttpGet("{profileId}")]
+ [HttpGet("{profileId}")]
   public ActionResult<Profile> GetById(string profileId)
   {
 
@@ -70,9 +67,7 @@ public class ProfilesController : ControllerBase
     }
   }
 
-
-
-  [HttpGet]
+ [HttpGet]
   public async Task<ActionResult<List<Profile>>> GetAllProfile()
   {
     try
