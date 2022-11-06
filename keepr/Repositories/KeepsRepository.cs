@@ -88,7 +88,7 @@ public class KeepsRepository : BaseRepo
            FROM keeps k
            JOIN accounts a ON a.id = k.creatorId
            GROUP BY k.id
-        
+           ORDER BY k.createdAt ASC
                 ; ";
      return _db.Query<Keep, Profile,Keep >(sql, (keep, profile) =>
       {

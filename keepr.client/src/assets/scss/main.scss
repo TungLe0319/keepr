@@ -3,8 +3,8 @@
 @import "./_overrides.scss";
 @import "./_utilities.scss";
 @import "./loaders.scss";
-
-body{
+@import url('https://fonts.googleapis.com/css2?family=Marko+One&family=Roboto&display=swap');
+body {
   overscroll-behavior: none;
 }
 
@@ -14,7 +14,9 @@ body{
   min-height: 100vh;
   background-color: var(--body-bg);
 }
-
+.markoOne{
+  font-family: 'Marko One', serif ;
+}
 main {
   flex-grow: 1;
 }
@@ -41,13 +43,79 @@ form:invalid button[type="submit"] {
   pointer-events: none;
 }
 
-.bShadow{
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+.bShadow {
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
-.pImg{
+.pImg {
   border-radius: 50%;
   width: 35px;
   height: 35px;
-    box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+    0 1px 8px 0 rgba(0, 0, 0, 0.12);
+}
+.focusedBtn {
+  background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
+  border-radius: 0px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Baloo 2", cursive;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  line-height: 2.5;
+  outline: transparent;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
 
+.modal-body {
+  border-radius: 8px !important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
+}
+
+.insetShadow {
+  box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
+  -webkit-box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
+  -moz-box-shadow: 1px 2px 16px 8px rgba(245, 179, 9, 0.75) inset;
+}
+.hoverOver {
+  transition: all 0.5s ease;
+}
+.hoverOver:hover {
+  transform: scale(1.01);
+  transition: all 0.5s ease;
+
+  filter: brightness(95%);
+}
+.txtShadow1 {
+  text-shadow: #474747 3px 5px 2px;
+}
+.boxShadow {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.boxShadowHeavy {
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.scrollX {
+  border-radius: 4px;
+
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
 }

@@ -24,8 +24,12 @@ public class VaultsController : ControllerBase
   {
     try
     {
+    
+      
       List<Vault> vaults = _vaultService.GetAllVaults();
       return Ok(vaults);
+    
+      
     }
     catch (Exception e)
     {

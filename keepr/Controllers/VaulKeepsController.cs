@@ -63,5 +63,19 @@ public class VaultKeepsController : ControllerBase
   }
 
 
+  [HttpGet]
+  public ActionResult<List<VaultKeep>> GetAllVaultKeep()
+  {
+    try
+    {
+      List<VaultKeep> vaultKeeps = _vKeep.GetAllVaultKeeps();
+      return Ok(vaultKeeps);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
 
 }

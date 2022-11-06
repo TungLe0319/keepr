@@ -1,11 +1,12 @@
 <template>
   <div class="container">
-    <div class="row masonry">
-      <div class="col-md-2 mt-4" v-for="k in keeps" :key="k.id">
+    <div class="bricks mt-3">
+      <div class="my-3" v-for="k in keeps" :key="k.id">
         <KeepCard :keep="k" />
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -15,11 +16,24 @@ import { keepsService } from "../services/KeepsService.js";
 import { logger } from "../utils/Logger.js";
 import { computed } from "vue";
 import { AppState } from "../AppState";
+import Pop from "../utils/Pop.js";
+import { vaultKeepService } from "../services/VaultKeepService.js";
+
 export default {
   setup() {
     onMounted(() => {
       getAllKeeps();
+      getVaultKeepIds();
+    //  infiniteScroll();
     });
+    async function getVaultKeepIds(){
+try {
+    await vaultKeepService.getVaultKeepIds()
+  } catch (error) {
+    Pop.error(error,'[getAllVaultKeepIds]')
+  }
+    }
+    
     async function getAllKeeps() {
       try {
         await keepsService.getAllKeeps();
@@ -27,26 +41,27 @@ export default {
         Pop.error(error, "[getAllKeeps]");
       }
     }
-async function getKeepsByScroll(){
-  try {
-      await keepsService.getKeepsByScroll()
-    } catch (error) {
-      Pop.error(error,'[getKeepsByScroll]')
+    async function getKeepsByScroll() {
+      try {
+        await keepsService.getKeepsByScroll();
+      } catch (error) {
+        Pop.error(error, "[getKeepsByScroll]");
+      }
     }
-}
-      function infiniteScroll() {
+    function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          getKeepsByScroll()
+          getKeepsByScroll();
         }
       };
     }
 
     return {
-      keeps: computed(() => AppState.keeps),
+      keeps: computed(() => AppState.keeps.sort(() => Math.random() - 0.5)),
+    
     };
   },
   components: { KeepCard },
@@ -55,15 +70,25 @@ async function getKeepsByScroll(){
 
 <style scoped lang="scss">
 //when screen is 768px OR LESS
-@media only screen and (min-width: 768px){
-
-  .c-grid{
+@media only screen and (min-width: 768px) {
+  .c-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(30%,1fr));
-    grid-auto-rows:4rem;
-    grid-gap:1rem;
-
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    grid-auto-rows: 4rem;
+    grid-gap: 1rem;
   }
-  .grid-item{margin: 0;}
+  .grid-item {
+    margin: 0;
+  }
 }
+.bricks{
+  columns: 4;
+}
+
+@media only screen and (max-width: 768px){
+.bricks{
+  columns:2
+}
+}
+
 </style>

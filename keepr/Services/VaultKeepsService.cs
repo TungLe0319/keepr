@@ -18,6 +18,8 @@ public class VaultKeepsService
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
   {
     //TODO clean up
+  //  var vaultedKeep = _keepRepo.GetById(vaultKeep.KeepId);
+
     VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
 
 
@@ -73,4 +75,8 @@ public class VaultKeepsService
     return "Successfully removed from vault";
   }
 
+  internal List<VaultKeep> GetAllVaultKeeps()
+  {
+  return _vaultKeepRepo.GetAllVaultKeeps();
+  }
 }

@@ -79,6 +79,16 @@ public class VaultKeepRepository : BaseRepo
     return _db.Execute("DELETE FROM vaultKeeps WHERE id =  @id", new { id }) == 1;
   }
 
+  internal List<VaultKeep> GetAllVaultKeeps()
+  {
+     string sql = @"
+                 SELECT
+                 *
+                 FROM vaultKeeps
+                      ;";
+    return _db.Query<VaultKeep>(sql).ToList();
+  }
+
   internal VaultKeep GetById(int vaultKeepId)
   {
     string sql = @"

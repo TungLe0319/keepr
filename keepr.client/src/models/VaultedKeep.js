@@ -5,7 +5,7 @@ export class VaultedKeep extends Keep {
     super(data);
     this.keepId = data.keepId;
     this.vaultId = data.vaultId;
-    this.vaultKeep = data.vaultKeep;
-    this.vaultKeepCreator = data.vaultKeepCreator;
+    this.vaultKeepId = data.vaultKeepId;
+    // this.vaultKeepCreator = data.vaultKeepCreator;
   }
 }

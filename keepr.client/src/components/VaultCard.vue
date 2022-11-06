@@ -1,26 +1,22 @@
 <template>
-  <div
-    class="card rounded border-0 my-1"
-    @click="setActive()"
-    data-bs-toggle="modal"
-    data-bs-target="#activeKeep"
-    v-if="keep"
-  >
-    <img :src="keep?.img" alt="" title="keep" class="img-fluid  rounded" />
-    <div class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end">
-      <span>
-        <p class="mb-0 fw-bold text-light">{{ keep?.name }}</p>
-      </span>
-      <span>
-        <img
-          :src="keep?.creator?.picture"
-          :alt="keep?.creator?.name"
-          class="pImg
-          cardImg"
-        />
-      </span>
+  <router-link :to="{name: 'Vault', params:{id: vault?.id }}" > 
+  
+    <div
+      class="card rounded border-0 my-1"
+      v-if="vault"
+    >
+      <img :src="vault?.img" alt="" title="keep" class="img-fluid  rounded" />
+      <div class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end">
+        <span>
+          <p class="mb-0 vaultName  text-light">{{ vault?.name }}</p>
+        </span>
+        <span v-if="vault?.isPrivate">
+          <i class="mdi mdi-shield-lock-outline fs-2 text-light"></i>
+  
+        </span>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -28,13 +24,15 @@ import { computed } from "@vue/reactivity";
 import { onMounted, ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
+import { Vault } from "../models/Vault.js";
 import { keepsService } from "../services/KeepsService.js";
+import { vaultsService } from "../services/VaultsService.js";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 
 export default {
   props: {
-    keep: { type:Keep, required: true },
+    vault: { type: Vault, required: true },
   },
   setup(props) {
     const editable = ref({});
@@ -47,7 +45,7 @@ export default {
 
     async   setActive() {
      try {
-         await    keepsService.setActive(props.keep);
+         await    vaultsService.setActive(props.vault);
        } catch (error) {
          Pop.error(error,'[setActive]')
        }
@@ -72,5 +70,15 @@ export default {
   transition: all 0.5s ease;
   cursor: pointer;
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.vaultName{
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: xx-large;
+  font-family: monospace;
+
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
+  
 }
 </style>

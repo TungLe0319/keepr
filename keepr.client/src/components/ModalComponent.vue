@@ -53,18 +53,6 @@ export default {
   height: 30px;
 }
 
-.smallerImg {
-  height: 200px;
-  width: 375px;
-  object-fit: cover;
-}
-
-.form-Banner {
-  background-image: url(https://i.pinimg.com/564x/ca/db/46/cadb46a6ac190342d8152d4240952333.jpg);
-  background-position: center;
-  background-size: cover;
-}
-
 .Img1 {
   transition: all 0.5s ease;
 }
@@ -89,53 +77,7 @@ export default {
   position: relative;
   width: 250px;
 }
-/* ------------------------------------------------------------------------------------ */
-.inputBox2 {
-  position: relative;
-  width: auto;
-}
-.inputBox2 textarea {
-  width: 100%;
 
-  text-align: right;
-  padding: 10px;
-  border: 1px solid #92c5f5;
-  border-bottom: 3px solid #c4def7;
-  border-radius: 5px;
-  outline: none;
-  color: #fff;
-  font-size: 1em;
-  background-color: transparent;
-  transition: all 1.5s ease;
-  box-shadow: 0.25px 0.25px 10px rgba(243, 236, 236, 0.308);
-}
-.inputBox2 span {
-  position: absolute;
-  left: 0;
-  bottom: 4.2em;
-  padding: 10px;
-  pointer-events: none;
-  font-size: 1em;
-  text-transform: uppercase;
-  color: #f1ecf180;
-  transition: all 1s ease;
-}
-.inputBox2 textarea:valid ~ span,
-.inputBox2 textarea:focus ~ span {
-  color: #27132a;
-  transform: translateX(10px) translateY(-70px);
-  padding: 0 10px;
-  font-size: 1em;
-  border-radius: 4px;
-  font-weight: bold;
-  background: #92c5f5;
-  border-left: 1px solid #92c5f5;
-  border-right: 1px solid #92c5f5;
-  letter-spacing: 0.2em;
-  transition: all 1s ease;
-}
-
-/* ---------------------------------------------------------------------------- */
 .inputBox input {
   width: 100%;
   padding: 10px;
@@ -174,18 +116,9 @@ export default {
   letter-spacing: 0.2em;
   transition: all 1s ease;
 }
-
-/* .inputBox:nth-child(2) input:valid ~ span,
-.inputBox:nth-child(2) input:focus ~ span {
-  background: #92c5f5;
-  color: #27132a;
-  border-radius: 2px;
-} */
-.modal-body {
-
-}
-
-.modal{
-  
+.modal {
+background: rgb(144,119,160);
+background: linear-gradient(90deg, rgba(144,119,160,1) 0%, rgba(250,252,226,0.6695089285714286) 100%);
+    backdrop-filter: blur(4px);
 }
 </style>
