@@ -17,11 +17,13 @@ class VaultKeepService {
   }
 
   async deleteVaultKeep(id) {
-    await api.delete(`api/vaultkeeps${id}`);
-    let index = AppState.vKeepIds.findIndex((v) => {
-      v.id == id;
-    });
-    AppState.vKeepIds.splice(index, 1);
+    await api.delete(`api/vaultkeeps/${id}`);
+  //   let index = AppState.vKeepIds.findIndex((v) => {
+  //     v.id == id;
+  //   });
+  //  AppState.vKeepIds.splice(index, 1);
+   
+   AppState.vKeepIds = AppState.vKeepIds.filter(v=> v.id != id)
   }
 
   async getVaultKeepIds() {

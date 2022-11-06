@@ -1,5 +1,12 @@
 <template>
-  <div class="modal-body p-0  " v-if="keep">
+  <div class="modal-body p-0 bg-warning" v-if="keep">
+     <div class="vaulted markoOne " v-if="vaulted">
+       <div class="d-flex align-items-center">
+    
+ <img src="https://cdn-icons-png.flaticon.com/512/2489/2489398.png" alt="" width="100" height="100">
+      </div>
+
+    </div>
     <div class="row">
       <div class="col-md-6 pictureCol">
         <img
@@ -8,32 +15,56 @@
           title="keep"
           class="rounded-start img-fluid"
         />
-    
       </div>
       <div class="col-md-6 d-flex flex-column justify-content-between">
         <div class="d-flex justify-content-center mt-2 align-items-center">
-          <i class="mdi mdi-eye fs-5 fw-bold me-3">{{ keep.views }}</i>
-          <i class="mdi mdi-fingerprint fs-5 fw-bold">{{ keep.kept }}</i>
-
-          <div class="dropdown" v-if="creator">
+          <div class="d-flex">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/58/58976.png"
+              alt=""
+              width="30"
+              height="30"
+            />
+            <h5 class="ms-2">
+              {{ keep.views }}
+            </h5>
+          </div>
+          <div class="ms-4 d-flex">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/3564/3564077.png"
+              alt=""
+              width="30"
+              height="30"
+            />
+            <h5 class="ms-1">
+              {{ keep.kept }}
+            </h5>
+          </div>
+          <!-- Add to vault -->
+          <div class="btn-group dropend bg-transparent" v-if="creator">
             <i
-              class="mdi mdi-dots-horizontal ms-3 fs-3"
+              class="mdi mdi-dots-horizontal ms-3 fs-2"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
-            <ul class="dropdown-menu">
-              <li>
+            <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
+              <li class="dotHover rounded">
                 <a
-                  class="dropdown-item"
+                  class="dropdown-item rounded bg-info"
                   data-bs-toggle="modal"
                   data-bs-target="#createForm"
                   @click="toggleEditForm()"
                   >Edit</a
                 >
               </li>
-              <li><a class="dropdown-item" @click="deleteKeep()">Delete</a></li>
+              <li class="dotHover rounded">
+                <a class="dropdown-item rounded bg-info" @click="deleteKeep()"
+                  >Delete</a
+                >
+              </li>
             </ul>
           </div>
+          <!-- ------------- -->
         </div>
         <div>
           <div class="px-5 justify-content-center d-flex flex-column">
@@ -50,8 +81,10 @@
               <AddToVault />
               <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
             </div>
-            <span class="m-2 d-flex">
-              <router-link :to="{ name: 'Profile', params: { id: keep.id } }">
+            <span class="m-2 d-flex align-items-center">
+              <router-link
+                :to="{ name: 'Profile', params: { id: keep.creator.id } }"
+              >
                 <img
                   :src="keep.creator.picture"
                   :alt="keep.creator.name"
@@ -59,16 +92,17 @@
                   data-bs-dismiss="modal"
                 />
               </router-link>
-              <h5 class="ms-3">{{ keep.creator.name.split("@")[0] }}</h5>
+              <h5 class="ms-2 d-flex align-items-center">
+                {{ keep.creator.name.split("@")[0] }}
+              </h5>
             </span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
   <div v-else></div>
-        
 </template>
 
 <script>
@@ -99,18 +133,24 @@ export default {
     const editable = ref({});
     return {
       editable,
+      saved: computed(() =>
+        AppState.vKeepIds.find((v) => v.creatorId == AppState.account.id)
+      ),
+       vaulted: computed(() =>
+        AppState.vKeepIds.find((v) => v.keepId == AppState.activeKeep.id)
+      ),
       account: computed(() => AppState.account),
-      creator:computed(() => AppState.user.id== props.keep.creator.id),
+      creator: computed(
+        () => AppState.account.id == AppState.activeKeep.creator.id
+      ),
       user: computed(() => AppState.user),
       async deleteKeep() {
         try {
-          const yes = await Pop.confirm();
-          if (!yes) {
-            return;
+          if (await Pop.confirm()) {
+            await keepsService.deleteKeep(props.keep.id);
+            Modal.getOrCreateInstance("#activeKeep").hide();
+            Pop.success(`${props.keep.name} deleted`);
           }
-          await keepsService.deleteKeep(props.keep.id);
-              Modal.getOrCreateInstance("#activeKeep").hide();
-          Pop.success(`${props.keep.name} deleted`);
         } catch (error) {
           Pop.error(error, "[deleteKeep]");
         }
@@ -127,9 +167,28 @@ export default {
 
 <style lang="scss" scoped>
 .block {
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
-    top: 0px;
-    box-shadow: inset -10px -10px 10px 20px rgba(160, 151, 151, 0.281);
-}</style>
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  box-shadow: inset -10px -10px 10px 20px rgba(160, 151, 151, 0.281);
+}
+.vaulted{
+  position: absolute;
+  right: -40px;
+  top:-50px;
+
+  transition: all 0.5s ease;
+}
+.vaulted:hover{
+  z-index: auto;
+  transition: all 0.5s ease;
+}
+
+@media only screen and (max-width: 68px) {
+  .pictureCol img {
+    border-radius: 0;
+  }
+}
+
+</style>

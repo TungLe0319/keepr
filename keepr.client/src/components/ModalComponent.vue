@@ -7,13 +7,8 @@
     aria-hidden="true"
   >
     <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content  ">
-     
-     
-        <slot>
-          
-        </slot>
-      
+      <div class="modal-content border-0">
+        <slot> </slot>
 
         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
@@ -23,21 +18,18 @@
 </template>
 
 <script>
-import { computed, ref, watchEffect } from 'vue';
-import { AppState } from '../AppState';
-import { accountService } from '../services/AccountService.js';
-import Pop from '../utils/Pop.js';
+import { computed, ref, watchEffect } from "vue";
+import { AppState } from "../AppState";
+import { accountService } from "../services/AccountService.js";
+import Pop from "../utils/Pop.js";
 export default {
   setup() {
     const editable = ref({});
-    watchEffect(() => {
-    });
+    watchEffect(() => {});
     return {
       editable,
 
       account: computed(() => AppState.account),
-
-     
     };
   },
 };
@@ -117,8 +109,12 @@ export default {
   transition: all 1s ease;
 }
 .modal {
-background: rgb(144,119,160);
-background: linear-gradient(90deg, rgba(144,119,160,1) 0%, rgba(250,252,226,0.6695089285714286) 100%);
-    backdrop-filter: blur(4px);
+  background: rgb(144, 119, 160);
+  background: linear-gradient(
+    90deg,
+    rgba(144, 119, 160, 1) 0%,
+    rgba(250, 252, 226, 0.6695089285714286) 100%
+  );
+  backdrop-filter: blur(4px);
 }
 </style>

@@ -45,6 +45,7 @@ class KeepsService {
     const res = await api.post("api/keeps", keepData);
     let newKeep = new Keep(res.data);
     AppState.keeps = [ newKeep,...AppState.keeps];
+    AppState.accountKeeps = [newKeep,...AppState.accountKeeps]
   }
   async deleteKeep(keepId) {
     await api.delete(`api/keeps/${keepId}`);
@@ -52,6 +53,8 @@ class KeepsService {
     let index = AppState.keeps.findIndex((k) => k.id == keepId);
 
     AppState.keeps.splice(index, 1);
+
+   AppState.accountKeeps = AppState.accountKeeps.filter(a=> a.id != keepId)
   }
   async editKeep(keepData){
     console.log(keepData);

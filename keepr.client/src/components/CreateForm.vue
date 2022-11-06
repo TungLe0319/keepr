@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-body position-relative" >
+  <div class="modal-body position-relative bg-info" >
     <div class="position-absolute bottom-100 end-50 markoOne ">
       <h1 class="formTitle" v-if="editForm">EDIT </h1>
       <h1 class="formTitle" v-else>Create</h1>

@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <PopperTip/>
+<PaginationStyle/>
     <div class="bricks my-3">
       <div class="my-3" v-for="k in keeps" :key="k.id">
         <KeepCard :keep="k" />
@@ -17,6 +19,9 @@ import { computed } from "vue";
 import { AppState } from "../AppState";
 import Pop from "../utils/Pop.js";
 import { vaultKeepService } from "../services/VaultKeepService.js";
+import PaginationStyle from "../components/PaginationStyle.vue";
+import { createPopper } from '@popperjs/core';
+import PopperTip from "../components/PopperTip.vue";
 
 export default {
   setup() {
@@ -25,6 +30,7 @@ export default {
       getVaultKeepIds();
        infiniteScroll();
     });
+
     async function getVaultKeepIds() {
       try {
         await vaultKeepService.getVaultKeepIds();
@@ -63,7 +69,7 @@ export default {
       keeps: computed(() => AppState.keeps.sort(() => Math.random() - 0.5)),
     };
   },
-  components: { KeepCard },
+  components: { KeepCard, PaginationStyle, PopperTip },
 };
 </script>
 

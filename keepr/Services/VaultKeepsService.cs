@@ -74,7 +74,7 @@ throw new Exception("Unauthorized cannot add keep to this vault");
     var deleted = _vaultKeepRepo.DeleteVaultKeep(vaultKeepId);
     if (!deleted)
     {
-      throw new Exception("Unable to remove from fault...");
+      throw new Exception("Unable to remove from vault...");
     }
     return "Successfully removed from vault";
   }
