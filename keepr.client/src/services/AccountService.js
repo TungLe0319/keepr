@@ -32,8 +32,9 @@ class AccountService {
   }
   async getAccountVaults(){
     const res = await api.get("/account/vaults")
-    let vaults = res.data.map(v=> new Vault(v))
-    AppState.accountVaults= [...vaults]
+    // let vaults = res.data.map(v=> new Vault(v))
+    AppState.accountVaults= res.data.map(v=> new Vault(v))
+    console.log(AppState.accountVaults);
   
   }
 }

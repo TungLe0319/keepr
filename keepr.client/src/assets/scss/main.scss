@@ -37,6 +37,13 @@ body {
   color: #d3c1e2;
   text-shadow: #474747 3px 5px 2px;
 }
+.formTitle {
+  font-size: 100px;
+
+  -webkit-text-stroke: 1px #282828;
+  text-shadow: 0px 4px 4px #282828;
+}
+
 main {
   flex-grow: 1;
 }
@@ -70,12 +77,6 @@ form:invalid button[type="submit"] {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
     rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   transition: all 0.25s ease;
-}
-.formTitle {
-  font-size: 100px;
-
-	-webkit-text-stroke: 1px #282828;
-	text-shadow: 0px 4px 4px #282828;
 }
 
 .bShadow {
@@ -135,8 +136,11 @@ form:invalid button[type="submit"] {
 
   filter: brightness(95%);
 }
-.txtShadow1 {
+.text-Shadow {
   text-shadow: #474747 3px 5px 2px;
+}
+.text-Shadow2 {
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
 }
 .boxShadow {
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;

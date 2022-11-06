@@ -18,7 +18,11 @@ public class VaultKeepsService
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
   {
     //TODO clean up
-  //  var vaultedKeep = _keepRepo.GetById(vaultKeep.KeepId);
+Vault vault = _vaultRepo.GetById(vaultKeep.VaultId);
+if( vault.CreatorId != vaultKeep.CreatorId)
+{
+throw new Exception("Unauthorized cannot add keep to this vault");
+}
 
     VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
 

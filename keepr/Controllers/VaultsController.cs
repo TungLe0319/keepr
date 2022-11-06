@@ -40,10 +40,11 @@ public class VaultsController : ControllerBase
 
   [HttpGet("{vaultId}")]
 
-  public ActionResult<Vault> GetById(int vaultId)
+  public async Task<ActionResult<Vault>> GetById(int vaultId)
   {
     try
     {
+      var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
       Vault vault = _vaultService.GetById(vaultId);
       return Ok(vault);
     }

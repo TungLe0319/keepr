@@ -53,11 +53,12 @@ public class KeepsController : ControllerBase
 
 
   [HttpGet]
-  public ActionResult<List<Keep>> GetAllKeeps()
+  public ActionResult<List<Keep>> GetAllKeeps( [FromQuery] int offSet)
   {
     try
     {
-      List<Keep> keep = _keepService.GetAllKeeps();
+      
+      List<Keep> keep = _keepService.GetAllKeeps( offSet);
       return Ok(keep);
     }
     catch (Exception e)

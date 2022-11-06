@@ -1,12 +1,11 @@
 <template>
   <div class="container">
-    <div class="bricks mt-3">
+    <div class="bricks my-3">
       <div class="my-3" v-for="k in keeps" :key="k.id">
         <KeepCard :keep="k" />
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -24,16 +23,16 @@ export default {
     onMounted(() => {
       getAllKeeps();
       getVaultKeepIds();
-    //  infiniteScroll();
+       infiniteScroll();
     });
-    async function getVaultKeepIds(){
-try {
-    await vaultKeepService.getVaultKeepIds()
-  } catch (error) {
-    Pop.error(error,'[getAllVaultKeepIds]')
-  }
+    async function getVaultKeepIds() {
+      try {
+        await vaultKeepService.getVaultKeepIds();
+      } catch (error) {
+        Pop.error(error, "[getAllVaultKeepIds]");
+      }
     }
-    
+
     async function getAllKeeps() {
       try {
         await keepsService.getAllKeeps();
@@ -51,17 +50,17 @@ try {
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
+          document.documentElement.scrollTop + window.innerHeight  ===
+          document.documentElement.offsetHeight  ;
         if (bottomOfWindow) {
-          getKeepsByScroll();
+          console.log('hi');
+          getKeepsByScroll(); 
         }
       };
     }
 
     return {
       keeps: computed(() => AppState.keeps.sort(() => Math.random() - 0.5)),
-
     };
   },
   components: { KeepCard },
@@ -81,14 +80,13 @@ try {
     margin: 0;
   }
 }
-.bricks{
+.bricks {
   columns: 4;
 }
 
-@media only screen and (max-width: 768px){
-.bricks{
-  columns:2
+@media only screen and (max-width: 768px) {
+  .bricks {
+    columns: 2;
+  }
 }
-}
-
 </style>

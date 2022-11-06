@@ -60,10 +60,10 @@ public class KeepsService
     return _keepRepo.GetKeepsForProfiles(profileId);
   }
 
-  internal List<Keep> GetAllKeeps()
+  internal List<Keep> GetAllKeeps( int offSet)
   {
 
-    return _keepRepo.GetAllKeeps();
+    return _keepRepo.GetAllKeeps(offSet);
   }
 
   internal Keep EditKeep(Keep keepData, string userId)

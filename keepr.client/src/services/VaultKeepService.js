@@ -12,8 +12,8 @@ class VaultKeepService {
   //  console.log(found);
 
     AppState.vKeepIds.push(newVaultKeep);
-    console.log("[vaultKeeps]", res.data);
-    console.log(AppState.vKeepIds);
+    // console.log("[vaultKeeps]", res.data);
+    // console.log(AppState.vKeepIds);
   }
 
   async deleteVaultKeep(id) {

@@ -24,7 +24,7 @@ class KeepsService {
     let keeps = res.data.map((k) => new Keep(k));
     AppState.offSet += keeps.length
     AppState.keeps = [...AppState.keeps, ...keeps];
-    // console.log(AppState.keeps);
+    console.log(AppState.offSet);
   }
 
   async getKeepsByScroll() {
@@ -38,7 +38,7 @@ class KeepsService {
     let keeps = res.data.map((k) => new Keep(k));
     AppState.offSet += keeps.length;
     AppState.keeps = [...AppState.keeps, ...keeps];
-    console.log(AppState.keeps);
+    // console.log(AppState.keeps);
     console.log(AppState.offSet);
   }
   async createKeep(keepData) {

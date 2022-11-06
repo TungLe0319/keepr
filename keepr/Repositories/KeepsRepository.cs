@@ -79,7 +79,7 @@ public class KeepsRepository : BaseRepo
     }, new {id}).ToList();
   }
 
-  internal List<Keep> GetAllKeeps()
+  internal List<Keep> GetAllKeeps(int offSet)
   {
     var sql = @"
            SELECT 
@@ -88,15 +88,17 @@ public class KeepsRepository : BaseRepo
            a.*
            FROM keeps k
            JOIN accounts a ON a.id = k.creatorId
-           LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.Id
+           LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.id
            GROUP BY k.id
+           LIMIT 36
+           OFFSET @offSet
                 ; ";
      return _db.Query<Keep, Profile,Keep >(sql, (keep, profile) =>
       {
         keep.Creator = profile;
         
         return keep;
-      }).ToList();
+      }, new {offSet}).ToList();
   
   }
 
