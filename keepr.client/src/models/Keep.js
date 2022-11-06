@@ -11,5 +11,6 @@ export class Keep {
     this.kept = data.kept;
     this.createdAt = data.createdAt;
     this.updatedAt = data.updatedAt;
+    this.vaulted=data.vaulted || false
   }
 }

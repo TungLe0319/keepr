@@ -32,6 +32,20 @@ class VaultsService {
    let newVault = new Vault(res.data);
   AppState.accountVaults = [...AppState.accountVaults, newVault];
   }
+  async editVault(vaultData) {
+    let id = vaultData.id
+    const res = await api.put(`api/vaults/${id}`, vaultData);
+         console.log('[vaults]',res.data);
+      
+   let newVault = new Vault(res.data);
+   AppState.activeVault = newVault
+
+    let index = AppState.accountVaults.findIndex((a) => {
+        a.id == vaultData.id;
+      });
+  
+      AppState.accountVaults.splice(index, 1,newVault);
+  }
 
   async deleteVault(vaultId) {
 

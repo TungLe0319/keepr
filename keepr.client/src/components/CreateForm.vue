@@ -1,8 +1,12 @@
 <template>
-  <div class="modal-body">
+  <div class="modal-body position-relative" >
+    <div class="position-absolute bottom-100 end-50 markoOne ">
+      <h1 class="formTitle" v-if="editForm">EDIT </h1>
+      <h1 class="formTitle" v-else>Create</h1>
+    </div>
 <div class="row">
   <div class="col-md-6">
-        <form @submit.prevent="handleSubmit()" class="">
+        <form @submit.prevent="editForm==true? handleEdit(): handleSubmit()" class="">
       <div class="mt-3 inputBox">
         <label for="name">Name</label>
         <input type="text" required name="name" v-model="editable.name" />
@@ -37,7 +41,8 @@
           data-bs-dismiss="modal"
 
         >
-        Create 
+        <h6 v-if="editForm">Edit</h6>
+        <h6 v-else> Create</h6>
         </button>
       </div>
     </form>
@@ -77,18 +82,16 @@ import Pop from "../utils/Pop.js";
 export default {
   props: {},
   setup(props) {
-    const editable = ref({img: "https://partners.wsj.com/xinhua/anhui/wp-content/uploads/sites/304/2018/05/xinhua-anhui1.jpg?resize=1200%2C720",
+    const editable = ref({});
+const testForm = ref({img: "https://partners.wsj.com/xinhua/anhui/wp-content/uploads/sites/304/2018/05/xinhua-anhui1.jpg?resize=1200%2C720",
   description:" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque error animi quasi, a distinctio, nulla temporibus delectus minus quis suscipit ducimus, accusamus consequuntur assumenda. Alias.",
-  name:"What a beautiful world"});
-const testForm = ref({
-  
-})
+  name:"What a beautiful world"})
     onMounted(() => {});
     watchEffect(() => {});
 
     return {
       editable,
-
+editForm : computed(() => AppState.keepEditForm ),
       async handleSubmit(){
         try {
 
@@ -96,6 +99,14 @@ const testForm = ref({
           } catch (error) {
             Pop.error(error,'[createKeep]')
           }
+      },
+      async handleEdit(){
+try {
+  editable.value.id = AppState.activeKeep.id
+    await keepsService.editKeep(editable.value)
+  } catch (error) {
+    Pop.error(error,'[editKeep]')
+  }1
       }
     };
   },

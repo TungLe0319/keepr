@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-body p-0 bg-warning" v-if="keep">
+  <div class="modal-body p-0  " v-if="keep">
     <div class="row">
       <div class="col-md-6 pictureCol">
         <img
@@ -8,14 +8,14 @@
           title="keep"
           class="rounded-start img-fluid"
         />
+    
       </div>
-      <div class="col-md-6 d-flex flex-column justify-content-between ">
+      <div class="col-md-6 d-flex flex-column justify-content-between">
         <div class="d-flex justify-content-center mt-2 align-items-center">
-          <i class="mdi mdi-eye">{{ keep.views }}</i>
-          <i class="mdi mdi-fingerprint">{{ keep.kept}}</i>
-          
+          <i class="mdi mdi-eye fs-5 fw-bold me-3">{{ keep.views }}</i>
+          <i class="mdi mdi-fingerprint fs-5 fw-bold">{{ keep.kept }}</i>
 
-          <div class="dropdown">
+          <div class="dropdown" v-if="creator">
             <i
               class="mdi mdi-dots-horizontal ms-3 fs-3"
               data-bs-toggle="dropdown"
@@ -27,6 +27,7 @@
                   class="dropdown-item"
                   data-bs-toggle="modal"
                   data-bs-target="#createForm"
+                  @click="toggleEditForm()"
                   >Edit</a
                 >
               </li>
@@ -46,30 +47,33 @@
           <div class="d-flex justify-content-between">
             <div class="d-flex">
               <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
-       <AddToVault/>
+              <AddToVault />
               <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
             </div>
             <span class="m-2 d-flex">
               <router-link :to="{ name: 'Profile', params: { id: keep.id } }">
                 <img
-                :src="keep.creator.picture"
-                :alt="keep.creator.name"
-                class="pImg"
-                data-bs-dismiss="modal"
+                  :src="keep.creator.picture"
+                  :alt="keep.creator.name"
+                  class="pImg"
+                  data-bs-dismiss="modal"
                 />
               </router-link>
-              <h5 class="ms-3">{{keep.creator.name.split("@")[0]}}</h5>
+              <h5 class="ms-3">{{ keep.creator.name.split("@")[0] }}</h5>
             </span>
           </div>
         </div>
       </div>
     </div>
   </div>
+  
   <div v-else></div>
+        
 </template>
 
 <script>
 import { computed } from "@vue/reactivity";
+import { Modal } from "bootstrap";
 import { onMounted, ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
@@ -79,42 +83,53 @@ import Pop from "../utils/Pop.js";
 import AddToVault from "./AddToVault.vue";
 
 export default {
-    props: {
-        keep: { type: Keep, required: true },
-    },
-    setup(props) {
-        async function getById() {
-            try {
-                await keepsService.getById(props.keep.id);
-            }
-            catch (error) {
-                Pop.error(error, "[]");
-            }
+  props: {
+    keep: { type: Keep, required: true },
+  },
+  setup(props) {
+    async function getById() {
+      try {
+        await keepsService.getById(props.keep.id);
+      } catch (error) {
+        Pop.error(error, "[]");
+      }
+    }
+    onMounted(() => {});
+    watchEffect(() => {});
+    const editable = ref({});
+    return {
+      editable,
+      account: computed(() => AppState.account),
+      creator:computed(() => AppState.user.id== props.keep.creator.id),
+      user: computed(() => AppState.user),
+      async deleteKeep() {
+        try {
+          const yes = await Pop.confirm();
+          if (!yes) {
+            return;
+          }
+          await keepsService.deleteKeep(props.keep.id);
+              Modal.getOrCreateInstance("#activeKeep").hide();
+          Pop.success(`${props.keep.name} deleted`);
+        } catch (error) {
+          Pop.error(error, "[deleteKeep]");
         }
-        onMounted(() => { });
-        watchEffect(() => { });
-        const editable = ref({});
-        return {
-            editable,
-            account: computed(() => AppState.account),
-            user: computed(() => AppState.user),
-            async deleteKeep() {
-                try {
-                    const yes = await Pop.confirm();
-                    if (!yes) {
-                        return;
-                    }
-                    await keepsService.deleteKeep(props.keep.id);
-                    Pop.success(`${props.keep.name} deleted`);
-                }
-                catch (error) {
-                    Pop.error(error, "[deleteKeep]");
-                }
-            },
-        };
-    },
-    components: { AddToVault }
+      },
+      toggleEditForm() {
+        AppState.keepEditForm = true;
+        console.log(AppState.keepEditForm);
+      },
+    };
+  },
+  components: { AddToVault },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.block {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    top: 0px;
+    box-shadow: inset -10px -10px 10px 20px rgba(160, 151, 151, 0.281);
+}</style>

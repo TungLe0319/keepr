@@ -20,7 +20,8 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav me-auto">
       <li>
-        <button class="btn " data-bs-toggle="modal" data-bs-target="#createForm">Create</button>
+        <button class="btn " data-bs-toggle="modal" data-bs-target="#createForm"
+        @click="toggleCreateForm()">Create</button>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -31,10 +32,15 @@
 </template>
 
 <script>
+import { AppState } from "../AppState.js";
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    return {
+      toggleCreateForm(){
+        AppState.keepEditForm = false
+      }
+    }
   },
   components: { Login }
 }

@@ -1,3 +1,4 @@
+import { Modal } from "bootstrap";
 import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
 import { api } from "./AxiosService.js";
@@ -8,7 +9,7 @@ class KeepsService {
     let id = AppState.activeKeep.id;
     await api.get(`api/keeps/${id}`);
     let account = AppState.account
-    if (AppState.activeKeep.creator != account.id) {
+    if (AppState.activeKeep.creator.id != account.id) {
       
       AppState.activeKeep.views++;
     }
@@ -47,9 +48,30 @@ class KeepsService {
   }
   async deleteKeep(keepId) {
     await api.delete(`api/keeps/${keepId}`);
+
     let index = AppState.keeps.findIndex((k) => k.id == keepId);
 
     AppState.keeps.splice(index, 1);
   }
+  async editKeep(keepData){
+    console.log(keepData);
+const res = await api.put(`api/keeps/${keepData.id}`,keepData)
+console.log(res.data);
+let updated = new Keep(res.data)
+AppState.activeKeep = updated
+  let index = AppState.keeps.findIndex((k) => {
+      k.id == keepData.id;
+    });
+
+   AppState.keeps.splice(index, 1,updated);
+  
+  let index2 = AppState.accountKeeps.findIndex((k) => {
+      k.id == keepData.id;
+    });
+
+   AppState.accountKeeps.splice(index2, 1,updated);
+  }
+
+
 }
 export const keepsService = new KeepsService();

@@ -61,7 +61,7 @@ try {
 
     return {
       keeps: computed(() => AppState.keeps.sort(() => Math.random() - 0.5)),
-    
+
     };
   },
   components: { KeepCard },

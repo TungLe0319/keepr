@@ -1,9 +1,19 @@
 <template>
-  <div>VAULT FORM</div>
-  <div class="modal-body">
+
+  <div class="modal-body position-relative">
+    <div class="position-absolute bottom-100 end-50">
+      <div v-if="editForm" class=" markoOne d-flex justify-content-center align-items-center text-dark formTitle">
+        <h1  class="me-md- formTitle ">EDIT </h1>
+
+      </div>
+      <h1  class=" formTitle" v-else>Create</h1>
+    </div>
     <div class="row">
       <div class="col-md-6">
-        <form @submit.prevent="handleSubmit()" class="">
+        <form
+          @submit.prevent="editForm ?   handleSubmit() : handleEdit()"
+          class=""
+        >
           <div class="mt-3 inputBox">
             <label for="name">Name</label>
             <input type="text" required name="name" v-model="editable.name" />
@@ -42,7 +52,8 @@
               type="submit"
               data-bs-dismiss="modal"
             >
-              Create Vault
+             <h6 v-if="editForm">EditVault</h6>
+             <h6 v-else>CreateForm</h6>
             </button>
           </div>
         </form>
@@ -94,23 +105,34 @@ import Pop from "../utils/Pop.js";
 export default {
   props: {},
   setup(props) {
-    const editable = ref({
+    const editable = ref({});
+    const testForm = ref({
       img: "https://mediadrumworld.com/wp-content/uploads/2019/01/MDRUM_Bank_Vault-3.jpg",
       description:
         " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque error animi quasi, a distinctio, nulla temporibus delectus minus quis suscipit ducimus, accusamus consequuntur assumenda. Alias.",
       name: "Vault Test",
-      isPrivate:false
+      isPrivate: false,
     });
-    const testForm = ref({});
     onMounted(() => {});
-    watchEffect(() => {});
+    watchEffect(() => {
+      // editable.value = [...AppState.activeVault]
+    });
 
     return {
       editable,
-
+      editForm: computed(() => AppState.vaultEditForm ),
       async handleSubmit() {
         try {
           await vaultsService.createVault(editable.value);
+        } catch (error) {
+          Pop.error(error, "[createKeep]");
+        }
+      },
+      async handleEdit() {
+        try {
+          editable.value.id = AppState.activeVault.id
+          await vaultsService.editVault(editable.value);
+         
         } catch (error) {
           Pop.error(error, "[createKeep]");
         }
@@ -159,7 +181,13 @@ export default {
   letter-spacing: 0.2em;
   transition: all 1s ease;
 }
+.editText{
 
+  
+}
+.formTitle{
+  font-size: 100px;
+}
 .card {
   transition: all 0.5s ease;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;

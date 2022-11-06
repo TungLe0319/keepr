@@ -40,11 +40,13 @@ public class VaultKeepRepository : BaseRepo
               SELECT
               vKeep.*,
               vKeep.id AS VaultKeepId,
+              
               k.*,
               a.*
               FROM vaultKeeps vKeep
               JOIN accounts a ON a.id = vKeep.creatorId
               JOIN keeps k ON k.id =  vKeep.keepId
+              
               WHERE vKeep.vaultId = @vaultId
               GROUP BY vKeep.id
                    ;";

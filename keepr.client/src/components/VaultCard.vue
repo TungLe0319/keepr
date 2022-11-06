@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{name: 'Vault', params:{id: vault?.id }}" > 
+  <router-link :to="{name: 'Vault', params:{id: vault.id }}" > 
   
     <div
       class="card rounded border-0 my-1"

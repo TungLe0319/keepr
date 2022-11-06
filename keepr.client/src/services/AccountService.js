@@ -27,13 +27,14 @@ class AccountService {
     // console.log("[keeps]", res.data);
     let keeps = res.data.map((k) => new Keep(k));
     AppState.offSet += keeps.length
-    AppState.accountKeeps = [...AppState.accountKeeps, ...keeps];
+    AppState.accountKeeps = [...keeps];
 
   }
   async getAccountVaults(){
     const res = await api.get("/account/vaults")
-    // let vaults = res.data.map(v=> new Vault(v))
-    AppState.accountVaults= res.data.map(v=> new Vault(v))
+    let vaults = res.data.map(v=> new Vault(v))
+    AppState.accountVaults= [...vaults]
+  
   }
 }
 
