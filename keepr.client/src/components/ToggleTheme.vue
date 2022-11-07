@@ -1,12 +1,7 @@
 <template>
 
  <button class="btn dotHover" @click="toggleTheme()">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/5005/5005681.png"
-              alt="theme Button"
-              width="40"
-              height="40"
-            />
+            <i class="mdi mdi-theme-light-dark fs-1 text-dark"></i>
             <!-- <i class="mdi mdi-theme-light-dark"></i> -->
           </button>
 </template>

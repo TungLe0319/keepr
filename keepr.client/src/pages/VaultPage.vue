@@ -30,18 +30,12 @@
         <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-5">
           <div class="d-flex align-items-center">
             <router-link :to="{ name: 'Account' }">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/4211/4211391.png"
-                alt="profile Icon"
-                class=""
-                width="30"
-                height="30"
-              />
+             <i class="mdi mdi-rewind fs-1 text-dark"></i>
             </router-link>
           </div>
           <div class="btn-group dropstart">
             <i
-              class="mdi mdi-dots-horizontal ms-3 fs-1 action"
+              class="mdi mdi-dots-horizontal ms-3 fs-1 action text-dark"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
@@ -100,15 +94,15 @@ export default {
   setup() {
     onMounted(() => {
       getVaultById();
+      getKeepsByVaultId();
     });
     onAuthLoaded(() => {
-      getKeepsByVaultId();
     });
     async function getKeepsByVaultId() {
       try {
-        if (AppState.activeVault) {
-          await vaultsService.getKeepsByVaultId(AppState.activeVault.id);
-        }
+      
+          await vaultsService.getKeepsByVaultId(route.params.id);
+   
       } catch (error) {
         Pop.error(error, "[getKeepsByVaultId]");
       }

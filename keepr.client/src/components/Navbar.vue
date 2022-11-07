@@ -35,19 +35,14 @@
 <ToggleTheme/>
 
              <button
-            class="btn dotHover"
+            class="btn dotHover text-dark"
             type="submit"
             id="button-addon2"
             data-bs-toggle="collapse"
             data-bs-target="#collapseSearchBar"
             title="Search"
           >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/751/751463.png"
-              alt=""
-              width="40"
-              height="40"
-            />
+      <i class="mdi mdi-magnify fs-1 "></i>
           </button>
            <img
         src="../assets/img/Keepr logo.png"
