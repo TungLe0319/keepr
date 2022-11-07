@@ -1,6 +1,6 @@
 <template>
 
-  <div class="modal-body position-relative">
+  <div class="modal-body position-relative bg-warning">
     <div class="position-absolute bottom-100 end-50">
       <div v-if="editForm" class=" markoOne d-flex justify-content-center align-items-center text-dark formTitle">
         <h1  class="me-md- formTitle ">EDIT </h1>
@@ -123,7 +123,9 @@ export default {
       editForm: computed(() => AppState.vaultEditForm ),
       async handleSubmit() {
         try {
-          await vaultsService.createVault(editable.value);
+          // console.log(editable.value);
+          
+          // await vaultsService.createVault(editable.value);
         } catch (error) {
           Pop.error(error, "[createKeep]");
         }

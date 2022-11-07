@@ -1,13 +1,16 @@
 <template>
   <div class="container">
+
     <div class="row">
       <div class="col-md-12 text-center mt-2">
         <div class="card border-0">
           <img
+          v-if="vault?.img"
             :src="vault?.img"
             alt=""
             class="img-fluid coverImg bShadow rounded"
           />
+          <img v-else src="" alt="" class="img-fluid coverImg bShadow rounded skeleton-loader">
           <div
             class="card-img-overlay d-flex justify-content-center align-items-end"
           >
@@ -46,7 +49,7 @@
 
         <div class="d-flex">
           <span class="monoton">
-            <h1>{{ keeps.length }}</h1>
+            <h1>{{ keeps?.length }}</h1>
           </span>
           <span>
             <h1 class="monoton">keeps</h1>
@@ -69,6 +72,7 @@ import { propsToAttrMap } from "@vue/shared";
 import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
+import PopperTip from "../components/PopperTip.vue";
 import VaultCard from "../components/VaultCard.vue";
 import { router } from "../router.js";
 import { accountService } from "../services/AccountService.js";
@@ -125,7 +129,7 @@ export default {
       },
     };
   },
-  components: { VaultCard },
+  components: { VaultCard, PopperTip },
 };
 </script>
 

@@ -7,7 +7,7 @@
     aria-hidden="true"
   >
     <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content border-0">
+      <div class="modal-content border-0 bg-transparent">
         <slot> </slot>
 
         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->

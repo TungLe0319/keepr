@@ -1,59 +1,42 @@
 <template>
-<div id="tooltip" role="tooltip">
-  My tooltip
-  <div id="arrow" data-popper-arrow></div>
-</div>
+  <Popper>
+    <button class="button-52">Trigger element</button>
+    <template #content>
+
+    </template>
+  </Popper>
 </template>
 
 <script>
+  import { defineComponent } from "vue";
+  import Popper from "vue3-popper";
 
-
-export default {
-  
-  props: {
-
-  },
-
-  setup(props) {
-
-    return {
-
-    };
-  },
-};
+  export default defineComponent({
+    components: {
+      Popper,
+    },
+  });
 </script>
 
-<style lang="scss" scoped>
-#arrow,
-#arrow::before {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: inherit;
-}
+<style scoped>
+  :root {
+    --popper-theme-background-color: #333333;
+    --popper-theme-background-color-hover: #333333;
+    --popper-theme-text-color: #ffffff;
+    --popper-theme-border-width: 0px;
+    --popper-theme-border-style: solid;
+    --popper-theme-border-radius: 6px;
+    --popper-theme-padding: 32px;
+    --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  }
 
-#arrow {
-  visibility: hidden;
-}
-
-#arrow::before {
-  visibility: visible;
-  content: '';
-  transform: rotate(45deg);
-}
-#tooltip[data-popper-placement^='top'] > #arrow {
-  bottom: -4px;
-}
-
-#tooltip[data-popper-placement^='bottom'] > #arrow {
-  top: -4px;
-}
-
-#tooltip[data-popper-placement^='left'] > #arrow {
-  right: -4px;
-}
-
-#tooltip[data-popper-placement^='right'] > #arrow {
-  left: -4px;
+  .dark {
+  --popper-theme-background-color: #333333;
+  --popper-theme-background-color-hover: #333333;
+  --popper-theme-text-color: white;
+  --popper-theme-border-width: 0px;
+  --popper-theme-border-radius: 6px;
+  --popper-theme-padding: 32px;
+  --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
 }
 </style>

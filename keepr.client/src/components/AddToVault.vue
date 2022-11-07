@@ -1,6 +1,20 @@
 <template>
-  <form @submit.prevent="addToVault()" class="d-flex py-2">
-    <div class="btn-group" v-if="!vKeep">
+  <form @submit.prevent="addToVault()" class="d-flex">
+    <button
+    v-if="!vKeep"
+      class="btn border-0 mb-2 animate__animated animate__fadeIn"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#testMenu"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      <i
+        class="mdi mdi-playlist-plus fs-3 text-purple dotHover p-1 selectable rounded"
+        ><small>Save</small>
+      </i>
+    </button>
+    <!-- <div class="btn-group" >
       <select
         v-model="editable"
         class="form-select "
@@ -10,17 +24,35 @@
           {{ v.name }}
         </option>
       </select>
-    </div>
-    <div class="border-bottom border-3 " v-else>
-      <i
-        class="mdi mdi-playlist-remove fs-3 text-purple dotHover p-1 selectable rounded"
-        @click="removeFromVault()"
-        ><small>Remove</small></i
-      >
-    </div>
-    <button type="submit" class="btn" v-if="!vKeep">Save</button>
+    </div> -->
+
     
+    
+    <!-- <button type="submit" class="btn" v-if="!vKeep">Save</button> -->
   </form>
+  <button class="btn border-0 mb-2 animate__animated animate__fadeIn"    @click="removeFromVault()" v-if="vKeep">
+
+    <i
+      class="mdi mdi-playlist-remove fs-3 text-purple dotHover p-1 selectable rounded"
+   
+      ><small>Remove</small></i
+    >
+  </button>
+  <div class="collapse position-absolute start-0 bottom-0" id="testMenu" v-if="!vKeep">
+    <div class="bg-warning bShadow rounded text-center p-3">
+      <div><h6 class="p-1">Save to vault</h6></div>
+      <AccountVaultList
+        :vault="a"
+        v-for="a in accountVaults"
+        :key="a.id"
+        @click="addToVault(a.id)"
+      />
+      <div class=" d-flex">
+        <button class="btn me-3 d-flex align-items-center" data-bs-target="#vaultForm" data-bs-toggle="modal"> <i class="mdi mdi-plus-box fs-2"></i>   <h6 class="d-flex align-items-center m-0 ms-2">Create Vault</h6></button>
+   
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,6 +63,8 @@ import { accountService } from "../services/AccountService.js";
 import { vaultKeepService } from "../services/VaultKeepService.js";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
+import { defineComponent } from "vue";
+import Popper from "vue3-popper";
 
 export default {
   props: {},
@@ -51,6 +85,7 @@ export default {
 
     return {
       editable,
+      accountVaults: computed(() => AppState.accountVaults),
       vaults: computed(() => AppState.accountVaults),
       keep: computed(() => AppState.activeKeep),
       vaulted: computed(() =>
@@ -59,10 +94,11 @@ export default {
       vKeep: computed(() =>
         AppState.vKeepIds.find((v) => v.keepId == AppState.activeKeep.id)
       ),
-      async addToVault() {
+      account: computed(() => AppState.account.id),
+      async addToVault(id) {
         try {
           let data = {
-            vaultId: editable.value.id,
+            vaultId: id,
             keepId: this.keep.id,
           };
           await vaultKeepService.createVaultKeep(data);
@@ -74,15 +110,14 @@ export default {
       },
       async removeFromVault() {
         try {
+    
           console.log(this.vKeep.id);
           console.log(AppState.account.id, "[accountId]");
           console.log(AppState.user.id, "[userId]");
-
+          console.log(AppState.account.id == this.vKeep.creatorId);
           if (await Pop.confirm()) {
             await vaultKeepService.deleteVaultKeep(this.vKeep.id);
-            Pop.success(
-              `${this.keep.name} removed from ${editable.value.name} `
-            );
+            Pop.success(`${this.keep.name} removed from vault `);
           }
         } catch (error) {
           Pop.error(error, "[removeFromVault]");
@@ -90,30 +125,30 @@ export default {
       },
     };
   },
+  components: { Popper },
 };
 </script>
 
 <style lang="scss" scoped>
-select{
+select {
   border: none !important;
+  border-bottom: 3px solid rgb(20, 20, 20) !important;
   background: transparent;
-  color:#a76bbd ;
+  color: #a76bbd;
   font-size: 22px;
   font-weight: 600;
   padding: 0;
   text-align: center;
-  option{
-      border: none !important;
+  option {
+    border: none !important;
     border-radius: 4px !important;
   }
-  .form-select{
-      border: none !important;
+  .form-select {
+    border: none !important;
     border-radius: 4px !important;
+  }
 }
+select:focus {
+  border: none !important;
 }
-select:focus{
-  border: none!important;
-}
-
-
 </style>

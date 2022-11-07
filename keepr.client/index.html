@@ -8,10 +8,8 @@
       rel="icon"
       href="https://bcw.blob.core.windows.net/public/img/9977764104160066"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+
+
     <title>keepr.client</title>
   </head>
 
@@ -41,7 +39,8 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-
+<script>const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))</script>
         
     <script type="module" src="./src/main.js"></script>
   </body>

@@ -80,4 +80,17 @@ export default class Pop {
   static success(message = 'Success!') {
     this.toast(message, 'success')
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }

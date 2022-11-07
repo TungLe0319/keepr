@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <PopperTip/>
-<PaginationStyle/>
+    <PopperTip />
+    <PaginationStyle />
     <div class="bricks my-3">
       <div class="my-3" v-for="k in keeps" :key="k.id">
         <KeepCard :keep="k" />
@@ -20,17 +20,21 @@ import { AppState } from "../AppState";
 import Pop from "../utils/Pop.js";
 import { vaultKeepService } from "../services/VaultKeepService.js";
 import PaginationStyle from "../components/PaginationStyle.vue";
-import { createPopper } from '@popperjs/core';
+import { createPopper } from "@popperjs/core";
 import PopperTip from "../components/PopperTip.vue";
+import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 
 export default {
   setup() {
     onMounted(() => {
       getAllKeeps();
       getVaultKeepIds();
-       infiniteScroll();
+      infiniteScroll();
     });
-
+onAuthLoaded(()=>{
+ this.  $emit('getAccountVaults')
+ 
+})
     async function getVaultKeepIds() {
       try {
         await vaultKeepService.getVaultKeepIds();
@@ -41,6 +45,7 @@ export default {
 
     async function getAllKeeps() {
       try {
+        console.log(AppState.accountVaults);
         await keepsService.getAllKeeps();
       } catch (error) {
         Pop.error(error, "[getAllKeeps]");
@@ -56,11 +61,11 @@ export default {
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight  ===
-          document.documentElement.offsetHeight  ;
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          console.log('hi');
-          getKeepsByScroll(); 
+          console.log("hi");
+          getKeepsByScroll();
         }
       };
     }
