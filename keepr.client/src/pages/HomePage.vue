@@ -30,7 +30,7 @@ export default {
   setup() {
     onMounted(() => {
       getAllKeeps();
-      getVaultKeepIds();
+      // getVaultKeepIds();/*  */
       infiniteScroll();
     });
 onAuthLoaded(()=>{

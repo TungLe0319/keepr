@@ -6,19 +6,19 @@ namespace keepr.Controllers;
 
 public class VaultKeepsController : ControllerBase
 {
-  #region READONLY
+
   private readonly Auth0Provider _auth0;
   private readonly VaultsService _vaultService;
   private readonly KeepsService _keepService;
-  private readonly VaultKeepsService _vKeep;
-  public VaultKeepsController(Auth0Provider auth0, VaultsService vaultService, KeepsService keepService, VaultKeepsService vKeep)
+  private readonly VaultKeepsService _vKeepService;
+
+  public VaultKeepsController(Auth0Provider auth0, VaultsService vaultService, KeepsService keepService, VaultKeepsService vKeepService)
   {
     _auth0 = auth0;
     _vaultService = vaultService;
     _keepService = keepService;
-    _vKeep = vKeep;
+    _vKeepService = vKeepService;
   }
-  #endregion
 
   [HttpPost]
   [Authorize]
@@ -27,12 +27,12 @@ public class VaultKeepsController : ControllerBase
     try
     {
       Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-      if (userInfo == null )
+      if (userInfo == null || userInfo.Id == null)
       {
         throw new Exception("Bad BearerToken");
       }
       vaultKeep.CreatorId = userInfo.Id;
-      VaultKeep newVaultKeep = _vKeep.CreateVaultKeep(vaultKeep);
+      VaultKeep newVaultKeep = _vKeepService.CreateVaultKeep(vaultKeep);
       return Ok(newVaultKeep);
     }
     catch (Exception e)
@@ -40,6 +40,27 @@ public class VaultKeepsController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+
+  // [HttpPost]
+  // [Authorize]
+  // public async Task<ActionResult<VaultKeep>> CreateVaultKeep([FromBody] VaultKeep vaultKeepData)
+  // {
+  //   try
+  //   {
+
+  //     var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+  //     VaultKeep vaultKeep = _vKeepService.CreateVaultKeep(vaultKeepData);
+  //     return Ok(vaultKeep);
+  //   }
+  //   catch (Exception e)
+  //   {
+  //     return BadRequest(e.Message);
+  //   }
+  // }
+
+
+
 
 
   [HttpDelete("{vaultKeepId}")]
@@ -53,8 +74,8 @@ public class VaultKeepsController : ControllerBase
       {
         throw new Exception("Bad Token... ");
       }
-      
-      _vKeep.DeleteVaultKeep(vaultKeepId, userInfo?.Id);
+
+      _vKeepService.DeleteVaultKeep(vaultKeepId, userInfo?.Id);
       return Ok("VaultKeep deleted");
     }
     catch (Exception e)
@@ -69,7 +90,7 @@ public class VaultKeepsController : ControllerBase
   {
     try
     {
-      List<VaultKeep> vaultKeeps = _vKeep.GetAllVaultKeeps();
+      List<VaultKeep> vaultKeeps = _vKeepService.GetAllVaultKeeps();
       return Ok(vaultKeeps);
     }
     catch (Exception e)

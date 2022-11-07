@@ -100,14 +100,14 @@ export default {
   setup() {
     async function getAccountKeeps() {
       try {
-        await accountService.getAccountKeeps();
+        // await accountService.getAccountKeeps();
       } catch (error) {
         Pop.error(error, "[getAccountKeeps]");
       }
     }
     async function getAccountVaults() {
       try {
-        await accountService.getAccountVaults();
+        // await accountService.getAccountVaults();
       } catch (error) {
         Pop.error(error, "[getAccountVaults]");
       }
@@ -120,9 +120,7 @@ export default {
     });
     onAuthLoaded(() => {});
     watchEffect(()=>{
-      if (useRoute == "Account") {
-        AppState.keeps = []
-      }
+    
     })
  
     return {

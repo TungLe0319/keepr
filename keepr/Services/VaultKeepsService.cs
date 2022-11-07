@@ -13,14 +13,24 @@ public class VaultKeepsService
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
   {
     //TODO clean up
-Vault vault = _vaultRepo.GetById(vaultKeep.VaultId);
-if( vault.CreatorId != vaultKeep.CreatorId)
-{
-throw new Exception("Unauthorized cannot add keep to this vault");
-}
+    Vault vault = _vaultRepo.GetById(vaultKeep.VaultId);
+    // if (vault == null)
+    // {
+    //   throw new Exception("Invalid [example]");
+    // }
+
+    // if (vault.CreatorId != vaultKeep.CreatorId)
+    // {
+    //   throw new Exception("Unauthorized cannot add keep to this vault");
+    // }
 
     VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
 
+
+    // if (newVaultKeep == null)
+    // {
+    //   throw new Exception("Invalid [example]");
+    // }
 
     return newVaultKeep;
   }
@@ -31,10 +41,10 @@ throw new Exception("Unauthorized cannot add keep to this vault");
     return vaultKeep;
   }
 
-  internal List<VaultedKeep> GetVaultedKeepById(int vaultId,string userId)
+  internal List<VaultedKeep> GetVaultedKeepById(int vaultId, string userId)
   {
-    Vault vault = _vaultService.GetById(vaultId,userId);
-   
+    Vault vault = _vaultService.GetById(vaultId, userId);
+
     return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }
 
@@ -43,7 +53,7 @@ throw new Exception("Unauthorized cannot add keep to this vault");
   // {
 
   //   Vault vault = _vaultService.GetById(vaultId,userId);
- 
+
   //   return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   // }
 
@@ -71,6 +81,6 @@ throw new Exception("Unauthorized cannot add keep to this vault");
 
   internal List<VaultKeep> GetAllVaultKeeps()
   {
-  return _vaultKeepRepo.GetAllVaultKeeps();
+    return _vaultKeepRepo.GetAllVaultKeeps();
   }
 }
