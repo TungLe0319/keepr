@@ -31,9 +31,9 @@
               aria-expanded="false"
             ></i>
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
-              <li class="dotHover rounded">
+              <li class="dotHover rounded ">
                 <a
-                  class="btn"
+                  class="btn border-0"
                   data-bs-toggle="modal"
                   data-bs-target="#vaultForm"
                   @click="toggleEditForm()"
@@ -41,7 +41,7 @@
                 >
               </li>
               <li class="dotHover rounded">
-                <a class="btn" @click="deleteVault()">Delete Vault</a>
+                <a class="btn border-0" @click="deleteVault()">Delete Vault</a>
               </li>
             </ul>
           </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { onAuthLoaded } from "@bcwdev/auth0provider-client";
+import { authSettled, onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { propsToAttrMap } from "@vue/shared";
 import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
@@ -82,13 +82,19 @@ import Pop from "../utils/Pop.js";
 export default {
   setup() {
     onMounted(() => {
-      getKeepsByVaultId();
+     
       getVaultById();
     });
-    onAuthLoaded(() => {});
+    onAuthLoaded(() => {
+ getKeepsByVaultId();
+    });
     async function getKeepsByVaultId() {
       try {
-        await vaultsService.getKeepsByVaultId(route.params.id);
+        
+        if ( AppState.activeVault) {
+          
+          await vaultsService.getKeepsByVaultId(AppState.activeVault.id);
+        }
       } catch (error) {
         Pop.error(error, "[getKeepsByVaultId]");
       }

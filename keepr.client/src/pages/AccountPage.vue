@@ -24,10 +24,10 @@
       <div
         class="col-md-12 d-flex flex-column justify-content-center align-items-center"
       >
-        <div class="col-md-12 justify-content-end d-flex mt-3 mb-5 px-5">
+        <div class="col-md-12 justify-content-end d-flex mt-3  px-5">
           <div class="btn-group dropstart">
             <i
-              class="mdi mdi-dots-horizontal ms-3 fs-1"
+              class="mdi mdi-dots-horizontal ms-3 fs-1 selectable"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <h3>{{ account.email }}</h3>
+        <h3 class="markoOne">{{ account.email }}</h3>
         <div>
           <span>{{ vaults.length }} Vaults</span>
           <span>{{ keeps.length }} Keeps</span>
@@ -89,7 +89,8 @@
 <script>
 import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import VaultCard from "../components/VaultCard.vue";
 import { accountService } from "../services/AccountService.js";
@@ -112,11 +113,20 @@ export default {
       }
     }
     onMounted(() => {
+      
+      
       getAccountKeeps();
       getAccountVaults();
     });
     onAuthLoaded(() => {});
+    watchEffect(()=>{
+      if (useRoute == "Account") {
+        AppState.keeps = []
+      }
+    })
+ 
     return {
+    
       keeps: computed(() => AppState.accountKeeps),
       account: computed(() => AppState.account),
       vaults: computed(() => AppState.accountVaults),

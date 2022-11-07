@@ -23,6 +23,8 @@ import PaginationStyle from "../components/PaginationStyle.vue";
 import { createPopper } from "@popperjs/core";
 import PopperTip from "../components/PopperTip.vue";
 import { onAuthLoaded } from "@bcwdev/auth0provider-client";
+import { accountService } from "../services/AccountService.js";
+
 
 export default {
   setup() {
@@ -32,17 +34,24 @@ export default {
       infiniteScroll();
     });
 onAuthLoaded(()=>{
- this.  $emit('getAccountVaults')
- 
+
+//  getAccountVaults()
 })
     async function getVaultKeepIds() {
       try {
         await vaultKeepService.getVaultKeepIds();
+   
       } catch (error) {
         Pop.error(error, "[getAllVaultKeepIds]");
       }
     }
-
+async function getAccountVaults(){
+  try {
+           await accountService.getAccountVaults();
+    } catch (error) {
+      Pop.error(error,'[getAccountVaults]')
+    }
+}
     async function getAllKeeps() {
       try {
         console.log(AppState.accountVaults);

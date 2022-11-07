@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-md-6">
         <form
-          @submit.prevent="editForm ?   handleSubmit() : handleEdit()"
+          @submit.prevent="editForm ?    handleEdit() : handleCreate()"
           class=""
         >
           <div class="mt-3 inputBox">
@@ -95,8 +95,10 @@
 
 <script>
 import { computed } from "@vue/reactivity";
+import { Modal } from "bootstrap";
 import { onMounted, ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
+import { router } from "../router.js";
 import { keepsService } from "../services/KeepsService.js";
 import { vaultsService } from "../services/VaultsService.js";
 import { logger } from "../utils/Logger.js";
@@ -121,11 +123,13 @@ export default {
     return {
       editable,
       editForm: computed(() => AppState.vaultEditForm ),
-      async handleSubmit() {
+      async handleCreate() {
         try {
           // console.log(editable.value);
-          
-          // await vaultsService.createVault(editable.value);
+
+          await vaultsService.createVault(editable.value);
+          router.push({name:"Vault",params:{id:AppState.activeVault.id}})
+          Modal.getOrCreateInstance("#activeKeep").hide()
         } catch (error) {
           Pop.error(error, "[createKeep]");
         }

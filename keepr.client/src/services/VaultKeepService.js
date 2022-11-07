@@ -28,7 +28,6 @@ class VaultKeepService {
 
   async getVaultKeepIds() {
     const res = await api.get("api/vaultkeeps");
-
     AppState.vKeepIds = res.data.map((v) => new VaultKeepIds(v));
     // console.log("[getVaultKeepIds]", res.data);
     // console.log(AppState.vaultKeeps);

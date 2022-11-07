@@ -47,8 +47,8 @@
         :key="a.id"
         @click="addToVault(a.id)"
       />
-      <div class=" d-flex">
-        <button class="btn me-3 d-flex align-items-center" data-bs-target="#vaultForm" data-bs-toggle="modal"> <i class="mdi mdi-plus-box fs-2"></i>   <h6 class="d-flex align-items-center m-0 ms-2">Create Vault</h6></button>
+      <div class=" d-flex dotHover">
+        <button class="btn me-3 d-flex align-items-center " data-bs-target="#vaultForm" data-bs-toggle="modal" @click="toggleCreateVault()"> <i class="mdi mdi-plus-box fs-2"></i>   <h6 class="d-flex align-items-center m-0 ms-2">Create vault</h6></button>
    
       </div>
     </div>
@@ -123,6 +123,10 @@ export default {
           Pop.error(error, "[removeFromVault]");
         }
       },
+      toggleCreateVault(){
+        AppState.vaultEditForm = false
+        console.log(AppState.vaultEditForm);
+      }
     };
   },
   components: { Popper },

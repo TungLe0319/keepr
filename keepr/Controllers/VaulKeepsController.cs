@@ -54,7 +54,7 @@ public class VaultKeepsController : ControllerBase
         throw new Exception("Bad Token... ");
       }
       
-      _vKeep.DeleteVaultKeep(vaultKeepId, userInfo.Id);
+      _vKeep.DeleteVaultKeep(vaultKeepId, userInfo?.Id);
       return Ok("VaultKeep deleted");
     }
     catch (Exception e)

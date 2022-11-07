@@ -13,32 +13,28 @@ public class VaultsService
     _keepRepo = keepRepo;
     _vaultKeepRepo = vaultKeepRepo;
   }
-#endregion
- 
+  #endregion
+
   internal List<Vault> GetAllVaults()
   {
     return _vaultRepo.GetAllVaults();
   }
 
-  internal Vault GetById(int vaultId)
+  internal Vault GetById(int vaultId, string userId)
   {
 
     Vault vault = _vaultRepo.GetById(vaultId);
-   
+
+
     if (vault == null)
     {
       throw new Exception("Invalid vaultId");
     }
 
-// if( vault.CreatorId != userId  & vault.IsPrivate == true)
-// {
-// throw new Exception("Private Vault");
-// }
-if( vault.IsPrivate == true)
-{
-throw new Exception("Invalid [example]");
-}
-
+    if (vault.CreatorId != userId & vault.IsPrivate == true)
+    {
+      throw new Exception("Private Vault");
+    }
 
     return vault;
   }
@@ -50,7 +46,7 @@ throw new Exception("Invalid [example]");
 
   internal void DeleteVault(int vaultId, string accountId)
   {
-    Vault vault = GetById(vaultId);
+    Vault vault = GetById(vaultId, accountId);
     if (vault.CreatorId != accountId)
     {
       throw new Exception("Unauthorized not yours..");
@@ -60,7 +56,7 @@ throw new Exception("Invalid [example]");
 
   internal Vault EditVault(Vault vaultData, string accountId)
   {
-    Vault original = GetById(vaultData.Id);
+    Vault original = GetById(vaultData.Id, accountId);
 
     if (original.CreatorId != accountId)
     {

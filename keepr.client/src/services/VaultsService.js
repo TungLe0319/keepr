@@ -27,10 +27,11 @@ class VaultsService {
 
   async createVault(vaultData) {
     const res = await api.post("api/vaults", vaultData);
-         console.log('[vaults]',res.data);
-      
-   let newVault = new Vault(res.data);
-  AppState.accountVaults = [...AppState.accountVaults, newVault];
+    console.log('[vaults]',res.data);
+    let newVault = new Vault(res.data);
+    AppState.activeVault = newVault
+    // router.push({name:'Vault', params:{id: newVault.id}})
+         AppState.accountVaults = [...AppState.accountVaults, newVault];
   }
   async editVault(vaultData) {
     let id = vaultData.id
@@ -50,6 +51,7 @@ class VaultsService {
   async deleteVault(vaultId) {
 
     await api.delete(`api/vaults/${vaultId}`);
+
     let index = AppState.vaults.findIndex((v) => {
       v.id == vaultId;
     });

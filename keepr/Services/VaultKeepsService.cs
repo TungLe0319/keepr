@@ -5,14 +5,9 @@ public class VaultKeepsService
   #region READONLY
   private readonly VaultsRepository _vaultRepo;
   private readonly KeepsRepository _keepRepo;
+  private readonly VaultsService _vaultService;
   private readonly VaultKeepRepository _vaultKeepRepo;
 
-  public VaultKeepsService(VaultsRepository vaultRepo, KeepsRepository keepRepo, VaultKeepRepository vaultKeepRepo)
-  {
-    _vaultRepo = vaultRepo;
-    _keepRepo = keepRepo;
-    _vaultKeepRepo = vaultKeepRepo;
-  }
   #endregion
 
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
@@ -36,24 +31,19 @@ throw new Exception("Unauthorized cannot add keep to this vault");
     return vaultKeep;
   }
 
-  internal List<VaultedKeep> GetVaultedKeepById(int vaultId)
+  internal List<VaultedKeep> GetVaultedKeepById(int vaultId,string userId)
   {
-    Vault vault = _vaultRepo.GetById(vaultId);
-    if (vault.IsPrivate == true)
-    {
-      throw new Exception("Private ");
-    }
+    Vault vault = _vaultService.GetById(vaultId,userId);
+   
     return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }
 
 
-  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId)
+  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId,string userId)
   {
-    Vault vault = _vaultRepo.GetById(vaultId);
-    if (vault.IsPrivate == true)
-    {
-      throw new Exception("Private Vault");
-    }
+
+    Vault vault = _vaultService.GetById(vaultId,userId);
+ 
     return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }
 
