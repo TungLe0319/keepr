@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-body position-relative bg-info" >
+  <div class="modal-body position-relative bg-warning " >
     <div class="position-absolute bottom-100 end-50 markoOne ">
       <h1 class="formTitle" v-if="editForm">EDIT </h1>
       <h1 class="formTitle" v-else>Create</h1>
@@ -36,24 +36,24 @@
   
       <div class="my-3">
         <button
-          class="btn btn-success selectable"
+          class="btn p-2 dotHover"
           type="submit"
           data-bs-dismiss="modal"
 
         >
         <h6 v-if="editForm">Edit</h6>
-        <h6 v-else> Create</h6>
+        <h3 v-else> Create</h3>
         </button>
       </div>
     </form>
   </div>
-  <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+  <div class="col-md-6  d-flex flex-column justify-content-center align-items-center">
       <div
     class="card rounded border-0 my-1 "
  
   >
     <img v-if="editable.img" :src="editable?.img" alt="" title="keep" class="img-fluid  rounded" />
-    <img v-else src="https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/H8WuRINimqur8ud/soap-bubbles-zen-symbol-pyramide-from-stones-on-the-beach-at-the-background-of-the-gold-sunset-sea-slow-motion-background-for-spa-relax-tourism-theme-scene-with-zen-pyramide-and-soap-bubbles_bvrit5wx_thumbnail-1080_02.png" alt="" title="keep" class="img-fluid  rounded" />
+    <img v-else src="https://wallpapercave.com/wp/wp1873707.jpg" alt="" title="keep" class="img-fluid  rounded" />
     <div class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end">
       <span>
         <h5 class="mb-0 fw-bold text-light ms-1">{{ editable?.name }}</h5>
@@ -62,7 +62,7 @@
 
   </div>
   <div class="text-dark mt-3">
-    <h5>Description</h5>
+    <h5 class="markoOne">Description</h5>
    <p>{{editable?.description}}</p>
   </div>
   </div>
@@ -127,6 +127,18 @@ try {
   transition: all 1.5s ease;
   box-shadow: 0.25px 0.25px 10px rgba(243, 236, 236, 0.308);
 }
+.inputBox input:invalid{
+  border: 0;
+  border-bottom: 4px solid rgb(237, 144, 144);
+  border-radius: 0;
+
+}
+.inputBox input:valid{
+    border: 0;
+  border-bottom: 4px solid rgb(124, 227, 136);
+  border-radius: 0;
+
+}
 .inputBox span {
   position: absolute;
   left: 0;
@@ -155,15 +167,15 @@ try {
 
 .card {
   transition: all 0.5s ease;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+ box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 .cardImg{
    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 .card:hover {
-  transform: scale(1.01);
+  transform: scale(1.009);
   filter: brightness(95%);
-  transition: all 0.5s ease;
+  transition: all 0.25s ease;
   cursor: pointer;
   
 box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;

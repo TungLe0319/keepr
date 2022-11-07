@@ -1,11 +1,17 @@
 <template>
   <div class="container">
-    <PopperTip />
     <PaginationStyle />
     <div class="bricks my-3">
-      <div class="my-3" v-for="k in keeps" :key="k.id">
-        <KeepCard :keep="k" />
-      </div>
+        <TransitionGroup
+                name=""
+                enterActiveClass="animate__fadeIn animate__animated"
+                leaveActiveClass="animate__fadeOut animate__animated"
+              >
+       
+              <div class="my-3" v-for="k in keeps" :key="k.id">
+                <KeepCard :keep="k" />
+              </div>
+              </TransitionGroup>
     </div>
   </div>
 </template>
@@ -30,8 +36,8 @@ export default {
   setup() {
     onMounted(() => {
       getAllKeeps();
-      // getVaultKeepIds();/*  */
-      infiniteScroll();
+      getVaultKeepIds();/*  */
+      // infiniteScroll();
     });
 onAuthLoaded(()=>{
 
@@ -54,7 +60,7 @@ async function getAccountVaults(){
 }
     async function getAllKeeps() {
       try {
-        console.log(AppState.accountVaults);
+        // console.log(AppState.accountVaults);
         await keepsService.getAllKeeps();
       } catch (error) {
         Pop.error(error, "[getAllKeeps]");

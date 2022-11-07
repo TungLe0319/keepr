@@ -12,7 +12,7 @@ public class Vault : IHasCreator
   [Required]
   public string Img { get; set; } = "//thiscatdoesnotexist.com";
 
-  public bool? IsPrivate { get; set; }
+  public bool IsPrivate { get; set; } 
 
 
   // public string Tags {get;set; } = "";

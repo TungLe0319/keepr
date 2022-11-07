@@ -21,11 +21,22 @@ class KeepsService {
   async getAllKeeps() {
     const res = await api.get("api/keeps");
     // console.log("[keeps]", res.data);
-    let keeps = res.data.map((k) => new Keep(k));
-    AppState.offSet += keeps.length
-    AppState.keeps = [...AppState.keeps, ...keeps];
+    // let keeps = res.data.map((k) => new Keep(k));
+    // AppState.offSet += keeps.length
+    AppState.keeps = res.data.map((k) => new Keep(k));
     console.log(AppState.offSet);
   }
+async getKeepsByQuery(query){
+  const res = await api.get("api/keeps");
+  // console.log("[keeps]", res.data);
+  // let keeps = res.data.map((k) => new Keep(k));
+  // AppState.offSet += keeps.length
+  // events: computed(() => AppState.events.filter(a => a.name.toUpperCase().includes(editable.value.toUpperCase()))),
+  
+  AppState.keeps = res.data.map((k) => new Keep(k));
+AppState.keeps.filter(k => k.name.toUpperCase().includes(query).toUpperCase)
+  console.log(AppState.offSet);
+}
 
   async getKeepsByScroll() {
     let offSet = AppState.offSet;

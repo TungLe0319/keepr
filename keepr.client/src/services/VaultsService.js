@@ -52,17 +52,18 @@ class VaultsService {
 
     await api.delete(`api/vaults/${vaultId}`);
 
-    let index = AppState.vaults.findIndex((v) => {
-      v.id == vaultId;
-    });
-    AppState.vaults.splice(index, 1);
+    AppState.accountVaults = AppState.accountVaults.filter(a=> a.id != vaultId)
+    // let index = AppState.vaults.findIndex((v) => {
+    //   v.id == vaultId;
+    // });
+    // AppState.vaults.splice(index, 1);
   }
 
   async getKeepsByVaultId(id){
     const res = await api.get(`api/vaults/${id}/keeps`)
     AppState.vaultedKeeps = res.data.map(v=> new VaultedKeep(v))
-         console.log('[vaultKeeps]',res.data);
-         console.log(AppState.vaultedKeeps);
+        //  console.log('[vaultKeeps]',res.data);
+        //  console.log(AppState.vaultedKeeps);
   }
 }
 export const vaultsService = new VaultsService();

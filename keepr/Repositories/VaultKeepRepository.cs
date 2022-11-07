@@ -11,7 +11,7 @@ public class VaultKeepRepository : BaseRepo
   {
     var sql = @"
             INSERT INTO
-            vaultKeeps(
+            vaultKeeps (
             creatorId,
             vaultId,
             keepId
@@ -26,10 +26,10 @@ public class VaultKeepRepository : BaseRepo
 
     vaultKeep.Id = _db.ExecuteScalar<int>(sql, vaultKeep);
     // vaultKeep.CreatedAt = new DateTime();
-    // vaultKeep.UpdatedAt  = new DateTime(); TO AVOID THIS
+    // vaultKeep.UpdatedAt  = new DateTime(); 
+ return vaultKeep;
 
-
-    return GetById(vaultKeep.Id);
+    // return GetById(vaultKeep.Id);
   }
   //when doing anything, return getbyId
 

@@ -1,12 +1,17 @@
 <template>
   <header>
-    <Navbar />
+    <Navbar class="d-md-flex" />
     
   </header>
-  <main class="bg-warning">
+  <main class="">
 
     <router-view />
   </main>
+ 
+<footer class="p-2 bg-warning">
+       <Navbar class="d-flex d-md-none" />
+
+</footer>
   <ModalComponent id="activeKeep">
 <ActiveKeepCard :keep="keep" v-if="keep" />
   </ModalComponent>

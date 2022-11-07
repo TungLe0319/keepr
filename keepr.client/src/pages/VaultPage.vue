@@ -1,16 +1,20 @@
 <template>
   <div class="container">
-
     <div class="row">
       <div class="col-md-12 text-center mt-2">
         <div class="card border-0">
           <img
-          v-if="vault?.img"
+            v-if="vault?.img"
             :src="vault?.img"
             alt=""
             class="img-fluid coverImg bShadow rounded"
           />
-          <img v-else src="" alt="" class="img-fluid coverImg bShadow rounded skeleton-loader">
+          <img
+            v-else
+            src=""
+            alt=""
+            class="img-fluid coverImg bShadow rounded skeleton-loader"
+          />
           <div
             class="card-img-overlay d-flex justify-content-center align-items-end"
           >
@@ -24,14 +28,27 @@
         class="col-md-12 d-flex flex-column justify-content-center align-items-center"
       >
         <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-5">
+          <div class="d-flex align-items-center">
+            <router-link :to="{name: 'Account'}"> 
+            
+              <img
+              src="https://cdn-icons-png.flaticon.com/512/4211/4211391.png"
+              alt="profile Icon"
+              class=""
+              width="30"
+              height="30"
+            />
+         
+            </router-link>
+          </div>
           <div class="btn-group dropstart">
             <i
-              class="mdi mdi-dots-horizontal ms-3 fs-1"
+              class="mdi mdi-dots-horizontal ms-3 fs-1 action"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
-              <li class="dotHover rounded ">
+              <li class="dotHover rounded">
                 <a
                   class="btn border-0"
                   data-bs-toggle="modal"
@@ -82,17 +99,14 @@ import Pop from "../utils/Pop.js";
 export default {
   setup() {
     onMounted(() => {
-     
       getVaultById();
     });
     onAuthLoaded(() => {
- getKeepsByVaultId();
+      getKeepsByVaultId();
     });
     async function getKeepsByVaultId() {
       try {
-        
-        if ( AppState.activeVault) {
-          
+        if (AppState.activeVault) {
           await vaultsService.getKeepsByVaultId(AppState.activeVault.id);
         }
       } catch (error) {
@@ -123,7 +137,7 @@ export default {
           ) {
             let vaultId = AppState.activeVault.id;
             await vaultsService.deleteVault(vaultId);
-            router.push({ name: "Home" });
+            router.push({ name: "Account" });
           }
         } catch (error) {
           Pop.error(error, "[deleteVault]");

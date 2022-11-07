@@ -22,12 +22,12 @@ class AccountService {
   }
 
   async getAccountKeeps(){
-    AppState.keeps =[]
+    // AppState.keeps =[]
         const res = await api.get("/account/keeps");
     // console.log("[keeps]", res.data);
-    let keeps = res.data.map((k) => new Keep(k));
-    AppState.offSet += keeps.length
-    AppState.accountKeeps = [...keeps];
+    // let keeps = res.data.map((k) => new Keep(k));
+    // AppState.offSet += keeps.length
+    AppState.accountKeeps = res.data.map((k) => new Keep(k));
 
   }
   async getAccountVaults(){

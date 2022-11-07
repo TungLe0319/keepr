@@ -95,6 +95,7 @@ export default {
 .card:hover {
   transform: scale(1.01);
   filter: brightness(95%);
+  filter: sepia(20%);
   transition: all 0.5s ease;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,

@@ -2,30 +2,37 @@ namespace keepr.Services;
 
 public class VaultKeepsService
 {
-  #region READONLY
+
   private readonly VaultsRepository _vaultRepo;
   private readonly KeepsRepository _keepRepo;
   private readonly VaultsService _vaultService;
   private readonly VaultKeepRepository _vaultKeepRepo;
 
-  #endregion
+  public VaultKeepsService(VaultsRepository vaultRepo, KeepsRepository keepRepo, VaultsService vaultService, VaultKeepRepository vaultKeepRepo)
+  {
+    _vaultRepo = vaultRepo;
+    _keepRepo = keepRepo;
+    _vaultService = vaultService;
+    _vaultKeepRepo = vaultKeepRepo;
+  }
 
   public VaultKeep CreateVaultKeep(VaultKeep vaultKeep)
   {
     //TODO clean up
     Vault vault = _vaultRepo.GetById(vaultKeep.VaultId);
-    // if (vault == null)
-    // {
-    //   throw new Exception("Invalid [example]");
-    // }
+    if (vault == null)
+    {
+      throw new Exception("Invalid [example]");
+    }
 
-    // if (vault.CreatorId != vaultKeep.CreatorId)
-    // {
-    //   throw new Exception("Unauthorized cannot add keep to this vault");
-    // }
+    if (vault.CreatorId != vaultKeep.CreatorId)
+    {
+      throw new Exception("Unauthorized cannot add keep to this vault");
+    }
 
-    VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
+    // VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
 
+   VaultKeep newVaultKeep = _vaultKeepRepo.CreateVaultKeep(vaultKeep);
 
     // if (newVaultKeep == null)
     // {
@@ -44,6 +51,7 @@ public class VaultKeepsService
   internal List<VaultedKeep> GetVaultedKeepById(int vaultId, string userId)
   {
     Vault vault = _vaultService.GetById(vaultId, userId);
+    
 
     return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
   }

@@ -57,7 +57,8 @@ public class KeepsRepository : BaseRepo
    
        data.Id = _db.ExecuteScalar<int>(sql, data);
    
-       return data;
+   return GetById(data.Id);
+      //  return data;
   }
 
   internal List<Keep> GetKeepsForProfiles(string id)
@@ -90,8 +91,6 @@ public class KeepsRepository : BaseRepo
            JOIN accounts a ON a.id = k.creatorId
            LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.id
            GROUP BY k.id
-           LIMIT 36
-           OFFSET @offSet
                 ; ";
      return _db.Query<Keep, Profile,Keep >(sql, (keep, profile) =>
       {

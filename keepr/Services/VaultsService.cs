@@ -61,7 +61,7 @@ public class VaultsService
     }
 
     original.Name = vaultData.Name ?? original.Name;
-    original.IsPrivate = vaultData.IsPrivate ?? original.IsPrivate;
+    original.IsPrivate = vaultData.IsPrivate ;
     original.Description = vaultData.Description ?? original.Description;
     original.Img = vaultData.Img ?? original.Img;
 

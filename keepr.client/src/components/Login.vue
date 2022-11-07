@@ -11,6 +11,9 @@
           <div v-if="account.picture || user.picture">
             <img :src="account.picture || user.picture" alt="account photo"  class="rounded-circle elevation-3 pImg" />
           </div>
+          <div v-else>
+            <img src="" alt="account photo"  class="rounded-circle elevation-3 pImg skeleton-loader" />
+          </div>
         </div>
         <div class="dropdown-menu dropdown-menu-lg-left p-0 " aria-labelledby="authDropdown">
           <ul class="list-group ">

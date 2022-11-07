@@ -38,17 +38,20 @@
       ><small>Remove</small></i
     >
   </button>
-  <div class="collapse position-absolute start-0 bottom-0" id="testMenu" v-if="!vKeep">
-    <div class="bg-warning bShadow rounded text-center p-3">
-      <div><h6 class="p-1">Save to vault</h6></div>
+  <div class="collapse position-absolute end-100 bottom-50 rounded bShadow3" id="testMenu" v-if="!vKeep">
+  <h6 class="mb-0 p-2 text-center bg-info rounded-top  no-select markoOne">Save to vault</h6>
+    <div class="bg-warning bShadow text-center p-3 scrollY">
       <AccountVaultList
         :vault="a"
         v-for="a in accountVaults"
         :key="a.id"
         @click="addToVault(a.id)"
       />
-      <div class=" d-flex dotHover">
-        <button class="btn me-3 d-flex align-items-center " data-bs-target="#vaultForm" data-bs-toggle="modal" @click="toggleCreateVault()"> <i class="mdi mdi-plus-box fs-2"></i>   <h6 class="d-flex align-items-center m-0 ms-2">Create vault</h6></button>
+  
+    </div>
+    <div>
+          <div class=" d-flex dotHover bg-info rounded-bottom">
+        <button class="btn me-3 d-flex align-items-center " data-bs-target="#vaultForm" data-bs-toggle="modal" @click="toggleCreateVault()"> <i class="mdi mdi-plus-box fs-2"></i>   <h6 class="d-flex align-items-center m-0 ms-2 markoOne">Create vault</h6></button>
    
       </div>
     </div>
@@ -134,6 +137,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.scrollY{
+  height: 58.5vh;
+  overflow-y: auto;
+}
+::-webkit-scrollbar{
+  display: none;
+}
 select {
   border: none !important;
   border-bottom: 3px solid rgb(20, 20, 20) !important;
@@ -154,5 +164,11 @@ select {
 }
 select:focus {
   border: none !important;
+}
+
+@media only screen and (max-width: 768px){
+.scrollY{
+  height: 67.6vh;
+}
 }
 </style>

@@ -2,20 +2,34 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center mt-2 position-relative">
-        <div class="card border-0">
+        <div class="card border-0 animate__animated animate__fadeIn">
           <img
-            :src="account.coverImg"
-            alt=""
+          v-if="account?.coverImg"
+            :src="account?.coverImg"
+            alt=" account cover Image"
             class="img-fluid coverImg bShadow rounded"
+          />
+          <img
+          v-else
+            src=""
+            class="img-fluid coverImg bShadow rounded skeleton-loader"
           />
           <div
             class="card-img-overlay d-flex justify-content-center align-items-end"
           >
-            <div class="text-center position-absolute top-50">
+            <div v-if="account?.picture" class="text-center position-absolute top-50">
               <img
                 class="bShadow p-1 profilePic"
-                :src="account.picture"
+                :src="account?.picture"
                 alt=""
+              />
+            </div>
+            <div v-else class="text-center position-absolute top-50">
+              <img
+                class="bShadow p-1 profilePic skeleton-loader"
+                
+              
+
               />
             </div>
           </div>
@@ -100,14 +114,14 @@ export default {
   setup() {
     async function getAccountKeeps() {
       try {
-        // await accountService.getAccountKeeps();
+        await accountService.getAccountKeeps();
       } catch (error) {
         Pop.error(error, "[getAccountKeeps]");
       }
     }
     async function getAccountVaults() {
       try {
-        // await accountService.getAccountVaults();
+        await accountService.getAccountVaults();
       } catch (error) {
         Pop.error(error, "[getAccountVaults]");
       }

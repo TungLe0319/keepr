@@ -31,7 +31,7 @@ public class VaultKeepsController : ControllerBase
       {
         throw new Exception("Bad BearerToken");
       }
-      vaultKeep.CreatorId = userInfo.Id;
+      vaultKeep.CreatorId = userInfo?.Id;
       VaultKeep newVaultKeep = _vKeepService.CreateVaultKeep(vaultKeep);
       return Ok(newVaultKeep);
     }
@@ -40,27 +40,6 @@ public class VaultKeepsController : ControllerBase
       return BadRequest(e.Message);
     }
   }
-
-
-  // [HttpPost]
-  // [Authorize]
-  // public async Task<ActionResult<VaultKeep>> CreateVaultKeep([FromBody] VaultKeep vaultKeepData)
-  // {
-  //   try
-  //   {
-
-  //     var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-  //     VaultKeep vaultKeep = _vKeepService.CreateVaultKeep(vaultKeepData);
-  //     return Ok(vaultKeep);
-  //   }
-  //   catch (Exception e)
-  //   {
-  //     return BadRequest(e.Message);
-  //   }
-  // }
-
-
-
 
 
   [HttpDelete("{vaultKeepId}")]
@@ -86,12 +65,13 @@ public class VaultKeepsController : ControllerBase
 
 
   [HttpGet]
-  public ActionResult<List<VaultKeep>> GetAllVaultKeep()
+  public ActionResult<List<VaultKeep>> GetAllVaultKeeps()
   {
+
     try
     {
-      List<VaultKeep> vaultKeeps = _vKeepService.GetAllVaultKeeps();
-      return Ok(vaultKeeps);
+      List<VaultKeep> vKeeps = _vKeepService.GetAllVaultKeeps();
+      return Ok(vKeeps);
     }
     catch (Exception e)
     {

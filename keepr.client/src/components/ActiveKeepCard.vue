@@ -9,6 +9,7 @@
             alt=""
             width="100"
             height="100"
+            class=""
           />
         </div>
       </div>
@@ -16,17 +17,17 @@
   
    
       <div class="row">
-     
-        <div class="col-md-6 pictureCol animate__animated animate__fadeIn"
-        :style="{backgroundImage:   `url(${keep?.img})`}" >
-          <!-- <img
+     <!--  :style="{backgroundImage:   `url(${keep?.img})`}" -->
+        <div class="col-md-6  animate__animated animate__fadeIn"
+        >
+          <img
             :src="keep.img"
             alt=""
             title="keep"
-            class="rounded-start img-fluid h-100 image"
-          /> -->
+            class="rounded img-fluid h-100 image"
+          />
         </div>
-        <div class="col-md-6 d-flex flex-column justify-content-between">
+        <div class="col-md-6 d-flex flex-column justify-content-between ">
           <div
             class="d-flex justify-content-center mt-2 align-items-center animate__animated animate__fadeInDown"
           >
@@ -213,13 +214,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.activeImg{
+  width: 50px;
+}
  .pictureCol  {
-
       height: 600px;
       background-position: center;
       background-size: cover;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
+  
   }
 
 .collapse{
@@ -251,5 +255,11 @@ export default {
 }
 
 @media only screen and (max-width: 68px) {
+  .pictureCol{
+   
+  }
+  .image{
+  border-radius: 4px !important;
+  }
 }
 </style>
