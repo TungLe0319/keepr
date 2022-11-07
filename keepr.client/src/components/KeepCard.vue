@@ -67,7 +67,6 @@ export default {
 
       async setActive() {
         try {
-          console.log(route.path);
           await keepsService.setActive(props.keep);
         } catch (error) {
           Pop.error(error, "[setActive]");
@@ -89,6 +88,7 @@ export default {
   transition: all 0.5s ease;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
+
 .cardImg {
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }

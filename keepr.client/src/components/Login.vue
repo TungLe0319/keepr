@@ -9,7 +9,7 @@
         <div type="button" class=" border-0 " data-bs-toggle="dropdown"
           aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo"  class="rounded-circle elevation-3 pImg" />
+            <img :src="account.picture || user.picture" alt="account photo"  class="rounded-circle  pImg" />
           </div>
           <div v-else>
             <img src="" alt="account photo"  class="rounded-circle elevation-3 pImg skeleton-loader" />
@@ -57,5 +57,6 @@ export default {
 .pImg{
   height: 50px;
   width: 50px;
+box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 </style>

@@ -32,10 +32,10 @@ async getKeepsByQuery(query){
   // let keeps = res.data.map((k) => new Keep(k));
   // AppState.offSet += keeps.length
   // events: computed(() => AppState.events.filter(a => a.name.toUpperCase().includes(editable.value.toUpperCase()))),
-  
+  console.log(query);
   AppState.keeps = res.data.map((k) => new Keep(k));
-AppState.keeps.filter(k => k.name.toUpperCase().includes(query).toUpperCase)
-  console.log(AppState.offSet);
+  AppState.keeps.filter(k => k.name.toUpperCase().includes(query).toUpperCase)
+  // console.log(AppState.offSet);
 }
 
   async getKeepsByScroll() {
@@ -86,6 +86,26 @@ AppState.activeKeep = updated
    AppState.accountKeeps.splice(index2, 1,updated);
   }
 
+  async paginate(direction){
+
+
+      let offSet = AppState.offSet;
+   
+      const res = await api.get("api/keeps", {
+        params: {
+          offSet: offSet,
+        },
+      });
+      console.log("[keeps]", res.data);
+      let newKeeps = res.data.map((k) => new Keep(k));
+      if (direction ==  " prev") {
+        
+      }
+      AppState.offSet += newKeeps.length;
+      AppState.keeps = newKeeps
+      // console.log(AppState.keeps);
+      console.log(AppState.offSet);
+  }
 
 }
 export const keepsService = new KeepsService();

@@ -68,13 +68,15 @@
         </div>
 
         <h3 class="markoOne">{{ account.email }}</h3>
-        <div>
-          <span>{{ vaults.length }} Vaults</span>
-          <span>{{ keeps.length }} Keeps</span>
+        <div class="text-center d-flex align-items-center no-select">
+          <span class="bShadow rounded p-1">{{ vaults.length }} Vaults</span>
+   
+          <h1 class="mx-2 rounded-5 no-select bShadow2 ">|</h1>
+          <span  class="bShadow rounded p-1">{{ keeps.length }} Keeps</span>
         </div>
       </div>
     </div>
-
+<!-- ------------------VAULTS AND KEEPS------------------------------------------------ -->
     <div class="row">
       <div class="col-md-12">
         <h3>Vaults</h3>
@@ -95,7 +97,7 @@
       </div>
     </div>
   </div>
-
+<!-- ------------------------------------------------------------------------------------------------------------------------------------- -->
   <div>
   </div>
 </template>

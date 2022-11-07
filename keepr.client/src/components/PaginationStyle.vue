@@ -97,11 +97,13 @@ export default {
       editable,
       async paginate(direction) {
         try {
+          let offSet = AppState.offSet
           if (direction == "left") {
-            await keepsService.paginate();
+
+            await keepsService.paginate('prev');
           } else  {
 
-            await keepsService.paginate();
+            await keepsService.paginate('next');
           }
         } catch (error) {
           Pop.error(error, "[paginate]");

@@ -1,14 +1,15 @@
 <template>
   <div class="container">
     <PaginationStyle />
+    <SearchBar/>
     <div class="bricks my-3">
         <TransitionGroup
                 name=""
-                enterActiveClass="animate__fadeIn animate__animated"
-                leaveActiveClass="animate__fadeOut animate__animated"
+                enterActiveClass="animate__fadeInUp animate__animated"
+                leaveActiveClass="animate__fadeInDown animate__animated"
               >
        
-              <div class="my-3" v-for="k in keeps" :key="k.id">
+              <div class="my-3 keepCards" v-for="k in keeps" :key="k.id">
                 <KeepCard :keep="k" />
               </div>
               </TransitionGroup>
@@ -30,6 +31,7 @@ import { createPopper } from "@popperjs/core";
 import PopperTip from "../components/PopperTip.vue";
 import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { accountService } from "../services/AccountService.js";
+import SearchBar from "../components/SearchBar.vue";
 
 
 export default {
@@ -37,7 +39,7 @@ export default {
     onMounted(() => {
       getAllKeeps();
       getVaultKeepIds();/*  */
-      // infiniteScroll();
+      infiniteScroll();
     });
 onAuthLoaded(()=>{
 
@@ -79,21 +81,29 @@ async function getAccountVaults(){
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          console.log("hi");
-          getKeepsByScroll();
+          if (AppState.paginationOn == false) {
+            
+            getKeepsByScroll();
+          }
+     
         }
       };
     }
 
     return {
-      keeps: computed(() => AppState.keeps.sort(() => Math.random() - 0.5)),
+      keeps: computed(() => AppState.keeps),
     };
   },
-  components: { KeepCard, PaginationStyle, PopperTip },
+  components: { KeepCard, PaginationStyle, PopperTip, SearchBar },
 };
 </script>
 
 <style scoped lang="scss">
+
+.keepCards{
+    --animate-duration: 500ms;
+  --animate-delay: 1s;
+}
 //when screen is 768px OR LESS
 @media only screen and (min-width: 768px) {
   .c-grid {

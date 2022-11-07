@@ -114,56 +114,6 @@ try {
 </script>
 
 <style lang="scss" scoped>
-.inputBox input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #92c5f5;
-  border-bottom: 3px solid #c4def7;
-  border-radius: 5px;
-  outline: none;
-  color: rgb(0, 0, 0);
-  font-size: 1em;
-  background-color: transparent;
-  transition: all 1.5s ease;
-  box-shadow: 0.25px 0.25px 10px rgba(243, 236, 236, 0.308);
-}
-.inputBox input:invalid{
-  border: 0;
-  border-bottom: 4px solid rgb(237, 144, 144);
-  border-radius: 0;
-
-}
-.inputBox input:valid{
-    border: 0;
-  border-bottom: 4px solid rgb(124, 227, 136);
-  border-radius: 0;
-
-}
-.inputBox span {
-  position: absolute;
-  left: 0;
-  bottom: 3em;
-  padding: 10px;
-  pointer-events: none;
-  font-size: 1em;
-  text-transform: uppercase;
-  color: #f1ecf180;
-  transition: all 1s ease;
-}
-.inputBox input:valid ~ span,
-.inputBox input:focus ~ span {
-  color: #27132a;
-  transform: translateX(10px) translateY(-7px);
-  padding: 0 10px;
-  font-size: 0.65em;
-  border-radius: 4px;
-  font-weight: bold;
-  background: #92c5f5;
-  border-left: 1px solid #92c5f5;
-  border-right: 1px solid #92c5f5;
-  letter-spacing: 0.2em;
-  transition: all 1s ease;
-}
 
 .card {
   transition: all 0.5s ease;

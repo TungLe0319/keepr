@@ -38,7 +38,7 @@
       ><small>Remove</small></i
     >
   </button>
-  <div class="collapse position-absolute end-100 bottom-50 rounded bShadow3" id="testMenu" v-if="!vKeep">
+  <div class="collapse position-absolute  end-100 bottom-50 rounded bShadow3" id="testMenu" v-if="!vKeep">
   <h6 class="mb-0 p-2 text-center bg-info rounded-top  no-select markoOne">Save to vault</h6>
     <div class="bg-warning bShadow text-center p-3 scrollY">
       <AccountVaultList
@@ -169,6 +169,10 @@ select:focus {
 @media only screen and (max-width: 768px){
 .scrollY{
   height: 67.6vh;
+}
+
+#testMenu{
+transform: translateX(110%);
 }
 }
 </style>

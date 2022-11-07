@@ -29,16 +29,14 @@
       >
         <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-5">
           <div class="d-flex align-items-center">
-            <router-link :to="{name: 'Account'}"> 
-            
+            <router-link :to="{ name: 'Account' }">
               <img
-              src="https://cdn-icons-png.flaticon.com/512/4211/4211391.png"
-              alt="profile Icon"
-              class=""
-              width="30"
-              height="30"
-            />
-         
+                src="https://cdn-icons-png.flaticon.com/512/4211/4211391.png"
+                alt="profile Icon"
+                class=""
+                width="30"
+                height="30"
+              />
             </router-link>
           </div>
           <div class="btn-group dropstart">
@@ -93,7 +91,9 @@ import PopperTip from "../components/PopperTip.vue";
 import VaultCard from "../components/VaultCard.vue";
 import { router } from "../router.js";
 import { accountService } from "../services/AccountService.js";
+import { vaultKeepService } from "../services/VaultKeepService.js";
 import { vaultsService } from "../services/VaultsService.js";
+import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 
 export default {
@@ -141,6 +141,16 @@ export default {
           }
         } catch (error) {
           Pop.error(error, "[deleteVault]");
+        }
+      },
+
+      async deleteVaultKeep() {
+        try {
+          let id = this.vault.id
+          await vaultKeepService.deleteVaultKeep(id);
+        } catch (error) {
+        
+          Pop.error(error, "[]");
         }
       },
 

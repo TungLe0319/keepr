@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-end align-items-center mt-2">
-    <div class="collapse collapse-horizontal" id="collapseWidthExample">
+    <div class="collapse" id="collapseSearchBar">
       <div class="card bg-dark" style="width: 300px">
         <form @keyup="searchByName()" class="">
           <div class="d-flex align-items-center">
@@ -8,7 +8,7 @@
               v-model="editable"
               type="text"
               class="form-control phtext"
-              placeholder="Search for recipes . . ."
+              placeholder="Search... "
               aria-label="Search"
               aria-describedby="button-addon2"
             />
@@ -17,21 +17,6 @@
       </div>
     </div>
 
-    <button
-      class="btn"
-      type="submit"
-      id="button-addon2"
-      data-bs-toggle="collapse"
-      data-bs-target="#collapseWidthExample"
-  title="Search"
-    >
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/751/751463.png"
-        alt=""
-        width="50"
-        height="50"
-      />
-    </button>
   </div>
 </template>
 
@@ -56,7 +41,7 @@ export default {
 
       async searchByName() {
         try {
-          await keepsService.getKeepsByQuery()
+          await keepsService.getKeepsByQuery(editable.value)
         } catch (error) {
           logger.error("[searchByQuery]", error);
           console.error("dfd", error);
@@ -68,7 +53,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.phtext {
-  font-size: 12px;
+input{
+  padding: 10px;
+  font-size: 20px;
+  border: 0 !important;
+  
+
 }
 </style>

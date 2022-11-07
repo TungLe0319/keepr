@@ -91,6 +91,8 @@ public class KeepsRepository : BaseRepo
            JOIN accounts a ON a.id = k.creatorId
            LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.id
            GROUP BY k.id
+           LIMIT 12
+           OFFSET @offSet
                 ; ";
      return _db.Query<Keep, Profile,Keep >(sql, (keep, profile) =>
       {

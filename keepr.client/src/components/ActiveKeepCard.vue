@@ -31,6 +31,9 @@
           <div
             class="d-flex justify-content-center mt-2 align-items-center animate__animated animate__fadeInDown"
           >
+          <div class="me-3">
+          <ShareCard/>
+          </div>
             <div class="d-flex">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/58/58976.png"
@@ -84,7 +87,7 @@
             <div
               class="px-5 justify-content-center d-flex flex-column animate__animated animate__fadeIn"
             >
-              <h2 class="text-center mb-2 markoOne">{{ keep.name }}</h2>
+              <h2 class="text-center my-4  md-my-2 markoOne keepName ">{{ keep.name }} </h2>
               <p>
                 {{ keep.description }}
               </p>
@@ -156,7 +159,7 @@ import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import AccountVaultList from "./AccountVaultList.vue";
 import AddToVault from "./AddToVault.vue";
-
+import ShareCard from "./ShareCard.vue"
 export default {
   props: {
     keep: { type: Keep, required: true },
@@ -205,6 +208,10 @@ export default {
       },
       pushToProfile() {
         Modal.getOrCreateInstance("#activeKeep").hide();
+        if (this.creator) {
+          
+          router.push({ name:"Account"});
+        } else
         router.push({ name: "Profile", params: { id: props.keep.creator.id } });
       },
     };
@@ -214,6 +221,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal-body{
+  --animate-duration: 500ms;
+  --animate-delay: 1s;
+}
 .activeImg{
   width: 50px;
 }
@@ -255,6 +266,9 @@ export default {
 }
 
 @media only screen and (max-width: 68px) {
+  .keepName{
+    margin-top: 10px;
+  }
   .pictureCol{
    
   }

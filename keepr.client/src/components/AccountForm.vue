@@ -4,36 +4,38 @@
     <div class="row">
       <div class="col-md-6 ">
         <div class="inputBox mt-2">
+          <label for="">Name</label>
           <input
             type="text"
             v-model="editable.name"
             placeholder="name"
             class=""
           />
-          <span>ProfileName</span>
         </div>
         <div class="inputBox my-4">
+          <label for="">Email</label>
+
           <input
             type="text"
             v-model="editable.email"
             placeholder="name"
             class=""
           />
-          <span>email</span>
         </div>
 
         <div class="inputBox mt-2">
+          <label for="">Profile Picture</label>
           <input
             type="url"
             v-model="editable.picture"
             placeholder="url..."
             class=""
           />
-          <span>profile picture</span>
+         
         </div>
           <div class="mt-3 inputBox">
+            <label for=""> Cover Image</label>
           <input type="url" v-model="editable.coverImg" class=" " />
-          <span>CoverImg</span>
         </div>
       </div>
 
@@ -42,7 +44,7 @@
         v-if="editable.picture"
           :src="editable.picture"
           alt=""
-          class="img-fluid w-50 forcedImg  bShadow rounded"
+          class="img-fluid profilePicture  bShadow rounded-circle"
         />
             <img
         v-else
@@ -54,8 +56,8 @@
       </div>
 
     
-      <div class="col-md-12 text-center mt-3 ">
-   <div><h3>CoverImg</h3> </div>
+      <div class="col-md-6 text-center mt-3 ">
+
           <img
         v-if="editable.coverImg"
             :src="editable.coverImg"
@@ -70,6 +72,10 @@
           />
  
       
+      </div>
+
+      <div class="col-md-6">
+        
       </div>
     </div>
 
@@ -124,4 +130,29 @@ export default {
   height: 300px;
   width: auto;
   object-fit: cover;
-}</style>
+}
+
+.profilePicture{
+  user-select: none;
+  margin-top: 30px;
+  width: 300px;
+  height: 300px;
+}
+
+//when screen is 768px OR LESS
+@media only screen and (max-width: 768px){
+.forcedImg{
+  height: 200px;
+  width: auto;
+  object-fit: cover;
+}
+
+.profilePicture{
+  user-select: none;
+  margin-top: 30px;
+  width: 150px;
+  height: 150px;
+}
+}
+
+</style>
