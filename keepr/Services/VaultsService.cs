@@ -25,13 +25,10 @@ public class VaultsService
 
     Vault vault = _vaultRepo.GetById(vaultId);
 
+    var notCreator = vault.CreatorId != userId;
+    var privateVault = vault.IsPrivate == true;
 
-    if (vault == null)
-    {
-      throw new Exception("Invalid vaultId");
-    }
-
-    if (vault.CreatorId != userId & vault.IsPrivate == true)
+    if (notCreator && privateVault)
     {
       throw new Exception("Private Vault");
     }

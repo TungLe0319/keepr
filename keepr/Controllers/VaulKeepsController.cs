@@ -26,8 +26,8 @@ public class VaultKeepsController : ControllerBase
   {
     try
     {
-      var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-      if (userInfo == null || userInfo.Id == null)
+      Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+      if (userInfo == null )
       {
         throw new Exception("Bad BearerToken");
       }

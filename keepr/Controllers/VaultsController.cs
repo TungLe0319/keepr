@@ -61,12 +61,8 @@ public class VaultsController : ControllerBase
   {
     try
     {
-      var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-      if (userInfo == null) //not logged in or bad token
-      {
-        List<VaultedKeep> publicKeeps = _vaultKeepService.GetKeepsByVaultId(vaultId,userInfo?.Id);
-        return Ok(publicKeeps);
-      }
+      Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+    
 
       List<VaultedKeep> vaultKeeps = _vaultKeepService.GetVaultedKeepById(vaultId,userInfo?.Id);
       return Ok(vaultKeeps);

@@ -39,13 +39,13 @@ throw new Exception("Unauthorized cannot add keep to this vault");
   }
 
 
-  internal List<VaultedKeep> GetKeepsByVaultId(int vaultId,string userId)
-  {
+  // internal List<VaultedKeep> GetKeepsByVaultId(int vaultId,string userId)
+  // {
 
-    Vault vault = _vaultService.GetById(vaultId,userId);
+  //   Vault vault = _vaultService.GetById(vaultId,userId);
  
-    return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
-  }
+  //   return _vaultKeepRepo.GetKeepsByVaultId(vaultId);
+  // }
 
   internal string DeleteVaultKeep(int vaultKeepId, string accountId)
   {
