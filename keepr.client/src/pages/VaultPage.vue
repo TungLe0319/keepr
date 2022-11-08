@@ -79,7 +79,14 @@
       </div>
     </div>
   </div>
-  <div>PRIVATE VAULT</div>
+  <div v-if="notOwnerAndPrivate" class="text-center mt-5">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/2913/2913133.png"
+      alt=""
+      class="img-fluid rounded-circle dotHover btn border-0"
+    />
+    <h1 class="text-center mt-5 markoOne">THIS IS A PRIVATE VAULT</h1>
+  </div>
 </template>
 
 <script>
@@ -100,12 +107,14 @@ import Pop from "../utils/Pop.js";
 export default {
   setup() {
     onMounted(() => {
-      // if (getVaultById()) {
-      //   getKeepsByVaultId();
-      // }
-      getVaultById()
+      
+      getKeepsByVaultId();
+   
+      getVaultById();
     });
     watchEffect(() => {
+      // if (AppState.user.id != AppState.activeVault?.id && AppState.activeVault?.isPrivate == true) {
+      // }
       // if (AppState.activeVault?.isPrivate) {
       //   router.push({ name: "Home" });
       //   Pop.toast("That restaurant is closed, dummy", "info");
@@ -124,8 +133,9 @@ export default {
       try {
         await vaultsService.getVaultById(route.params.id);
       } catch (error) {
-        Pop.toast("Private Vault",error);
-        // router.push({ name: "Home" });
+        Pop.toast("Private Vault");
+        logger.error(error);
+        router.push({ name: "Home" });
       }
     }
     const route = useRoute();
@@ -136,7 +146,11 @@ export default {
       keeps: computed(() => AppState.vaultedKeeps),
       account: computed(() => AppState.account),
       vault: computed(() => AppState.activeVault),
-
+      notOwnerAndPrivate: computed(
+        () =>
+          AppState.user.id != AppState.activeVault?.id &&
+          AppState.activeVault?.isPrivate == true
+      ),
       async deleteVault() {
         try {
           if (
@@ -165,6 +179,9 @@ export default {
 
       toggleEditForm() {
         AppState.vaultEditForm = true;
+      },
+      push() {
+        router.push({ name: "Home" });
       },
     };
   },

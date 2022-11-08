@@ -1,18 +1,17 @@
 <template>
   <div class="container">
     <PaginationStyle />
-    <SearchBar/>
+    <SearchBar />
     <div class="bricks my-3">
-        <TransitionGroup
-                name=""
-                enterActiveClass="animate__fadeInUp animate__animated"
-                leaveActiveClass="animate__fadeInDown animate__animated"
-              >
-       
-              <div class="my-3 keepCards" v-for="k in keeps" :key="k.id">
-                <KeepCard :keep="k" />
-              </div>
-              </TransitionGroup>
+      <TransitionGroup
+        name=""
+        enterActiveClass="animate__fadeInUp animate__animated"
+        leaveActiveClass="animate__fadeInDown animate__animated"
+      >
+        <div class="my-3 keepCards" v-for="k in keeps" :key="k.id">
+          <KeepCard :keep="k" />
+        </div>
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -33,36 +32,26 @@ import { onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { accountService } from "../services/AccountService.js";
 import SearchBar from "../components/SearchBar.vue";
 
-
 export default {
   setup() {
     onMounted(() => {
       getAllKeeps();
-      getVaultKeepIds();/*  */
+      getVaultKeepIds(); /*  */
       infiniteScroll();
     });
-onAuthLoaded(()=>{
-
-//  getAccountVaults()
-})
+    onAuthLoaded(() => {
+      //  getAccountVaults()
+    });
     async function getVaultKeepIds() {
       try {
         await vaultKeepService.getVaultKeepIds();
-   
       } catch (error) {
         Pop.error(error, "[getAllVaultKeepIds]");
       }
     }
-async function getAccountVaults(){
-  try {
-           await accountService.getAccountVaults();
-    } catch (error) {
-      Pop.error(error,'[getAccountVaults]')
-    }
-}
+
     async function getAllKeeps() {
       try {
-        // console.log(AppState.accountVaults);
         await keepsService.getAllKeeps();
       } catch (error) {
         Pop.error(error, "[getAllKeeps]");
@@ -75,17 +64,16 @@ async function getAccountVaults(){
         Pop.error(error, "[getKeepsByScroll]");
       }
     }
+
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
+          document.documentElement.scrollTop + window.innerHeight;
+        let whatEver = document.documentElement.offsetHeight;
+        if (bottomOfWindow >= (whatEver -10)) {
           if (AppState.paginationOn == false) {
-            
             getKeepsByScroll();
           }
-     
         }
       };
     }
@@ -99,9 +87,8 @@ async function getAccountVaults(){
 </script>
 
 <style scoped lang="scss">
-
-.keepCards{
-    --animate-duration: 500ms;
+.keepCards {
+  --animate-duration: 500ms;
   --animate-delay: 1s;
 }
 //when screen is 768px OR LESS

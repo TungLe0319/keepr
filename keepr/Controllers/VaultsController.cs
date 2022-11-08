@@ -46,6 +46,9 @@ public class VaultsController : ControllerBase
     {
       var userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
       Vault vault = _vaultService.GetById(vaultId,userInfo?.Id);
+
+   
+      
       return Ok(vault);
     }
     catch (Exception e)

@@ -2,7 +2,6 @@
   <div class="row justify-content-center mt-2">
     <div class="col-md-12 text-center">
       <div class="fixed-bottom justify-content-end d-flex">
-        
         <div class="btn-group dropup">
           <button
             type="button"
@@ -15,6 +14,7 @@
           <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
             <li class="d-flex justify-content-center dotHover rounded">
               <button
+                @click="togglePaginate(1)"
                 class="btn d-flex align-items-center px-0"
                 type="button"
                 data-bs-toggle="collapse"
@@ -33,6 +33,7 @@
             </li>
             <li class="d-flex justify-content-center dotHover rounded">
               <button
+                @click="togglePaginate(0)"
                 class="btn d-flex align-items-center px-0"
                 type="button"
                 data-bs-toggle="collapse"
@@ -97,17 +98,19 @@ export default {
       editable,
       async paginate(direction) {
         try {
-          let offSet = AppState.offSet
           if (direction == "left") {
-
-            await keepsService.paginate('prev');
-          } else  {
-
-            await keepsService.paginate('next');
+            await keepsService.paginate("prev");
+          } else {
+            await keepsService.paginate("next");
           }
         } catch (error) {
           Pop.error(error, "[paginate]");
         }
+      },
+      togglePaginate(style) {
+        if (style == 0) {
+          AppState.paginationOn = false;
+        } else AppState.paginationOn = true;
       },
     };
   },

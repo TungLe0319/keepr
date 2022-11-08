@@ -119,14 +119,14 @@ export default {
           }
     async function getProfileKeeps() {
       try {
-        await profilesService.getKeepsForProfiles();
+        await profilesService.getKeepsForProfiles(route.params.id);
       } catch (error) {
         Pop.error(error, "[getAccountKeeps]");
       }
     }
     async function getProfileVaults() {
       try {
-        await profilesService.getVaultsForProfiles();
+        await profilesService.getVaultsForProfiles(route.params.id);
       } catch (error) {
         Pop.error(error, "[getAccountVaults]");
       }
