@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="addToVault()" class="d-flex">
     <button
-      v-if="!vKeep "
+
       class="btn border-0 mb-2 animate__animated animate__fadeIn"
       type="button"
       data-bs-toggle="collapse"
@@ -20,7 +20,7 @@
     <button
       class="btn border-0 mb-2 animate__animated animate__fadeIn"
       @click="removeFromVault()"
-      v-if="vKeep"
+
     >
       <i
         class="mdi mdi-playlist-remove fs-3 text-purple dotHover p-1 selectable rounded"
@@ -31,7 +31,7 @@
   <div
     class="collapse position-absolute end-100 bottom-50 rounded bShadow3"
     id="testMenu"
-    v-if="!vKeep"
+
   >
     <h6
       class="mb-0 p-2 text-center bg-warning bShadow2 rounded-top no-select markoOne"
@@ -146,7 +146,7 @@ export default {
 
 <style lang="scss" scoped>
 .scrollY {
-  height: 58.5vh;
+  height: 50.5vh;
   overflow-y: auto;
 }
 ::-webkit-scrollbar {

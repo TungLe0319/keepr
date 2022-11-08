@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <Navbar class="d-md-flex" />
+  <header class="p-3 ">
+    <Navbar class="d-none d-md-flex" />
     
   </header>
   <main class="">
@@ -8,10 +8,10 @@
     <router-view />
   </main>
  
-<footer class="p-2 bg-warning d-flex d-md-none">
-       <Navbar class="" />
 
-</footer>
+       <Navbar class="p-0 m-0 fixed-bottom d-flex d-md-none justify-content-end" />
+
+
   <ModalComponent id="activeKeep">
 <ActiveKeepCard :keep="keep" v-if="keep" />
   </ModalComponent>

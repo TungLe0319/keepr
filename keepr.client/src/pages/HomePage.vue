@@ -45,7 +45,7 @@ export default {
         Pop.error(error, "[getAllKeeps]");
       }
     }
-       async function getKeepsByScroll() {
+    async function getKeepsByScroll() {
       try {
         await keepsService.getKeepsByScroll();
       } catch (error) {
@@ -56,8 +56,9 @@ export default {
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight=== document.documentElement.offsetHeight;
-        if (bottomOfWindow ) {
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
           if (AppState.paginationOn == false) {
             getKeepsByScroll();
           }
@@ -67,6 +68,7 @@ export default {
 
     return {
       keeps: computed(() => AppState.keeps),
+      // .sort(() => Math.random() - 0.5)
     };
   },
   components: { KeepCard, PaginationStyle, PopperTip, SearchBar },

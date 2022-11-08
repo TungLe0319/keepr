@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-if="vault">
+  <div class="container animate__animated animate__fadeIn" v-if="vault">
     <div class="row">
       <div class="col-md-12 text-center mt-2">
         <div class="card border-0">
@@ -34,7 +34,7 @@
         <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-3">
           <div class="d-flex align-items-center me-2"> 
 
-<img :src="vault?.creator?.picture" alt="" width="40" height="40" class="rounded-circle dotHover" :title="vault?.creator?.name" >
+<img :src="vault?.creator?.picture" alt="" width="40" height="40" class="rounded-circle dotHover no-select" :title="vault?.creator?.name" >
 
           </div>
           <div class="d-flex align-items-center">
@@ -76,13 +76,13 @@
             <h1>{{ keeps?.length }}</h1>
           </span>
           <span>
-            <h1 class="monoton text-dark">keeps</h1>
+            <h1 class="monoton text-dark ">keeps</h1>
           </span>
         </div>
       </div>
     </div>
 
-    <div class="bricks">
+    <div class="bricks mt-3">
       <div class="my-3" v-for="k in keeps" :key="k.id">
         <KeepCard :keep="k" />
       </div>
@@ -205,6 +205,11 @@ export default {
 </script>
 
 <style scoped>
+
+.container{
+    --animate-duration: 500ms;
+  --animate-delay: 1s;
+}
 .lgText {
   font-size: 80px !important;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);

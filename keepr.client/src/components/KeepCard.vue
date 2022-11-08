@@ -42,6 +42,7 @@
 
 <script>
 import { computed } from "@vue/reactivity";
+import { Modal } from "bootstrap";
 import { onMounted, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
@@ -68,6 +69,7 @@ export default {
       async setActive() {
         try {
           await keepsService.setActive(props.keep);
+          Modal.getOrCreateInstance('#activeKeep').show
         } catch (error) {
           Pop.error(error, "[setActive]");
         }
@@ -87,6 +89,9 @@ export default {
 .card {
   transition: all 0.5s ease;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  .cardName{
+     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.766);
+  }
 }
 
 .cardImg {

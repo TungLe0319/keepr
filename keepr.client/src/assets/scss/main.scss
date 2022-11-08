@@ -13,6 +13,10 @@ body {
   
 }
 
+.swal2-modal{
+
+}
+
 #app {
   display: flex;
   flex-direction: column;
@@ -152,6 +156,9 @@ form:invalid button[type="submit"] {
 }
 .text-Shadow {
   text-shadow: #474747 3px 5px 2px;
+}
+.txt-Shadow{
+       text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.766);
 }
 .text-Shadow2 {
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);

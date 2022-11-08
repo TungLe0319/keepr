@@ -81,7 +81,7 @@ box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   font-size: xx-large;
   font-family: monospace;
 
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.766);
   
 }
 </style>

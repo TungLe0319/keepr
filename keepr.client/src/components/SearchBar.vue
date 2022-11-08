@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-end align-items-center mt-2">
+  <div class="d-flex justify-content-end align-items-center mt-2 sticky-top">
     <div class="collapse" id="collapseSearchBar">
       <div class="card bg-dark" style="width: 300px">
         <form @keyup="searchByName()" class="">

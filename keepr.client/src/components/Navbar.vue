@@ -6,7 +6,7 @@
       </button>
     </router-link>
     <button
-      class="navbar-toggler border-0 dotHover my-3"
+      class="navbar-toggler border-0 dotHover my-3 "
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarText"
@@ -14,15 +14,7 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span>
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/6015/6015685.png"
-          alt="navbar icon"
-          width="30"
-          height="30"
-          class="test"
-        />
-      </span>
+         <span class="navbar-toggler-icon"></span>
     </button>
     <div
       class="collapse navbar-collapse justify-content-between"
@@ -39,20 +31,13 @@
         </button>
         <ToggleTheme />
         <i
+        v-if="route.name == 'Home'"
           class="mdi mdi-magnify fs-1 dotHover text-dark mx-1 px-1 rounded"
           id="button-addon2"
           data-bs-toggle="collapse"
           data-bs-target="#collapseSearchBar"
           title="Search"
         ></i>
-   <img
-        src="../assets/img/Keepr logo.png"
-        alt="keepr Logo"
-        width="60"
-        height="60"
-        class="d-md-none"
-        title="keepr Logo"
-      />
       <Login class="d-md-none "/>
 
       </div>
@@ -113,12 +98,15 @@
 </template>
 
 <script>
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import Login from "./Login.vue";
 import ToggleTheme from "./ToggleTheme.vue";
 export default {
   setup() {
+    const route = useRoute()
     return {
+      route,
       toggleCreateForm() {
         // AppState.activeKeep = {}
         AppState.keepEditForm = false;

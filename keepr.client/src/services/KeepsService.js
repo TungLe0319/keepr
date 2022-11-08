@@ -6,9 +6,9 @@ import { api } from "./AxiosService.js";
 
 class KeepsService {
   async setActive(keep) {
-    AppState.activeKeep = keep
-    let id = keep.id
-  await api.get(`api/keeps/${id}`);
+    AppState.activeKeep = keep;
+    let id = keep.id;
+    await api.get(`api/keeps/${id}`);
     // AppState.activeKeep = res.data
     // console.log(res.data);
     // console.log(AppState.activeKeep);
@@ -67,10 +67,12 @@ class KeepsService {
   }
   async editKeep(keepData) {
     // console.log(keepData);
+    
     const res = await api.put(`api/keeps/${keepData.id}`, keepData);
     // console.log(res.data);
     let updated = new Keep(res.data);
     AppState.activeKeep = updated;
+    Modal.getOrCreateInstance('#activeKeep').show()
     let index = AppState.keeps.findIndex((k) => {
       k.id == keepData.id;
     });
@@ -86,7 +88,6 @@ class KeepsService {
 
   async paginate(direction) {
     let offSet = AppState.offSet;
- 
 
     const res = await api.get("api/keeps", {
       params: {
@@ -96,10 +97,9 @@ class KeepsService {
     // console.log("[keeps]", res.data);
     let newKeeps = res.data.map((k) => new Keep(k));
     if (direction == "prev") {
-      AppState.offSet -= newKeeps.length
+      AppState.offSet -= newKeeps.length;
       AppState.keeps = newKeeps;
-    } else
-    AppState.offSet += newKeeps.length;
+    } else AppState.offSet += newKeeps.length;
     AppState.keeps = newKeeps;
     // console.log(AppState.keeps);
     // console.log(AppState.offSet);

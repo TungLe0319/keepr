@@ -7,17 +7,17 @@
 <div class="row">
   <div class="col-md-6">
         <form @submit.prevent="editForm==true? handleEdit(): handleSubmit()" class="">
-      <div class="mt-3 inputBox">
+      <div class="mt-3 inputBox ">
         <label for="name">Name</label>
-        <input type="text" required name="name" v-model="editable.name" />
+        <input type="text" required name="name" class="text-dark rounded mt-2" v-model="editable.name" />
       </div>
       <div class="mt-3 inputBox">
         <label for="img">Image</label>
-        <input type="url" required name="img" v-model="editable.img" />
+        <input type="url" required name="img" class="text-dark rounded mt-2" v-model="editable.img" />
       </div>
       <div class="mt-3 ">
         <label for="description">Description</label>
-        <div class="form-floating">
+        <div class="form-floating mt-2">
   <textarea    v-model="editable.description" class="form-control " placeholder="describe your vault" style="height: 100px"></textarea>
 
 </div>
@@ -25,7 +25,7 @@
       </div>
       <div class="my-3">
         <button
-          class="btn p-2 dotHover"
+          class="btn p-2 dotHover text-light bg-dark"
           type="submit"
           data-bs-dismiss="modal"
 
@@ -99,7 +99,7 @@ editForm : computed(() => AppState.keepEditForm ),
 try {
   editable.value.id = AppState.activeKeep.id
     await keepsService.editKeep(editable.value)
-    
+    Pop.success(`${AppState.activeKeep.name} edited`)
   } catch (error) {
     Pop.error(error,'[editKeep]')
   }1

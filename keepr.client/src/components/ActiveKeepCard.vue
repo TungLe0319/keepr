@@ -7,7 +7,7 @@
           :src="keep?.img"
           alt=""
           title="keep"
-          class="rounded img-fluid h-100 image"
+          class="rounded img-fluid h-100 image "
         />
       </div>
       <div class="col-md-6 d-flex flex-column justify-content-between">
@@ -15,13 +15,13 @@
           <div class="me-3">
             <ShareCard />
           </div>
-          <div class="d-flex">
-           <i class="mdi mdi-eye fs-2"></i>
-            <h5 class="ms-2 animate__animated animate__fadeInDown">
+          <div class="d-flex" title="View count for this keep">
+           <i class="mdi mdi-eye fs-2 "></i>
+            <h5 class="ms-2  align-items-center d-flex animate__animated animate__fadeInDown">
               {{ keep?.views }}
             </h5>
           </div>
-          <div class="ms-4 d-flex">
+          <div class="ms-4 d-flex" title="Count of vaults this keep is apart of">
             <img
             v-if="!account?.theme"
               src="https://cdn-icons-png.flaticon.com/512/3564/3564077.png"
@@ -37,7 +37,7 @@
           <!-- Add to vault -->
           <div class="btn-group dropend bg-transparent" v-if="creator">
             <i
-              class="mdi mdi-dots-horizontal ms-3 fs-2"
+              class="mdi mdi-dots-horizontal ms-3 fs-2 dotHover rounded px-1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
@@ -83,13 +83,13 @@
 
             <div class="dropdown">
               <button
-                class="btn p-0"
+                class="btn p-0 dotHover me-1 rounded border-0"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 <span
-                  class="m-2 d-flex align-items-center animate__animated animate__fadeInRight"
+                  class="m-2 d-flex align-items-center animate__animated animate__fadeInRight "
                 >
                   <img
                     :src="keep?.creator?.picture"
@@ -104,13 +104,13 @@
               <ul class="dropdown-menu p-0 bg-info border-0 bShadow">
                 <li
                   data-bs-dismiss="modal"
-                  class="-rounded bg-info text-center selectable p-0 border-0"
+                  class="-rounded bg-info text-center selectable p-0 border-0 dotHover rounded"
                   @click="pushToProfile()"
                 >
                   <h4 class="bg-info" v-if="keep?.creator?.id != account?.id">
                     Visit Profile
                   </h4>
-                  <h4 class="bg-info rounded mt-1" v-else>Go to Account</h4>
+                  <h5 class="bg-info rounded mb-0 p-1" v-else>Go to Account</h5>
                 </li>
               </ul>
             </div>
@@ -172,7 +172,7 @@ export default {
       toggleEditForm() {
       
         AppState.keepEditForm = true;
-        console.log(AppState.keepEditForm);
+        // console.log(AppState.keepEditForm);
       },
       pushToProfile() {
         Modal.getOrCreateInstance("#activeKeep").hide();

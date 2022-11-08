@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container animate__animated animate__fadeIn">
     <div class="row">
       <div class="col-md-12 text-center mt-2 position-relative">
         <div class="card border-0 animate__animated animate__fadeIn">
@@ -151,6 +151,10 @@ export default {
 </script>
 
 <style scoped>
+.container{
+    --animate-duration: 500ms;
+  --animate-delay: 1s;
+}
 .coverImg {
   height: 300px;
 
