@@ -30,7 +30,7 @@ export const AppState = reactive({
 
   /** @type {import('./models/VaultedKeep.js').VaultedKeep[]} */
   vaultedKeeps: [],
-  offSet: 12,
+  offSet: 24,
   vaultEditForm: false,
   keepEditForm: false,
   paginationOn: false,

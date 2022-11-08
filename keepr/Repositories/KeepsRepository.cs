@@ -92,7 +92,7 @@ public class KeepsRepository : BaseRepo
            LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.id
            GROUP BY k.id
            ORDER BY k.createdAt ASC
-           LIMIT 12
+           LIMIT 24
            OFFSET @offSet
                 ; ";
      return _db.Query<Keep, Profile,Keep >(sql, (keep, profile) =>

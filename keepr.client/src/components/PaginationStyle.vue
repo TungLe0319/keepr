@@ -59,7 +59,7 @@
         <nav aria-label="Page navigation example">
           <ul class="pagination d-flex justify-content-center">
             <li class="page-item">
-              <button class="btn page-link text-dark" @click="paginate('left')">
+              <button :disabled="offSet <=0" class="btn page-link text-dark" @click="paginate('left')">
                 <i class="mdi mdi-arrow-left-box fs-2"></i>
               </button>
             </li>
@@ -91,16 +91,38 @@ export default {
   setup(props) {
     const editable = ref({});
 
-    onMounted(() => {});
+    onMounted(() => {
+      infiniteScroll();
+    });
     watchEffect(() => {});
+    async function getKeepsByScroll() {
+      try {
+        await keepsService.getKeepsByScroll();
+      } catch (error) {
+        Pop.error(error, "[getKeepsByScroll]");
+      }
+    }
 
+    function infiniteScroll() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight=== document.documentElement.offsetHeight;
+        if (bottomOfWindow ) {
+          if (AppState.paginationOn == false) {
+            getKeepsByScroll();
+          }
+        }
+      };
+    }
     return {
       editable,
+     offSet : computed(() => AppState.offSet),
       async paginate(direction) {
         try {
           if (direction == "left") {
             await keepsService.paginate("prev");
           } else {
+
             await keepsService.paginate("next");
           }
         } catch (error) {

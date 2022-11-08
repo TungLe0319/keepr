@@ -45,6 +45,7 @@ class KeepsService {
 
   async getKeepsByScroll() {
     let offSet = AppState.offSet;
+    // AppState.keeps = []
     const res = await api.get("api/keeps", {
       params: {
         offSet: offSet,
@@ -93,16 +94,19 @@ class KeepsService {
 
   async paginate(direction) {
     let offSet = AppState.offSet;
+ 
 
     const res = await api.get("api/keeps", {
       params: {
         offSet: offSet,
       },
     });
-    console.log("[keeps]", res.data);
+    // console.log("[keeps]", res.data);
     let newKeeps = res.data.map((k) => new Keep(k));
-    if (direction == " prev") {
-    }
+    if (direction == "prev") {
+      AppState.offSet -= newKeeps.length
+      AppState.keeps = newKeeps;
+    } else
     AppState.offSet += newKeeps.length;
     AppState.keeps = newKeeps;
     // console.log(AppState.keeps);

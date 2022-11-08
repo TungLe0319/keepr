@@ -5,8 +5,8 @@
     <div class="bricks my-3">
       <TransitionGroup
         name=""
-        enterActiveClass="animate__fadeInUp animate__animated"
-        leaveActiveClass="animate__fadeInDown animate__animated"
+        enterActiveClass="animate__fadeIn animate__animated"
+        leaveActiveClass="animate__fadeOut animate__animated"
       >
         <div class="my-3 keepCards" v-for="k in keeps" :key="k.id">
           <KeepCard :keep="k" />
@@ -37,10 +37,7 @@ export default {
     onMounted(() => {
       getAllKeeps();
       getVaultKeepIds(); /*  */
-      infiniteScroll();
-    });
-    onAuthLoaded(() => {
-      //  getAccountVaults()
+      // infiniteScroll();
     });
     async function getVaultKeepIds() {
       try {
@@ -56,26 +53,6 @@ export default {
       } catch (error) {
         Pop.error(error, "[getAllKeeps]");
       }
-    }
-    async function getKeepsByScroll() {
-      try {
-        await keepsService.getKeepsByScroll();
-      } catch (error) {
-        Pop.error(error, "[getKeepsByScroll]");
-      }
-    }
-
-    function infiniteScroll() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight;
-        let whatEver = document.documentElement.offsetHeight;
-        if (bottomOfWindow >= (whatEver -10)) {
-          if (AppState.paginationOn == false) {
-            getKeepsByScroll();
-          }
-        }
-      };
     }
 
     return {
