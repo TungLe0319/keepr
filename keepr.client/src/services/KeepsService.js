@@ -1,42 +1,34 @@
 import { Modal } from "bootstrap";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
 import { api } from "./AxiosService.js";
 
 class KeepsService {
   async setActive(keep) {
-    AppState.activeKeep = keep;
-    let id = AppState.activeKeep.id;
-    await api.get(`api/keeps/${id}`);
+    AppState.activeKeep = keep
+    let id = keep.id
+  await api.get(`api/keeps/${id}`);
+    // AppState.activeKeep = res.data
+    // console.log(res.data);
+    // console.log(AppState.activeKeep);
     let account = AppState.account;
     if (AppState.activeKeep.creator.id != account.id) {
       AppState.activeKeep.views++;
     }
   }
-  // async getById(id) {
-  //   const res = await api.get(`api/keeps/${id}`);
-  //   AppState.activeKeep = new Keep(res.data);
-  // }
   async getAllKeeps() {
     const res = await api.get("api/keeps");
     // console.log("[keeps]", res.data);
     // let keeps = res.data.map((k) => new Keep(k));
     // AppState.offSet += keeps.length
     AppState.keeps = res.data.map((k) => new Keep(k));
-    console.log(AppState.offSet);
+    // console.log(AppState.offSet);
   }
   async getKeepsByQuery(query) {
     const res = await api.get("api/keeps");
-    // console.log("[keeps]", res.data);
-    // let keeps = res.data.map((k) => new Keep(k));
-    // AppState.offSet += keeps.length
-    // events: computed(() => AppState.events.filter(a => a.name.toUpperCase().includes(editable.value.toUpperCase()))),
-    console.log(query);
+    // console.log(query);
     AppState.keeps = res.data.map((k) => new Keep(k));
-    // AppState.keeps.filter((k) =>
-    //   k.name.toLowerCase().includes(query).toLowerCase()
-    // );
-
     AppState.keeps = AppState.keeps.filter((k) =>
       k.name.toUpperCase().includes(query.toUpperCase())
     );
@@ -51,12 +43,12 @@ class KeepsService {
         offSet: offSet,
       },
     });
-    console.log("[keeps]", res.data);
+    // console.log("[keeps]", res.data);
     let keeps = res.data.map((k) => new Keep(k));
     AppState.offSet += keeps.length;
     AppState.keeps = [...AppState.keeps, ...keeps];
     // console.log(AppState.keeps);
-    console.log(AppState.offSet);
+    // console.log(AppState.offSet);
   }
   async createKeep(keepData) {
     const res = await api.post("api/keeps", keepData);
@@ -74,9 +66,9 @@ class KeepsService {
     AppState.accountKeeps = AppState.accountKeeps.filter((a) => a.id != keepId);
   }
   async editKeep(keepData) {
-    console.log(keepData);
+    // console.log(keepData);
     const res = await api.put(`api/keeps/${keepData.id}`, keepData);
-    console.log(res.data);
+    // console.log(res.data);
     let updated = new Keep(res.data);
     AppState.activeKeep = updated;
     let index = AppState.keeps.findIndex((k) => {
@@ -110,7 +102,7 @@ class KeepsService {
     AppState.offSet += newKeeps.length;
     AppState.keeps = newKeeps;
     // console.log(AppState.keeps);
-    console.log(AppState.offSet);
+    // console.log(AppState.offSet);
   }
 }
 export const keepsService = new KeepsService();

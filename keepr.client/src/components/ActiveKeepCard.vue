@@ -1,151 +1,124 @@
 <template>
-
-
-    <div class="modal-body p-0 bg-warning" v-if="keep">
-      <div class="vaulted markoOne" v-if="vaulted">
-        <div class="d-flex align-items-center">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/2489/2489398.png"
-            alt=""
-            width="100"
-            height="100"
-            class=""
-          />
-        </div>
+  <div class="modal-body p-0 bg-warning" v-if="keep">
+    <div class="row">
+      <!--  :style="{backgroundImage:   `url(${keep?.img})`}" -->
+      <div class="col-md-6 animate__animated animate__fadeIn">
+        <img
+          :src="keep?.img"
+          alt=""
+          title="keep"
+          class="rounded img-fluid h-100 image"
+        />
       </div>
-  
-  
-   
-      <div class="row">
-     <!--  :style="{backgroundImage:   `url(${keep?.img})`}" -->
-        <div class="col-md-6  animate__animated animate__fadeIn"
-        >
-          <img
-            :src="keep.img"
-            alt=""
-            title="keep"
-            class="rounded img-fluid h-100 image"
-          />
-        </div>
-        <div class="col-md-6 d-flex flex-column justify-content-between ">
-          <div
-            class="d-flex justify-content-center mt-2 align-items-center animate__animated animate__fadeInDown"
-          >
+      <div class="col-md-6 d-flex flex-column justify-content-between">
+        <div class="d-flex justify-content-center mt-2 align-items-center">
           <div class="me-3">
-          <ShareCard/>
+            <ShareCard />
           </div>
-            <div class="d-flex">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/58/58976.png"
-                alt=""
-                width="30"
-                height="30"
-              />
-              <h5 class="ms-2">
-                {{ keep.views }}
-              </h5>
+          <div class="d-flex">
+           <i class="mdi mdi-eye fs-2"></i>
+            <h5 class="ms-2 animate__animated animate__fadeInDown">
+              {{ keep?.views }}
+            </h5>
+          </div>
+          <div class="ms-4 d-flex">
+            <img
+            v-if="!account?.theme"
+              src="https://cdn-icons-png.flaticon.com/512/3564/3564077.png"
+              alt=""
+              width="30"
+              height="30"
+            />
+            <i v-else class="mdi mdi-alpha-k fs-1"></i>
+            <h5 class="ms-1 animate__animated animate__fadeInDown">
+              {{ keep?.kept }}
+            </h5>
+          </div>
+          <!-- Add to vault -->
+          <div class="btn-group dropend bg-transparent" v-if="creator">
+            <i
+              class="mdi mdi-dots-horizontal ms-3 fs-2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            ></i>
+            <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
+              <li class="dotHover rounded p-1">
+                <a
+                  class="dropdown-item rounded bg-info"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createForm"
+                  @click="toggleEditForm()"
+                  >Edit</a
+                >
+              </li>
+              <li class="dotHover rounded p-1">
+                <a class="dropdown-item rounded bg-info" @click="deleteKeep()"
+                  >Delete</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- ------------- -->
+        </div>
+
+        <div>
+          <div
+            class="px-5 justify-content-center d-flex flex-column animate__animated animate__fadeIn"
+          >
+            <h2 class="text-center my-4 md-my-2 markoOne keepName">
+              {{ keep?.name }}
+            </h2>
+            <p>
+              {{ keep?.description }}
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex animate__animated animate__fadeInLeft">
+              <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
+              <AddToVault />
+              <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
             </div>
-            <div class="ms-4 d-flex">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3564/3564077.png"
-                alt=""
-                width="30"
-                height="30"
-              />
-              <h5 class="ms-1">
-                {{ keep.kept }}
-              </h5>
-            </div>
-            <!-- Add to vault -->
-            <div class="btn-group dropend bg-transparent" v-if="creator">
-              <i
-                class="mdi mdi-dots-horizontal ms-3 fs-2"
+
+            <div class="dropdown">
+              <button
+                class="btn p-0"
+                type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-              ></i>
-              <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
-                <li class="dotHover rounded">
-                  <a
-                    class="dropdown-item rounded bg-info"
-                    data-bs-toggle="modal"
-                    data-bs-target="#createForm"
-                    @click="toggleEditForm()"
-                    >Edit</a
-                  >
-                </li>
-                <li class="dotHover rounded">
-                  <a class="dropdown-item rounded bg-info" @click="deleteKeep()"
-                    >Delete</a
-                  >
+              >
+                <span
+                  class="m-2 d-flex align-items-center animate__animated animate__fadeInRight"
+                >
+                  <img
+                    :src="keep?.creator?.picture"
+                    :alt="keep?.creator?.name"
+                    class="pImg"
+                  />
+                  <h5 class="ms-2 d-flex align-items-center text-dark">
+                    {{ keep?.creator?.name.split("@")[0] }}
+                  </h5>
+                </span>
+              </button>
+              <ul class="dropdown-menu p-0 bg-info border-0 bShadow">
+                <li
+                  data-bs-dismiss="modal"
+                  class="-rounded bg-info text-center selectable p-0 border-0"
+                  @click="pushToProfile()"
+                >
+                  <h4 class="bg-info" v-if="keep?.creator?.id != account?.id">
+                    Visit Profile
+                  </h4>
+                  <h4 class="bg-info rounded mt-1" v-else>Go to Account</h4>
                 </li>
               </ul>
-            </div>
-            <!-- ------------- -->
-          </div>
-  
-          <div>
-            <div
-              class="px-5 justify-content-center d-flex flex-column animate__animated animate__fadeIn"
-            >
-              <h2 class="text-center my-4  md-my-2 markoOne keepName ">{{ keep.name }} </h2>
-              <p>
-                {{ keep.description }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="d-flex justify-content-between">
-              <div class="d-flex animate__animated animate__fadeInLeft">
-                <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
-                <AddToVault />
-                <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
-              </div>
-
-
-
-
-
-
-
-              
-              <div class="dropdown">
-                <button
-                  class="btn p-0"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span
-                    class="m-2 d-flex align-items-center animate__animated animate__fadeInRight"
-                  >
-                    <img
-                      :src="keep.creator.picture"
-                      :alt="keep.creator.name"
-                      class="pImg"
-                     
-                    />
-                    <h5 class="ms-2 d-flex align-items-center text-dark">
-                      {{ keep.creator.name.split("@")[0] }}
-                    </h5>
-                  </span>
-                </button>
-                <ul class="dropdown-menu p-0 bg-info border-0 bShadow ">
-                  <li
-                   data-bs-dismiss="modal"
-                    class="rounded bg-info text-center selectable p-0 border-0"
-                    @click="pushToProfile()"
-                  >
-                   <h4 class="bg-info">Visit Profile</h4>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
- 
-
+  </div>
 </template>
 
 <script>
@@ -160,19 +133,12 @@ import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import AccountVaultList from "./AccountVaultList.vue";
 import AddToVault from "./AddToVault.vue";
-import ShareCard from "./ShareCard.vue"
+import ShareCard from "./ShareCard.vue";
 export default {
   props: {
     keep: { type: Keep, required: true },
   },
   setup(props) {
-    async function getById() {
-      try {
-        await keepsService.getById(props.keep.id);
-      } catch (error) {
-        Pop.error(error, "[]");
-      }
-    }
     onMounted(() => {});
     watchEffect(() => {});
     const editable = ref({});
@@ -180,22 +146,22 @@ export default {
     return {
       editable,
       router,
-     
+
       saved: computed(() =>
-        AppState.vKeepIds.find((v) => v.creatorId == AppState.account.id)
+        AppState.vKeepIds.find((v) => v.creatorId == AppState.account?.id)
       ),
       vaulted: computed(() =>
-        AppState.vKeepIds.find((v) => v.keepId == AppState.activeKeep.id)
+        AppState.vKeepIds.find((v) => v.keepId == AppState.activeKeep?.id)
       ),
       account: computed(() => AppState.account),
       creator: computed(
-        () => AppState.account.id == AppState.activeKeep.creator.id
+        () => AppState.account?.id == AppState.activeKeep.creator?.id
       ),
       user: computed(() => AppState.user),
       async deleteKeep() {
         try {
           if (await Pop.confirm()) {
-            await keepsService.deleteKeep(props.keep.id);
+            await keepsService.deleteKeep(props.keep?.id);
             Modal.getOrCreateInstance("#activeKeep").hide();
             Pop.success(`${props.keep.name} deleted`);
           }
@@ -204,16 +170,21 @@ export default {
         }
       },
       toggleEditForm() {
+      
         AppState.keepEditForm = true;
         console.log(AppState.keepEditForm);
       },
       pushToProfile() {
         Modal.getOrCreateInstance("#activeKeep").hide();
-        // if (AppState.activeKeep.creator) {
-          
-        //   router.push({ name:"Account"});
-        // } else
-        router.push({ name: "Profile", params: { id: props.keep.creator.id } });
+        if (this.creator) {
+          router.push({ name: "Account" });
+          document.documentElement.scrollTop = 0;
+        } else
+          router.push({
+            name: "Profile",
+            params: { id: props.keep?.creator?.id },
+          });
+        document.documentElement.scrollTop = 0;
       },
     };
   },
@@ -222,30 +193,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-body{
+.modal-body {
   --animate-duration: 500ms;
   --animate-delay: 1s;
 }
-.activeImg{
+.activeImg {
   width: 50px;
 }
- .pictureCol  {
-      height: 600px;
-      background-position: center;
-      background-size: cover;
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-  
-  }
+.pictureCol {
+  height: 600px;
+  background-position: center;
+  background-size: cover;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
 
-.collapse{
+.collapse {
   height: 800px;
 }
 .image {
   object-fit: cover;
 }
 .test {
-
 }
 .block {
   width: 100%;
@@ -266,15 +235,20 @@ export default {
   transition: all 0.5s ease;
 }
 
-@media only screen and (max-width: 68px) {
-  .keepName{
+@media only screen and (max-width: 768px) {
+  .keepName {
     margin-top: 10px;
   }
-  .pictureCol{
-   
+  .pictureCol {
   }
-  .image{
-  border-radius: 4px !important;
+  .image {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+   height: 300px !important;
+   width: 400px !important;
+   object-fit: cover;
   }
 }
 </style>

@@ -38,10 +38,10 @@
       <div
         class="col-md-12 d-flex flex-column justify-content-center align-items-center"
       >
-        <div class="col-md-12 justify-content-end d-flex mt-3  px-5">
+        <div class="col-md-12 justify-content-end d-flex mt-3  px-3">
           <div class="btn-group dropstart">
             <i
-              class="mdi mdi-dots-horizontal ms-3 fs-1 selectable text-dark"
+              class="mdi mdi-dots-horizontal ms-3 fs-1 px-1 dotHover rounded selectable text-dark"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
@@ -62,11 +62,11 @@
           </div>
         </div>
 
-        <h3 class="markoOne text-dark">{{ account.email }}</h3>
+        <h3 class="markoOne text-dark">{{ account.name }}</h3>
         <div class="text-center d-flex align-items-center no-select text-dark">
           <span class="bShadow rounded p-1">{{ vaults.length }} Vaults</span>
    
-          <h1 class="mx-2 rounded-5 no-select bShadow2 ">|</h1>
+          <h1 class="mx-2 rounded-5 no-select ">|</h1>
           <span  class="bShadow rounded p-1">{{ keeps.length }} Keeps</span>
         </div>
       </div>
@@ -140,6 +140,7 @@ export default {
       account: computed(() => AppState.account),
       vaults: computed(() => AppState.accountVaults),
       toggleCreateForm() {
+        AppState.activeVault = {}
         AppState.vaultEditForm = false;
         console.log(AppState.vaultEditForm);
       },

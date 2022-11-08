@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn dotHover p-0 px-2 position-relative"
+    class="btn dotHover p-0 px-2 position-relative text-dark"
     type="button"
     data-bs-toggle="collapse"
     data-bs-target="#collapseShare"
@@ -11,11 +11,11 @@
   </button>
 
   <div
-    class="collapse position-absolute end-50 bottom-100 z-index-top"
+    class="collapse  end-50 bottom-100 z-index-top"
     id="collapseShare"
   >
-    <div class="card card-body">
-      <div class="d-flex p-2">
+    <div class="card card-body bg-warning p-0 px-1 border-0 mt-2">
+      <!-- <div class="d-flex p-2">
         <img
           class="dotHover rounded-circle"
           src="https://cdn-icons-png.flaticon.com/512/1377/1377257.png"
@@ -49,18 +49,18 @@
           width="40"
           title="share through email"
         />
-      </div>
-      <div class="border-bottom border-3 border-dark"></div>
+      </div> -->
+      <!-- <div class="border-bottom border-3 border-dark"></div> -->
       <div class="d-flex p-2">
-        <img
-          class="dotHover rounded-circle"
-          src="https://cdn-icons-png.flaticon.com/512/3541/3541854.png"
+        <i
+          class="dotHover rounded   mdi mdi-link-variant fs-1 text-dark"
+      
           alt="link icon"
           height="40"
           width="40"
           title="copy link"
           @click="copyLink()"
-        />
+        ></i>
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@ export default {
       copyLink() {
         AppState.activeKeep.img;
         navigator.clipboard.writeText(AppState.activeKeep.img);
-
+Pop.toast('Image copied to clipboard','success','top-end',1000)
         // Pop.toast(`${AppState.activeKeep.img}`)
       },
     };
@@ -94,4 +94,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+//when screen is 768px OR LESS
+@media only screen and (max-width: 768px){
+
+}
+</style>

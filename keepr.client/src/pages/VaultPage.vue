@@ -19,30 +19,39 @@
             class="card-img-overlay d-flex justify-content-center align-items-end"
           >
             <div class="text-center markoOne">
-              <h1 class="lgText">{{ vault?.name }}</h1>
+              <h1 class="lgText text-constantLight no-select" title="Vault name">{{ vault?.name }}</h1>
             </div>
+             <span v-if="vault?.isPrivate">
+          <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight ms-4 lgText" title="Currently in one of your private vaults"></i>
+  
+        </span>
           </div>
         </div>
       </div>
       <div
         class="col-md-12 d-flex flex-column justify-content-center align-items-center"
       >
-        <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-5">
+        <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-3">
+          <div class="d-flex align-items-center me-2"> 
+
+<img :src="vault?.creator?.picture" alt="" width="40" height="40" class="rounded-circle dotHover" :title="vault?.creator?.name" >
+
+          </div>
           <div class="d-flex align-items-center">
-            <router-link v-if="account" :to="{ name: 'Account' }">
-              <i class="mdi mdi-rewind fs-1 text-dark"></i>
-            </router-link>
-            <router-link v-else :to="{ name: 'Home' }">
-              <i class="mdi mdi-rewind fs-1 text-dark"></i>
-            </router-link>
+        
+         
+              <i title="back to previous page" class="mdi mdi-rewind fs-1 text-dark dotHover btn p-0 px-1 border-0" @click="$router?.go(-1)"></i>
+        
           </div>
           <div class="btn-group dropstart">
             <i
-              v-if="vault?.creator"
-              class="mdi mdi-dots-horizontal ms-3 fs-1 action text-dark"
+              v-if="owner"
+              class="mdi mdi-dots-horizontal ms-3 fs-1 action text-dark rounded px-1 dotHover"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              title="Vault options"
             ></i>
+       
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
               <li
                 class="dotHover rounded p-2 text-center"
@@ -63,11 +72,11 @@
         </div>
 
         <div class="d-flex">
-          <span class="monoton">
+          <span class="monoton text-dark">
             <h1>{{ keeps?.length }}</h1>
           </span>
           <span>
-            <h1 class="monoton">keeps</h1>
+            <h1 class="monoton text-dark">keeps</h1>
           </span>
         </div>
       </div>
@@ -79,7 +88,7 @@
       </div>
     </div>
   </div>
-  <div v-if="notOwnerAndPrivate" class="text-center mt-5">
+  <div v-if="!owner && private" class="text-center mt-5">
     <img
       src="https://cdn-icons-png.flaticon.com/512/2913/2913133.png"
       alt=""
@@ -92,6 +101,7 @@
 <script>
 import { authSettled, onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { propsToAttrMap } from "@vue/shared";
+
 import { computed, onMounted, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
@@ -108,34 +118,36 @@ export default {
   setup() {
     onMounted(() => {
       
+      getVaultById();
       getKeepsByVaultId();
    
-      getVaultById();
     });
-    watchEffect(() => {
-      // if (AppState.user.id != AppState.activeVault?.id && AppState.activeVault?.isPrivate == true) {
-      // }
-      // if (AppState.activeVault?.isPrivate) {
-      //   router.push({ name: "Home" });
-      //   Pop.toast("That restaurant is closed, dummy", "info");
-      //   AppState.activeVault = null;
-      // }
-    });
+    onAuthLoaded(()=>{
+      
+      // getVaultById();
+      // getKeepsByVaultId();
+    })
     async function getKeepsByVaultId() {
       try {
+        
         await vaultsService.getKeepsByVaultId(route.params.id);
       } catch (error) {
         // router.push({ name: "Home" });
-        Pop.error(error, "[getKeepsByVaultId]");
+        // Pop.error(error, "[getKeepsByVaultId]");
+         Pop.toast(`<img src="https://media.tenor.com/j1U9chTe2_0AAAAi/nope-finger-wag.gif" height="80" width="80" > this is Private`);
+         logger.error(error)
+        router.go(-1)
       }
     }
     async function getVaultById() {
       try {
         await vaultsService.getVaultById(route.params.id);
+        console.log("[creatorId]",AppState.activeVault.creator.id);
+        console.log("[userId]",AppState.user.id);
       } catch (error) {
-        Pop.toast("Private Vault");
+        Pop.toast(`<img src="https://media.tenor.com/j1U9chTe2_0AAAAi/nope-finger-wag.gif" height="80" width="80" > this is Private`);
         logger.error(error);
-        router.push({ name: "Home" });
+        // router.push({ name: "Home" });
       }
     }
     const route = useRoute();
@@ -143,23 +155,26 @@ export default {
     return {
       route,
       router,
+      Vaulted: computed(() => AppState.vKeepIds),
       keeps: computed(() => AppState.vaultedKeeps),
       account: computed(() => AppState.account),
-      vault: computed(() => AppState.activeVault),
-      notOwnerAndPrivate: computed(
+      vault: computed(() => AppState?.activeVault),
+      private: computed(() => AppState.activeVault?.isPrivate == true),
+      owner: computed(() => AppState.activeVault?.creator?.id == AppState.user?.id),
+     ownerAndPrivate: computed(
         () =>
-          AppState.user.id != AppState.activeVault?.id &&
+          AppState.user?.id == AppState.activeVault?.creator?.id &&
           AppState.activeVault?.isPrivate == true
       ),
       async deleteVault() {
         try {
           if (
             await Pop.confirm(
-              `Are you sure you want to delete ${AppState.activeVault.name} ?`,
+              `Are you sure you want to delete  ${AppState.activeVault?.name}  ?`,
               "theres no undoing this"
             )
           ) {
-            let vaultId = AppState.activeVault.id;
+            let vaultId = AppState.activeVault?.id;
             await vaultsService.deleteVault(vaultId);
             router.push({ name: "Account" });
           }
@@ -192,13 +207,13 @@ export default {
 <style scoped>
 .lgText {
   font-size: 80px !important;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
 
-  text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
-    0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
-    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
-    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
-    0 20px 20px rgba(0, 0, 0, 0.15);
 }
+.privateIcon{
+ font-size: 80px !important;
+}
+
 .coverImg {
   height: 300px;
 

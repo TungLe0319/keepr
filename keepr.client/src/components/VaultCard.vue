@@ -11,7 +11,7 @@
           <p class="mb-0 vaultName  text-light">{{ vault?.name }}</p>
         </span>
         <span v-if="vault?.isPrivate">
-          <i class="mdi mdi-shield-lock-outline fs-2 text-constantLight "></i>
+          <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight "></i>
   
         </span>
       </div>
@@ -22,6 +22,7 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import { Keep } from "../models/Keep.js";
 import { Vault } from "../models/Vault.js";
@@ -39,12 +40,14 @@ export default {
 
     onMounted(() => {});
     watchEffect(() => {});
-
+const route = useRoute()
     return {
+      route,
       editable,
 
     async   setActive() {
      try {
+  
          await    vaultsService.setActive(props.vault);
        } catch (error) {
          Pop.error(error,'[setActive]')

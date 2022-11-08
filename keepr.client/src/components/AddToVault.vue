@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="addToVault()" class="d-flex">
     <button
-    v-if="!vKeep"
+      v-if="!vKeep "
       class="btn border-0 mb-2 animate__animated animate__fadeIn"
       type="button"
       data-bs-toggle="collapse"
@@ -14,45 +14,51 @@
         ><small>Save</small>
       </i>
     </button>
-    <!-- <div class="btn-group" >
-      <select
-        v-model="editable"
-        class="form-select "
-        aria-label="Default select example"
-      >
-        <option class="bg-warning text-dark " :value="v" v-for="v in vaults">
-          {{ v.name }}
-        </option>
-      </select>
-    </div> -->
-
-    
-    
-    <!-- <button type="submit" class="btn" v-if="!vKeep">Save</button> -->
   </form>
-  <button class="btn border-0 mb-2 animate__animated animate__fadeIn"    @click="removeFromVault()" v-if="vKeep">
+  <div v-if="vKeepOwner">
 
-    <i
-      class="mdi mdi-playlist-remove fs-3 text-purple dotHover p-1 selectable rounded"
-   
-      ><small>Remove</small></i
+    <button
+      class="btn border-0 mb-2 animate__animated animate__fadeIn"
+      @click="removeFromVault()"
+      v-if="vKeep"
     >
-  </button>
-  <div class="collapse position-absolute  end-100 bottom-50 rounded bShadow3" id="testMenu" v-if="!vKeep">
-  <h6 class="mb-0 p-2 text-center bg-info rounded-top  no-select markoOne">Save to vault</h6>
+      <i
+        class="mdi mdi-playlist-remove fs-3 text-purple dotHover p-1 selectable rounded"
+        ><small>Remove</small></i
+      >
+    </button>
+  </div>
+  <div
+    class="collapse position-absolute end-100 bottom-50 rounded bShadow3"
+    id="testMenu"
+    v-if="!vKeep"
+  >
+    <h6
+      class="mb-0 p-2 text-center bg-warning bShadow2 rounded-top no-select markoOne"
+    >
+      Save to vault
+    </h6>
     <div class="bg-warning bShadow text-center p-3 scrollY">
       <AccountVaultList
         :vault="a"
         v-for="a in accountVaults"
         :key="a.id"
-        @click="addToVault(a.id)"
+        @click="addToVault(a)"
       />
-  
     </div>
     <div>
-          <div class=" d-flex dotHover bg-info rounded-bottom">
-        <button class="btn me-3 d-flex align-items-center " data-bs-target="#vaultForm" data-bs-toggle="modal" @click="toggleCreateVault()"> <i class="mdi mdi-plus-box fs-2"></i>   <h6 class="d-flex align-items-center m-0 ms-2 markoOne">Create vault</h6></button>
-   
+      <div class="d-flex dotHover bg-info rounded-bottom">
+        <button
+          class="btn me-3 d-flex align-items-center"
+          data-bs-target="#vaultForm"
+          data-bs-toggle="modal"
+          @click="toggleCreateVault()"
+        >
+          <i class="mdi mdi-plus-box fs-2"></i>
+          <h6 class="d-flex align-items-center m-0 ms-2 markoOne">
+            Create vault
+          </h6>
+        </button>
       </div>
     </div>
   </div>
@@ -68,6 +74,7 @@ import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { defineComponent } from "vue";
 import Popper from "vue3-popper";
+import { Modal } from "bootstrap";
 
 export default {
   props: {},
@@ -91,45 +98,46 @@ export default {
       accountVaults: computed(() => AppState.accountVaults),
       vaults: computed(() => AppState.accountVaults),
       keep: computed(() => AppState.activeKeep),
-      vaulted: computed(() =>
-        AppState.vKeepIds.find((v) => v.creatorId == AppState.user.id)
+      vKeepOwner: computed(() =>
+        AppState.vKeepIds.find(
+          (v) => v.creatorId == AppState.account.id
+        )
       ),
       vKeep: computed(() =>
         AppState.vKeepIds.find((v) => v.keepId == AppState.activeKeep.id)
       ),
       account: computed(() => AppState.account.id),
-      async addToVault(id) {
+      async addToVault(a) {
         try {
           let data = {
-            vaultId: id,
+            vaultId: a.id,
             keepId: this.keep.id,
           };
           await vaultKeepService.createVaultKeep(data);
           AppState.activeKeep.kept++;
-          Pop.success(`${this.keep.name} saved to ${editable.value.name} `);
+          Pop.success(`${this.keep.name} saved to ${a.name} `);
         } catch (error) {
           Pop.error(error, "[addToVault]");
         }
       },
       async removeFromVault() {
         try {
-    
-          console.log(this.vKeep.id);
-          console.log(AppState.account.id, "[accountId]");
-          console.log(AppState.user.id, "[userId]");
-          console.log(AppState.account.id == this.vKeep.creatorId);
+  
           if (await Pop.confirm()) {
             await vaultKeepService.deleteVaultKeep(this.vKeep.id);
             Pop.success(`${this.keep.name} removed from vault `);
+          
+             Modal.getOrCreateInstance("#activeKeep").hide();
+        
           }
         } catch (error) {
           Pop.error(error, "[removeFromVault]");
         }
       },
-      toggleCreateVault(){
-        AppState.vaultEditForm = false
+      toggleCreateVault() {
+        AppState.vaultEditForm = false;
         console.log(AppState.vaultEditForm);
-      }
+      },
     };
   },
   components: { Popper },
@@ -137,11 +145,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scrollY{
+.scrollY {
   height: 58.5vh;
   overflow-y: auto;
 }
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 select {
@@ -166,13 +174,13 @@ select:focus {
   border: none !important;
 }
 
-@media only screen and (max-width: 768px){
-.scrollY{
-  height: 67.6vh;
-}
+@media only screen and (max-width: 768px) {
+  .scrollY {
+    height: 67.6vh;
+  }
 
-#testMenu{
-transform: translateX(110%);
-}
+  #testMenu {
+    transform: translateX(110%);
+  }
 }
 </style>

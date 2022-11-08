@@ -11,6 +11,9 @@ public class AccountService
     _vRepo = vRepo;
   }
 
+internal Account GetById(string userId){
+  return _repo.GetById(userId);
+}
   internal Account GetProfileByEmail(string email)
   {
     return _repo.GetByEmail(email);
@@ -26,9 +29,10 @@ public class AccountService
     return profile;
   }
 
-  internal Account Edit(Account editData, string userEmail)
+  internal Account Edit(Account editData, Account userInfo)
   {
-    Account original = GetProfileByEmail(userEmail);
+    // Account original = GetProfileByEmail(userEmail);
+    Account original = GetById(userInfo.Id);
     original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
     original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
     original.CoverImg = editData.CoverImg ?? original.CoverImg;

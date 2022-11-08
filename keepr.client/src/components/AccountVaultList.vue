@@ -32,9 +32,10 @@ vault:{type: Vault, required:true}
 
     });
     watchEffect(() => {});
-
     return {
       editable,
+theme: computed(() => AppState.account.theme==false ? '#5d595917' : '#e0d1d1cf' )
+
       }
     }
   }
@@ -56,11 +57,11 @@ vault:{type: Vault, required:true}
 filter: brightness(80%);
 }
 .card:hover{
-  background: #faf4fc;
+  background: v-bind(theme);
   transition: all .75 ease;
   filter: brightness(90%);
   cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(224, 209, 209, 0.811) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
   .save{

@@ -8,16 +8,16 @@ class ProfilesService {
 
   async getProfileById(id) {
     const res = await api.get(`api/profiles/${id}`);
-    console.log("[profile]", res.data);
+    // console.log("[profile]", res.data);
     AppState.activeProfile = res.data;
-    console.log(AppState.activeProfile);
+    // console.log(AppState.activeProfile);
   }
 
   async getVaultsForProfiles(id) {
     const res = await api.get(`api/profiles/${id}/vaults`);
-     console.log('[profileVaults]',res.data);
+    //  console.log('[profileVaults]',res.data);
      AppState.profileVaults = res.data.map((p) => new Vault(p));
-     console.log(AppState.profileVaults);
+    //  console.log(AppState.profileVaults);
   }
   async getKeepsForProfiles(id) {
     const res = await api.get(`api/profiles/${id}/keeps`);

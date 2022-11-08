@@ -36,19 +36,27 @@
       <div
         class="col-md-12 d-flex flex-column justify-content-center align-items-center"
       >
-        <div class="col-md-12 justify-content-end d-flex mt-3 px-5">
+        <div class="col-md-12 justify-content-end d-flex mt-3 px-3">
           <div class="btn-group dropstart">
             <i
+            v-if="profile?.id == account?.id"
               class="mdi mdi-dots-horizontal ms-3 fs-1 selectable text-dark"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
+             <div v-else class="d-flex align-items-center">
+        
+         
+              <i title="back to previous page" class="mdi mdi-rewind fs-1 text-dark" @click="$router.go(-1)"></i>
+        
+          </div>
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
               <li
                 class="dotHover rounded p-2 text-center"
                 data-bs-toggle="modal"
                 data-bs-target="#vaultForm"
                 @click="toggleCreateForm()"
+                title="Profile "
               >
                 Add Vault
               </li>
@@ -63,11 +71,11 @@
           </div>
         </div>
 
-        <h3 class="markoOne text-dark">{{ profile?.email }}</h3>
+        <h3 class="markoOne text-dark">{{ profile?.name }}</h3>
         <div class="text-center d-flex align-items-center no-select text-dark">
           <span class="bShadow rounded p-1">{{ vaults.length }} Vaults</span>
 
-          <h1 class="mx-2 rounded-5 no-select bShadow2">|</h1>
+          <h1 class="mx-2 rounded-5 no-select">|</h1>
           <span class="bShadow rounded p-1">{{ keeps.length }} Keeps</span>
         </div>
       </div>

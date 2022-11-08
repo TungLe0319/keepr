@@ -40,19 +40,19 @@ public class VaultKeepRepository : BaseRepo
               SELECT
               vKeep.*,
               vKeep.id AS VaultKeepId,
-              
+              COUNT(vKeep.id) AS Kept,
               k.*,
               a.*
               FROM vaultKeeps vKeep
               JOIN accounts a ON a.id = vKeep.creatorId
               JOIN keeps k ON k.id =  vKeep.keepId
-              
               WHERE vKeep.vaultId = @vaultId
               GROUP BY vKeep.id
                    ;";
     return _db.Query<VaultedKeep, Profile, VaultedKeep>(sql, (keep, profile) =>
     {
       keep.Creator = profile;
+      keep.VaultKeepCreatorId = profile.Id;
       return keep;
     }, new { vaultId }).ToList();
   }
@@ -62,6 +62,7 @@ public class VaultKeepRepository : BaseRepo
     string sql = @"
                 SELECT 
                 v.*,
+              
                 a.*
                 FROM vaults v
                 JOIN accounts a ON a.id = v.creatorId

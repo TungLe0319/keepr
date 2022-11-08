@@ -15,25 +15,14 @@
         <label for="img">Image</label>
         <input type="url" required name="img" v-model="editable.img" />
       </div>
-      <div class="mt-3 inputBox">
+      <div class="mt-3 ">
         <label for="description">Description</label>
-        <input
-          type="text"
-          required
-          name="description"
-          v-model="editable.description"
-        />
+        <div class="form-floating">
+  <textarea    v-model="editable.description" class="form-control " placeholder="describe your vault" style="height: 100px"></textarea>
+
+</div>
+        
       </div>
-      <div class="mt-3 inputBox">
-        <label>Tag</label>
-         <input
-          type="text"
-         
-          name="instructions"
-          v-model="editable.tag"
-        />
-      </div>
-  
       <div class="my-3">
         <button
           class="btn p-2 dotHover"
@@ -41,8 +30,8 @@
           data-bs-dismiss="modal"
 
         >
-        <h6 v-if="editForm">Edit</h6>
-        <h3 v-else> Create</h3>
+        <h6 v-if="editForm" > Submit Edit</h6>
+        <h3 v-else> Create Vault</h3>
         </button>
       </div>
     </form>
@@ -56,15 +45,15 @@
     <img v-else src="https://wallpapercave.com/wp/wp1873707.jpg" alt="" title="keep" class="img-fluid  rounded" />
     <div class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end">
       <span>
-        <h5 class="mb-0 fw-bold text-light ms-1">{{ editable?.name }}</h5>
+        <h5 class="mb-0 fw-bold text-light ms-1 markoOne ">{{ editable?.name }}</h5>
       </span>
     </div>
 
   </div>
-  <div class="text-dark mt-3">
+  <!-- <div class="text-dark mt-3">
     <h5 class="markoOne">Description</h5>
    <p>{{editable?.description}}</p>
-  </div>
+  </div> -->
   </div>
 </div>
 
@@ -87,7 +76,13 @@ const testForm = ref({img: "https://partners.wsj.com/xinhua/anhui/wp-content/upl
   description:" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque error animi quasi, a distinctio, nulla temporibus delectus minus quis suscipit ducimus, accusamus consequuntur assumenda. Alias.",
   name:"What a beautiful world"})
     onMounted(() => {});
-    watchEffect(() => {});
+    watchEffect(() => {
+    if (AppState.activeKeep) {
+      editable.value.img = AppState.activeKeep.img || ''
+      editable.value.name = AppState.activeKeep.name || ''
+      editable.value.description = AppState.activeKeep.description || ''
+    }
+    });
 
     return {
       editable,
@@ -104,6 +99,7 @@ editForm : computed(() => AppState.keepEditForm ),
 try {
   editable.value.id = AppState.activeKeep.id
     await keepsService.editKeep(editable.value)
+    
   } catch (error) {
     Pop.error(error,'[editKeep]')
   }1
@@ -114,6 +110,8 @@ try {
 </script>
 
 <style lang="scss" scoped>
+
+
 
 .card {
   transition: all 0.5s ease;

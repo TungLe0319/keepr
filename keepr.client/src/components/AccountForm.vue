@@ -13,17 +13,6 @@
           />
         </div>
         <div class="inputBox my-4">
-          <label for="">Email</label>
-
-          <input
-            type="text"
-            v-model="editable.email"
-            placeholder="name"
-            class=""
-          />
-        </div>
-
-        <div class="inputBox mt-2">
           <label for="">Profile Picture</label>
           <input
             type="url"
@@ -33,7 +22,7 @@
           />
          
         </div>
-          <div class="mt-3 inputBox">
+          <div class="inputBox my-4">
             <label for=""> Cover Image</label>
           <input type="url" v-model="editable.coverImg" class=" " />
         </div>
@@ -82,7 +71,7 @@
 
 
     <div class="my-3">
-      <button class="btn btn-success selectable" type="submit">
+      <button class="btn btn-success selectable" type="submit" data-bs-dismiss="modal">
         Edit Account
       </button>
     </div>
@@ -114,9 +103,9 @@ export default {
       async handleSubmit() {
         try {
           await accountService.editProfile(editable.value);
-          Pop.success("Account Edit Approved");
+          Pop.success("Edited account");
         } catch (error) {
-          Pop.error(error, [""]);
+          Pop.error(error, '[editProfile]');
         }
       },
     };

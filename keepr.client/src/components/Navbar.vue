@@ -1,14 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-warning px-3 bShadow">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-warning bShadow">
     <router-link class="navbar-brand d-flex me-1" :to="{ name: 'Home' }">
       <button class="btn p-0 dotHover">
-        <i
-          class="mdi mdi-home-circle fs-1 markoOne text-dark  px-2 rounded"
-        ></i>
+        <i class="mdi mdi-home-circle fs-1 markoOne text-dark px-2 rounded"></i>
       </button>
     </router-link>
     <button
-      class="navbar-toggler border-0 dotHover py-2"
+      class="navbar-toggler border-0 dotHover my-3"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarText"
@@ -16,42 +14,56 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span >
-        <img src="https://cdn-icons-png.flaticon.com/512/6015/6015685.png" alt="navbar icon" width="30" height="30" class="test">
+      <span>
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/6015/6015685.png"
+          alt="navbar icon"
+          width="30"
+          height="30"
+          class="test"
+        />
       </span>
     </button>
-    <div class="collapse navbar-collapse " id="navbarText">
-      <div class="d-flex  ">
-  <button
-            class="btn dotHover text-dark"
-            data-bs-toggle="modal"
-            data-bs-target="#createForm"
-            @click="toggleCreateForm()"
-          >
-            <h4 class="markoOne mb-0 ">Create</h4>
-          </button>
-
-
-<ToggleTheme/>
-
-             <button
-            class="btn dotHover text-dark"
-            type="submit"
-            id="button-addon2"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseSearchBar"
-            title="Search"
-          >
-      <i class="mdi mdi-magnify fs-1 "></i>
-          </button>
-           <img
+    <div
+      class="collapse navbar-collapse justify-content-between"
+      id="navbarText"
+    >
+      <div class="d-flex align-items-center justify-content-around">
+        <button
+          class="btn dotHover text-dark my-1"
+          data-bs-toggle="modal"
+          data-bs-target="#createForm"
+          @click="toggleCreateForm()"
+        >
+          <h4 class="markoOne mb-0">Create</h4>
+        </button>
+        <ToggleTheme />
+        <i
+          class="mdi mdi-magnify fs-1 dotHover text-dark mx-1 px-1 rounded"
+          id="button-addon2"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseSearchBar"
+          title="Search"
+        ></i>
+   <img
         src="../assets/img/Keepr logo.png"
-        alt=""
-        width="70"
+        alt="keepr Logo"
+        width="60"
         height="60"
-        class=""
+        class="d-md-none"
+        title="keepr Logo"
       />
+      <Login class="d-md-none "/>
+
       </div>
+      <img
+        src="../assets/img/Keepr logo.png"
+        alt="keepr Logo"
+        width="60"
+        height="60"
+        class="d-none d-md-block"
+        title="keepr Logo"
+      />
       <!-- <ul class="navbar-nav d-flex">
         <li class="d-flex align-items-center">
           <button
@@ -95,7 +107,7 @@
       </ul> -->
 
       <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <Login class="d-none d-md-block" />
     </div>
   </nav>
 </template>
@@ -108,9 +120,9 @@ export default {
   setup() {
     return {
       toggleCreateForm() {
+        // AppState.activeKeep = {}
         AppState.keepEditForm = false;
       },
-     
     };
   },
   components: { Login },
@@ -118,8 +130,7 @@ export default {
 </script>
 
 <style scoped>
-.test{
-
+.test {
 }
 a:hover {
   text-decoration: none;

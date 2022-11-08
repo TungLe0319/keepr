@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <PaginationStyle />
+    <!-- <PaginationStyle /> -->
     <SearchBar />
-    <div class="bricks my-3">
+    <div class="bricks my-2">
       <TransitionGroup
         name=""
         enterActiveClass="animate__fadeIn animate__animated"
         leaveActiveClass="animate__fadeOut animate__animated"
       >
-        <div class="my-3 keepCards" v-for="k in keeps" :key="k.id">
+        <div class="mt-3 keepCards" v-for="k in keeps" :key="k.id">
           <KeepCard :keep="k" />
         </div>
       </TransitionGroup>
@@ -36,23 +36,33 @@ export default {
   setup() {
     onMounted(() => {
       getAllKeeps();
-      getVaultKeepIds(); /*  */
-      // infiniteScroll();
+      infiniteScroll();
     });
-    async function getVaultKeepIds() {
-      try {
-        await vaultKeepService.getVaultKeepIds();
-      } catch (error) {
-        Pop.error(error, "[getAllVaultKeepIds]");
-      }
-    }
-
     async function getAllKeeps() {
       try {
         await keepsService.getAllKeeps();
       } catch (error) {
         Pop.error(error, "[getAllKeeps]");
       }
+    }
+       async function getKeepsByScroll() {
+      try {
+        await keepsService.getKeepsByScroll();
+      } catch (error) {
+        Pop.error(error, "[getKeepsByScroll]");
+      }
+    }
+
+    function infiniteScroll() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight=== document.documentElement.offsetHeight;
+        if (bottomOfWindow ) {
+          if (AppState.paginationOn == false) {
+            getKeepsByScroll();
+          }
+        }
+      };
     }
 
     return {

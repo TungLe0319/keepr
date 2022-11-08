@@ -25,13 +25,14 @@ public class VaultsService
 
     Vault vault = _vaultRepo.GetById(vaultId);
 
-    var notCreator = vault.CreatorId != userId;
+    var creator = vault.CreatorId == userId;
     var privateVault = vault.IsPrivate == true;
 
-    if (notCreator && privateVault)
+    if (!creator && privateVault  )
     {
-  // throw new UnauthorizedAccessException();
-      throw new Exception("Private Vault");
+     
+        throw new Exception("Private Vault");
+      
     }
 
     return vault;
@@ -62,7 +63,7 @@ public class VaultsService
     }
 
     original.Name = vaultData.Name ?? original.Name;
-    original.IsPrivate = vaultData.IsPrivate ;
+    original.IsPrivate = vaultData.IsPrivate;
     original.Description = vaultData.Description ?? original.Description;
     original.Img = vaultData.Img ?? original.Img;
 

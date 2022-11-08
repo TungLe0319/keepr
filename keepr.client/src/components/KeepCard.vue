@@ -25,7 +25,7 @@
       class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end"
     >
       <span>
-        <p class="mb-0 fw-bold text-light markoOne cardName text-shadow">
+        <p class="mb-0 fw-bold text-light markoOne cardName text-shadow text-constantLight">
           {{ keep?.name }}
         </p>
       </span>
@@ -52,7 +52,7 @@ import Pop from "../utils/Pop.js";
 
 export default {
   props: {
-    keep: { type: Keep, required: true },
+    keep: { type: Object, required: true },
   },
   setup(props) {
     const editable = ref({});

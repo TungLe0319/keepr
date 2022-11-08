@@ -31,16 +31,13 @@
               v-model="editable.description"
             />
           </div>
-          <div class="mt-3 inputBox">
-            <label>Tag</label>
-            <input type="text" name="instructions" v-model="editable.tag" />
-          </div>
 
           <div class="mt-3">
             <label class="me-3">Private</label>
             <input
               type="checkbox"
               class=""
+              placeholder="Private"
               name="instructions"
               v-model="editable.isPrivate"
             />
@@ -63,29 +60,27 @@
       >
         <div class="card rounded border-0 my-1">
           <img
-            v-if="editable.img"
+            v-if="editable?.img"
             :src="editable?.img"
             alt=""
             title="keep"
-            class="img-fluid rounded"
+            class="img-fluid rounded animate__animated animate__fadeIn"
           />
-          <img
-            v-else
-            src="https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/H8WuRINimqur8ud/soap-bubbles-zen-symbol-pyramide-from-stones-on-the-beach-at-the-background-of-the-gold-sunset-sea-slow-motion-background-for-spa-relax-tourism-theme-scene-with-zen-pyramide-and-soap-bubbles_bvrit5wx_thumbnail-1080_02.png"
-            alt=""
-            title="keep"
-            class="img-fluid rounded"
-          />
+
           <div
             class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end"
           >
             <span>
               <h5 class="mb-0 fw-bold text-light ms-1">{{ editable?.name }}</h5>
             </span>
+              <span v-if="editable?.isPrivate" class="animate__animated animate__fadeIn">
+          <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight "></i>
+  
+        </span>
           </div>
         </div>
-        <div class="text-dark mt-3">
-          <h5>Description</h5>
+        <div class="text-dark mt-3 animate__animated animate__fadeIn">
+          <h5 v-if="editable?.description">Description</h5>
           <p>{{ editable?.description }}</p>
         </div>
       </div>
@@ -117,7 +112,9 @@ export default {
     });
     onMounted(() => {});
     watchEffect(() => {
-      
+        
+        editable.value = { ...AppState.activeVault };
+   
       // editable.value = [...AppState.activeVault]
     });
 
@@ -192,6 +189,12 @@ export default {
 
   
 }
+input:checked{
+  width: 30px;
+  height: 30px;
+  transition: all 0.5s ease;
+}
+
 .formTitle{
   font-size: 100px;
 }

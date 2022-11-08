@@ -91,7 +91,7 @@ public class KeepsRepository : BaseRepo
            JOIN accounts a ON a.id = k.creatorId
            LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.id
            GROUP BY k.id
-           ORDER BY k.createdAt ASC
+           ORDER BY k.createdAt DESC
            LIMIT 24
            OFFSET @offSet
                 ; ";

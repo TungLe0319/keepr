@@ -1,8 +1,8 @@
 <template>
-  <button class="btn dotHover" @click="toggleTheme()" v-if="user.isAuthenticated" >
-    <i class="mdi mdi-theme-light-dark fs-1 text-dark"></i>
-    <!-- <i class="mdi mdi-theme-light-dark"></i> -->
-  </button>
+
+    <i class="mdi mdi-theme-light-dark fs-1 text-dark dotHover rounded mx-1 px-1 "
+     @click="toggleTheme()" v-if="user.isAuthenticated" ></i>
+
 </template>
 
 <script>
