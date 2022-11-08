@@ -117,6 +117,7 @@ export default {
     });
     onMounted(() => {});
     watchEffect(() => {
+      
       // editable.value = [...AppState.activeVault]
     });
 

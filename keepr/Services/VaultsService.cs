@@ -30,7 +30,7 @@ public class VaultsService
 
     if (notCreator && privateVault)
     {
-      throw new Exception("Private Vault");
+      throw UnauthorizedResult;
     }
 
     return vault;

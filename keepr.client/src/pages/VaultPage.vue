@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="vault">
     <div class="row">
       <div class="col-md-12 text-center mt-2">
         <div class="card border-0">
@@ -29,28 +29,34 @@
       >
         <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-5">
           <div class="d-flex align-items-center">
-            <router-link :to="{ name: 'Account' }">
-             <i class="mdi mdi-rewind fs-1 text-dark"></i>
+            <router-link v-if="account" :to="{ name: 'Account' }">
+              <i class="mdi mdi-rewind fs-1 text-dark"></i>
+            </router-link>
+            <router-link v-else :to="{ name: 'Home' }">
+              <i class="mdi mdi-rewind fs-1 text-dark"></i>
             </router-link>
           </div>
           <div class="btn-group dropstart">
             <i
+              v-if="vault?.creator"
               class="mdi mdi-dots-horizontal ms-3 fs-1 action text-dark"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
-              <li class="dotHover rounded">
-                <a
-                  class="btn border-0"
-                  data-bs-toggle="modal"
-                  data-bs-target="#vaultForm"
-                  @click="toggleEditForm()"
-                  >Edit Vault</a
-                >
+              <li
+                class="dotHover rounded p-2 text-center"
+                data-bs-toggle="modal"
+                data-bs-target="#vaultForm"
+                @click="toggleEditForm()"
+              >
+                Edit Vault
               </li>
-              <li class="dotHover rounded">
-                <a class="btn border-0" @click="deleteVault()">Delete Vault</a>
+              <li
+                class="dotHover rounded p-2 text-center"
+                @click="deleteVault()"
+              >
+                Delete Vault
               </li>
             </ul>
           </div>
@@ -73,13 +79,14 @@
       </div>
     </div>
   </div>
+  <div>PRIVATE VAULT</div>
 </template>
 
 <script>
 import { authSettled, onAuthLoaded } from "@bcwdev/auth0provider-client";
 import { propsToAttrMap } from "@vue/shared";
-import { computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onMounted, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
 import PopperTip from "../components/PopperTip.vue";
 import VaultCard from "../components/VaultCard.vue";
@@ -93,17 +100,23 @@ import Pop from "../utils/Pop.js";
 export default {
   setup() {
     onMounted(() => {
-      getVaultById();
-      getKeepsByVaultId();
+      // if (getVaultById()) {
+      //   getKeepsByVaultId();
+      // }
+      getVaultById()
     });
-    onAuthLoaded(() => {
+    watchEffect(() => {
+      // if (AppState.activeVault?.isPrivate) {
+      //   router.push({ name: "Home" });
+      //   Pop.toast("That restaurant is closed, dummy", "info");
+      //   AppState.activeVault = null;
+      // }
     });
     async function getKeepsByVaultId() {
       try {
-      
-          await vaultsService.getKeepsByVaultId(route.params.id);
-   
+        await vaultsService.getKeepsByVaultId(route.params.id);
       } catch (error) {
+        // router.push({ name: "Home" });
         Pop.error(error, "[getKeepsByVaultId]");
       }
     }
@@ -111,12 +124,15 @@ export default {
       try {
         await vaultsService.getVaultById(route.params.id);
       } catch (error) {
-        Pop.error(error, "[getVaultById]");
+        Pop.toast("Private Vault",error);
+        // router.push({ name: "Home" });
       }
     }
     const route = useRoute();
+    const router = useRouter();
     return {
       route,
+      router,
       keeps: computed(() => AppState.vaultedKeeps),
       account: computed(() => AppState.account),
       vault: computed(() => AppState.activeVault),
@@ -140,10 +156,9 @@ export default {
 
       async deleteVaultKeep() {
         try {
-          let id = this.vault.id
+          let id = this.vault.id;
           await vaultKeepService.deleteVaultKeep(id);
         } catch (error) {
-        
           Pop.error(error, "[]");
         }
       },

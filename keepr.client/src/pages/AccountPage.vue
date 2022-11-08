@@ -41,34 +41,29 @@
         <div class="col-md-12 justify-content-end d-flex mt-3  px-5">
           <div class="btn-group dropstart">
             <i
-              class="mdi mdi-dots-horizontal ms-3 fs-1 selectable"
+              class="mdi mdi-dots-horizontal ms-3 fs-1 selectable text-dark"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
-              <li class="dotHover rounded">
-                <a
-                  class="btn"
+              <li class="dotHover rounded p-2 text-center
+              "
                   data-bs-toggle="modal"
                   data-bs-target="#vaultForm"
-                  @click="toggleCreateForm()"
-                  >Add Vault</a
-                >
+                  @click="toggleCreateForm()">
+             Add Vault
               </li>
-              <li class="dotHover rounded">
-                <a
-                  class="btn"
+              <li class="dotHover rounded p-2 text-center"
                   data-bs-toggle="modal"
-                  data-bs-target="#accountForm"
-                  >Edit Account</a
-                >
+                  data-bs-target="#accountForm">
+               Edit Account
               </li>
             </ul>
           </div>
         </div>
 
-        <h3 class="markoOne">{{ account.email }}</h3>
-        <div class="text-center d-flex align-items-center no-select">
+        <h3 class="markoOne text-dark">{{ account.email }}</h3>
+        <div class="text-center d-flex align-items-center no-select text-dark">
           <span class="bShadow rounded p-1">{{ vaults.length }} Vaults</span>
    
           <h1 class="mx-2 rounded-5 no-select bShadow2 ">|</h1>
@@ -78,7 +73,7 @@
     </div>
 <!-- ------------------VAULTS AND KEEPS------------------------------------------------ -->
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 text-dark">
         <h3>Vaults</h3>
       </div>
 <div class="row  scrollX">
@@ -88,7 +83,7 @@
   </div>
 </div>
     </div>
-    <div class="col-md-12 mt-4">
+    <div class="col-md-12 mt-4 text-dark">
       <h3>Keeps</h3>
     </div>
     <div class="bricks">

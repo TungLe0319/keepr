@@ -122,7 +122,7 @@
                       :src="keep.creator.picture"
                       :alt="keep.creator.name"
                       class="pImg"
-                      data-bs-dismiss="modal"
+                     
                     />
                     <h5 class="ms-2 d-flex align-items-center text-dark">
                       {{ keep.creator.name.split("@")[0] }}
@@ -131,6 +131,7 @@
                 </button>
                 <ul class="dropdown-menu p-0 bg-info border-0 bShadow ">
                   <li
+                   data-bs-dismiss="modal"
                     class="rounded bg-info text-center selectable p-0 border-0"
                     @click="pushToProfile()"
                   >
@@ -208,10 +209,10 @@ export default {
       },
       pushToProfile() {
         Modal.getOrCreateInstance("#activeKeep").hide();
-        if (this.creator) {
+        // if (AppState.activeKeep.creator) {
           
-          router.push({ name:"Account"});
-        } else
+        //   router.push({ name:"Account"});
+        // } else
         router.push({ name: "Profile", params: { id: props.keep.creator.id } });
       },
     };

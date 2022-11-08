@@ -8,8 +8,8 @@
     <router-view />
   </main>
  
-<footer class="p-2 bg-warning">
-       <Navbar class="d-flex d-md-none" />
+<footer class="p-2 bg-warning d-flex d-md-none">
+       <Navbar class="" />
 
 </footer>
   <ModalComponent id="activeKeep">

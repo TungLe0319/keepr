@@ -11,6 +11,13 @@ CREATE TABLE
         coverImg VARCHAR(255)
     ) default charset utf8 COMMENT '';
 
+ 
+--  ALTER TABLE accounts ADD COLUMN(
+  
+--  theme TINYINT DEFAULT 0
+--  );
+ 
+ 
 CREATE TABLE
     IF NOT EXISTS vaults(
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,

@@ -11,7 +11,7 @@
           <p class="mb-0 vaultName  text-light">{{ vault?.name }}</p>
         </span>
         <span v-if="vault?.isPrivate">
-          <i class="mdi mdi-shield-lock-outline fs-2 text-light"></i>
+          <i class="mdi mdi-shield-lock-outline fs-2 text-constantLight "></i>
   
         </span>
       </div>

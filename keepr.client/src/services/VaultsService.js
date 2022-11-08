@@ -21,11 +21,13 @@ class VaultsService {
   }
 
   async getVaultById(id) {
+    
     const res = await api.get(`api/vaults/${id}`);
     AppState.activeVault = new Vault(res.data);
   }
 
   async createVault(vaultData) {
+    // console.log(vaultData);
     const res = await api.post("api/vaults", vaultData);
     console.log('[vaults]',res.data);
     let newVault = new Vault(res.data);
@@ -60,6 +62,7 @@ class VaultsService {
   }
 
   async getKeepsByVaultId(id){
+    
     const res = await api.get(`api/vaults/${id}/keeps`)
     AppState.vaultedKeeps = res.data.map(v=> new VaultedKeep(v))
         //  console.log('[vaultKeeps]',res.data);

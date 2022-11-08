@@ -1,44 +1,54 @@
 <template>
-
- <button class="btn dotHover" @click="toggleTheme()">
-            <i class="mdi mdi-theme-light-dark fs-1 text-dark"></i>
-            <!-- <i class="mdi mdi-theme-light-dark"></i> -->
-          </button>
+  <button class="btn dotHover" @click="toggleTheme()" v-if="user.isAuthenticated" >
+    <i class="mdi mdi-theme-light-dark fs-1 text-dark"></i>
+    <!-- <i class="mdi mdi-theme-light-dark"></i> -->
+  </button>
 </template>
 
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted, ref, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
-import { logger } from "../utils/Logger.js"
+import { accountService } from "../services/AccountService.js";
+import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 
 export default {
-props:{
-
-       },
+  props: {},
   setup(props) {
     const editable = ref({});
-    
-    onMounted(() => {
 
-    });
+    onMounted(() => {});
     watchEffect(() => {
-   document.body.setAttribute('data-theme', AppState.darkTheme ? 'dark' : 'light')
+      document.body.setAttribute(
+        "data-theme",
+        AppState.account.theme? "dark" : "light"
+      );
     });
 
     return {
       editable,
-      darkthemeActive: computed(()=> AppState.darkTheme),
-       toggleTheme() {
-        console.log("hi");
-        AppState.darkTheme = !AppState.darkTheme
+      account : computed(()=> AppState.account),
+      user : computed(()=> AppState.user),
+      async toggleTheme() {
+        // console.log("hi");
+        // AppState.darkTheme = !AppState.darkTheme;
+        try {
+          {
+       
+         if (AppState.account) {
+          
+           await accountService.toggleTheme();
+         }
+          }
+        } catch (error) {
+          Pop.error(error, "[toggleTheme]");
+        }
         // document.body.classList.toggle = "dark";
       },
-      }
-    }
-  }
+    };
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
