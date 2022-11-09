@@ -1,4 +1,5 @@
 import { initialize } from '@bcwdev/auth0provider-client'
+import { useRoute } from "vue-router"
 import { AppState } from '../AppState'
 import { audience, clientId, domain } from '../env'
 import { router } from '../router'
@@ -30,6 +31,7 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   await accountService.getAccountKeeps()
   await accountService.getAccountVaults()
   await vaultKeepService.getVaultKeepIds()
+
   // NOTE if there is something you want to do once the user is authenticated, place that here
 })
 

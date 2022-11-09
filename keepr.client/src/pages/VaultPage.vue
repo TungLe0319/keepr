@@ -120,7 +120,7 @@ export default {
       
       getVaultById();
       getKeepsByVaultId();
-   
+      
     });
     onAuthLoaded(()=>{
       

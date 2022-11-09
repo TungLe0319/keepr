@@ -7,7 +7,7 @@
           :src="keep?.img"
           alt=""
           title="keep"
-          class="rounded img-fluid h-100 image "
+          class="rounded img-fluid h-100 image"
         />
       </div>
       <div class="col-md-6 d-flex flex-column justify-content-between">
@@ -16,14 +16,19 @@
             <ShareCard />
           </div>
           <div class="d-flex" title="View count for this keep">
-           <i class="mdi mdi-eye fs-2 "></i>
-            <h5 class="ms-2  align-items-center d-flex animate__animated animate__fadeInDown">
+            <i class="mdi mdi-eye fs-2"></i>
+            <h5
+              class="ms-2 align-items-center d-flex animate__animated animate__fadeInDown"
+            >
               {{ keep?.views }}
             </h5>
           </div>
-          <div class="ms-4 d-flex" title="Count of vaults this keep is apart of">
+          <div
+            class="ms-4 d-flex"
+            title="Count of vaults this keep is apart of"
+          >
             <img
-            v-if="!account?.theme"
+              v-if="!account?.theme"
               src="https://cdn-icons-png.flaticon.com/512/3564/3564077.png"
               alt=""
               width="30"
@@ -89,7 +94,7 @@
                 aria-expanded="false"
               >
                 <span
-                  class="m-2 d-flex align-items-center animate__animated animate__fadeInRight "
+                  class="m-2 d-flex align-items-center animate__animated animate__fadeInRight"
                 >
                   <img
                     :src="keep?.creator?.picture"
@@ -170,7 +175,6 @@ export default {
         }
       },
       toggleEditForm() {
-      
         AppState.keepEditForm = true;
         // console.log(AppState.keepEditForm);
       },
@@ -246,9 +250,9 @@ export default {
     border-bottom-right-radius: 0px !important;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-   height: 300px !important;
-   width: 400px !important;
-   object-fit: cover;
+    height: 300px !important;
+    width: 400px !important;
+    object-fit: cover;
   }
 }
 </style>

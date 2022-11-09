@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="addToVault()" class="d-flex">
     <button
-
       class="btn border-0 mb-2 animate__animated animate__fadeIn"
       type="button"
       data-bs-toggle="collapse"
@@ -15,12 +14,10 @@
       </i>
     </button>
   </form>
-  <div v-if="vKeepOwner">
-
+  <div>
     <button
       class="btn border-0 mb-2 animate__animated animate__fadeIn"
       @click="removeFromVault()"
-
     >
       <i
         class="mdi mdi-playlist-remove fs-3 text-purple dotHover p-1 selectable rounded"
@@ -31,7 +28,6 @@
   <div
     class="collapse position-absolute end-100 bottom-50 rounded bShadow3"
     id="testMenu"
-
   >
     <h6
       class="mb-0 p-2 text-center bg-warning bShadow2 rounded-top no-select markoOne"
@@ -40,10 +36,10 @@
     </h6>
     <div class="bg-warning bShadow text-center p-3 scrollY">
       <AccountVaultList
-        :vault="a"
-        v-for="a in accountVaults"
-        :key="a.id"
-        @click="addToVault(a)"
+        :vault="vault"
+        v-for="vault in accountVaults"
+        :key="vault.id"
+        @click="addToVault(vault)"
       />
     </div>
     <div>
@@ -75,6 +71,8 @@ import Pop from "../utils/Pop.js";
 import { defineComponent } from "vue";
 import Popper from "vue3-popper";
 import { Modal } from "bootstrap";
+import { useRoute } from "vue-router";
+import { router } from "../router.js";
 
 export default {
   props: {},
@@ -91,44 +89,49 @@ export default {
     onMounted(() => {
       getAccountVaults();
     });
-    watchEffect(() => {});
-
+    const route = useRoute();
     return {
+      route,
       editable,
       accountVaults: computed(() => AppState.accountVaults),
       vaults: computed(() => AppState.accountVaults),
       keep: computed(() => AppState.activeKeep),
-      vKeepOwner: computed(() =>
-        AppState.vKeepIds.find(
-          (v) => v.creatorId == AppState.account.id
-        )
-      ),
-      vKeep: computed(() =>
-        AppState.vKeepIds.find((v) => v.keepId == AppState.activeKeep.id)
-      ),
-      account: computed(() => AppState.account.id),
-      async addToVault(a) {
+
+      account: computed(() => AppState.account),
+
+      async addToVault(vault) {
+        let id = AppState.vKeepIds.find(
+          (v) => v.vaultId == vault.id && v.keepId == AppState.activeKeep.id
+        );
+        if (id) {
+          // return Pop.toast("already in this vault!");
+          //do a router.push to the vault/page
+          router.push({ name: "Vault", params: { id: vault.id } });
+          Modal.getOrCreateInstance("#activeKeep").hide();
+          return;
+        }
         try {
           let data = {
-            vaultId: a.id,
+            vaultId: vault.id,
             keepId: this.keep.id,
           };
           await vaultKeepService.createVaultKeep(data);
           AppState.activeKeep.kept++;
-          Pop.success(`${this.keep.name} saved to ${a.name} `);
+          Pop.success(`${this.keep.name} saved to ${vault.name} `);
         } catch (error) {
           Pop.error(error, "[addToVault]");
         }
       },
       async removeFromVault() {
         try {
-  
           if (await Pop.confirm()) {
-            await vaultKeepService.deleteVaultKeep(this.vKeep.id);
+            console.log(this.alreadyVaulted);
+            await vaultKeepService.deleteVaultKeep(
+              AppState.activeKeep.vaultKeepId
+            );
             Pop.success(`${this.keep.name} removed from vault `);
-          
-             Modal.getOrCreateInstance("#activeKeep").hide();
-        
+
+            Modal.getOrCreateInstance("#activeKeep").hide();
           }
         } catch (error) {
           Pop.error(error, "[removeFromVault]");

@@ -1,6 +1,6 @@
 <template>
-  <header class="p-3 ">
-    <Navbar class="d-none d-md-flex" />
+  <header class=" ">
+    <Navbar class="d-none d-md-flex p-5" />
     
   </header>
   <main class="">

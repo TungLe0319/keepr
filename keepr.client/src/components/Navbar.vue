@@ -6,7 +6,7 @@
       </button>
     </router-link>
     <button
-      class="navbar-toggler border-0 dotHover my-3 "
+      class="navbar-toggler border-0 dotHover my-3  "
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarText"
@@ -14,7 +14,7 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-         <span class="navbar-toggler-icon"></span>
+         <span class="navbar-toggler-icon "></span>
     </button>
     <div
       class="collapse navbar-collapse justify-content-between"
@@ -106,6 +106,7 @@ export default {
   setup() {
     const route = useRoute()
     return {
+      // theme: computed(() => AppState.account?.theme),
       route,
       toggleCreateForm() {
         // AppState.activeKeep = {}

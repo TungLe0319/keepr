@@ -65,6 +65,7 @@ class VaultsService {
     
     const res = await api.get(`api/vaults/${id}/keeps`)
     AppState.vaultedKeeps = res.data.map(v=> new VaultedKeep(v))
+    AppState.vaultedKeeps.forEach( x => console.log(x.vaultKeepId))
         //  console.log('[vaultKeeps]',res.data);
         //  console.log(AppState.vaultedKeeps);
   }
