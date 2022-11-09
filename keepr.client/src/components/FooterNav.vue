@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-warning navShadow">
     <router-link class="navbar-brand d-flex me-1" :to="{ name: 'Home' }">
       <button class="btn p-0 dotHover ms-2">
-        <i class="mdi mdi-home-circle fs-1 markoOne text-dark px-2  rounded"></i>
+        <i class="mdi mdi-home-circle fs-1 markoOne text-dark px-2 rounded"></i>
       </button>
     </router-link>
     <button
@@ -23,7 +23,7 @@
       <div class="d-flex align-items-center justify-content-around">
         <div>
         
-          <div v-if="user?.isAuthenticated" class="dropdown d-flex dotHover p-1 rounded">
+          <div class="dropup d-flex dotHover p-1 rounded">
          
             <button
               class="btn d-flex px-1"
@@ -42,10 +42,7 @@
                   @click="toggleCreateForm()">
               Keep
               </li>
-              <li
-                 data-bs-toggle="modal"
-                  data-bs-target="#vaultForm"
-              class="text-center selectHover rounded p-1 markoOne dropdown-item"> Vault</li>
+              <li class="text-center selectHover rounded p-1 markoOne dropdown-item"> Vault</li>
             
             </ul>
           </div>
@@ -60,7 +57,7 @@
           data-bs-target="#collapseSearchBar"
           title="Search"
         ></i> -->
-        <Login class="d-md-none " />
+        <Login class="d-md-none" />
       </div>
       <img
         src="../assets/img/Keepr logo.png"
@@ -119,17 +116,14 @@
 </template>
 
 <script>
-import { computed } from "@vue/reactivity";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import Login from "./Login.vue";
 import ToggleTheme from "./ToggleTheme.vue";
-
 export default {
   setup() {
     const route = useRoute();
     return {
-      user:computed(() => AppState.user),
       // theme: computed(() => AppState.account?.theme),
       route,
       toggleCreateForm() {

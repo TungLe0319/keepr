@@ -1,27 +1,27 @@
 <template>
   <div
-    class="card rounded-5 border-0 my-1"
+    class="card rounded-4 border-0 my-1"
     @click="setActive()"
     data-bs-toggle="modal"
     data-bs-target="#activeKeep"
     v-if="keep"
   >
-       <span
-       v-if="keep?.vaultKeepId"
-          class="position-absolute top-0 end-0 m-1  deleteBtn"
-
-        >
-          <img
-            id="favImg"
-            src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
-            alt="delete Icon"
-            class=" "
-            @click="removeVaultKeep()"
-            height="20"
-            width="20"
-        :title=" 'Remove' + keep?.name.toString()  "
-          />
-        </span>
+    <!-- <span
+      v-if="keep?.vaultKeepId"
+      class="position-absolute top-0 end-0 m-1 deleteBtn"
+      style="z-index: 9"
+    >
+      <img
+        id="favImg"
+        src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
+        alt="delete Icon"
+        class=" "
+        @click="removeVaultKeep()"
+        height="20"
+        width="20"
+        :title="'Remove' + keep?.name.toString()"
+      />
+    </span> -->
 
     <!-- <i class="mdi mdi-delete fs-2 position-absolute deleteBtn"> </i> -->
     <img
@@ -29,9 +29,9 @@
       :src="keep?.img"
       alt=""
       title="keep"
-      class="img-fluid rounded-5"
+      class="img-fluid rounded-4"
     />
-    
+
     <img
       v-else
       alt="loading"
@@ -42,7 +42,9 @@
       class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end"
     >
       <span>
-        <p class="mb-0 fw-bold text-light markoOne cardName text-shadow text-constantLight">
+        <p
+          class="mb-0 mb-2 ms-2 fs-4 fw-bold text-light markoOne cardName text-shadow text-constantLight"
+        >
           {{ keep?.name }}
         </p>
       </span>
@@ -50,7 +52,7 @@
         <img
           :src="keep?.creator?.picture"
           :alt="keep?.creator?.name"
-          class="pImg cardImg"
+          class="pImg cardImg m-2"
         />
       </span>
     </div>
@@ -86,7 +88,7 @@ export default {
       async setActive() {
         try {
           await keepsService.setActive(props.keep);
-          Modal.getOrCreateInstance('#activeKeep').show
+          Modal.getOrCreateInstance("#activeKeep").show;
         } catch (error) {
           Pop.error(error, "[setActive]");
         }
@@ -103,16 +105,15 @@ export default {
   transition: all 0.5s ease;
 }
 
-.deleteBtn:hover{
+.deleteBtn:hover {
   transition: all 1.75s ease;
   transform: scale(2);
-
 }
 .card {
   transition: all 0.5s ease;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  .cardName{
-     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.766);
+  .cardName {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -121,8 +122,7 @@ export default {
 }
 .card:hover {
   transform: scale(1.01);
-  filter: brightness(95%);
-  filter: sepia(20%);
+  filter: brightness(90%);
   transition: all 0.5s ease;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,

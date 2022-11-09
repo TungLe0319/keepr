@@ -1,6 +1,6 @@
 <template>
   <div class="container animate__animated animate__fadeIn" v-if="vault">
-    <div class="row justify-content-center ">
+    <div class="row justify-content-center mt-3">
       <div class="col-md-10 text-center mt-2">
         <div class="card border-0">
           <img
@@ -20,6 +20,7 @@
           >
             <div class="text-center markoOne">
               <h1 class="lgText text-constantLight no-select" title="Vault name">{{ vault?.name }}</h1>
+              <h3 class="byText text-constantLight no-select"> by {{vault?.creator?.name?.split("@")[0]}} </h3>
             </div>
              <span v-if="vault?.isPrivate">
           <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight ms-4 lgText" title="Currently in one of your private vaults"></i>
@@ -31,18 +32,18 @@
       <div
         class="col-md-12 d-flex flex-column justify-content-center align-items-center"
       >
-        <div class="col-md-12 justify-content-end d-flex mt-3 mb-1 px-3">
+        <div class="col-md-10 justify-content-end d-flex mt-3 mb-1 px-3">
           <div class="d-flex align-items-center me-2"> 
 
 <img :src="vault?.creator?.picture" alt="" width="40" height="40" class="rounded-circle dotHover no-select" :title="vault?.creator?.name" >
 
           </div>
-          <div class="d-flex align-items-center">
+          <!-- <div class="d-flex align-items-center">
         
          
               <i title="back to previous page" class="mdi mdi-rewind fs-1 text-dark dotHover btn p-0 px-1 border-0" @click="$router?.go(-1)"></i>
         
-          </div>
+          </div> -->
           <div class="btn-group dropstart">
             <i
               v-if="owner"
@@ -72,10 +73,10 @@
         </div>
 
         <div class="d-flex">
-          <span class="monoton text-dark">
+          <span class="monoton text-dark text-decoration-underline">
             <h1>{{ keeps?.length }}</h1>
           </span>
-          <span>
+          <span class="ms-2">
             <h1 class="monoton text-dark ">keeps</h1>
           </span>
         </div>
@@ -212,14 +213,18 @@ export default {
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
 
 }
+.byText{
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
+}
 .privateIcon{
  font-size: 80px !important;
 }
 
 .coverImg {
-  height: 200px;
+  height: 250px;
 
   object-fit: cover;
+  object-position: center;
 }
 .pImg {
   box-shadow: none;

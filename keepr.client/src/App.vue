@@ -1,17 +1,17 @@
 <template>
   <header class=" ">
-    <Navbar class="d-none d-md-flex " />
+    <Navbar class="d-none d-md-flex navBarShadow " />
     
   </header>
-  <main class="">
+  <main class="bg-warning ">
 
     <router-view />
   </main>
  
 
-       <Navbar class="p-0 m-0 fixed-bottom d-flex d-md-none justify-content-end" />
+       <!-- <Navbar class="p-0 m-0 fixed-bottom d-flex d-md-none justify-content-end" /> -->
 
-
+<FooterNav class="p-0 m-0 fixed-bottom d-flex d-md-none justify-content-end"/>
   <ModalComponent id="activeKeep">
 <ActiveKeepCard :keep="keep" v-if="keep" />
   </ModalComponent>
@@ -35,6 +35,7 @@ import { AppState } from './AppState'
 import AccountForm from "./components/AccountForm.vue"
 import ActiveKeepCard from "./components/ActiveKeepCard.vue"
 import ExampleForm from "./components/CreateForm.vue"
+import FooterNav from "./components/FooterNav.vue"
 import ModalComponent from "./components/ModalComponent.vue"
 import Navbar from './components/Navbar.vue'
 import VaultForm from "./components/VaultForm.vue"
@@ -50,14 +51,14 @@ export default {
       }),
     }
   },
-  components: { Navbar, ActiveKeepCard, ModalComponent, ExampleForm, AccountForm, VaultForm }
+  components: { Navbar, ActiveKeepCard, ModalComponent, ExampleForm, AccountForm, VaultForm, FooterNav }
 }
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
 :root{
-  --main-height: calc(100vh - 32px - 64px);
+  --main-height: calc(100vh - 32px - 70px);
 }
 
 footer {

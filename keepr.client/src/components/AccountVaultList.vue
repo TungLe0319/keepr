@@ -1,5 +1,5 @@
 <template>
-  <div class="card ps-2 pe-5" :class="test ? 'disabled no-select' : ''">
+  <div class="card ps-2 rounded pe-5 my-1" :class="test ? 'bg-dark no-select disabled ' : ''">
     <div class="py-2 d-flex align-items-center">
       <img
         :src="vault.img"

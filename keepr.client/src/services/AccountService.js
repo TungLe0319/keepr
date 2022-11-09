@@ -43,6 +43,8 @@ class AccountService {
     const res = await api.get("/account/vaults");
     // console.log(res.data);
     // let vaults = res.data.map(v=> new Vault(v))
+
+console.log(res.data);
     AppState.accountVaults = res.data.map((v) => new Vault(v));
     // console.log(AppState.accountVaults);
   }

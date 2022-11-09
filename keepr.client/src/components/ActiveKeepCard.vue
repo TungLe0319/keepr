@@ -79,8 +79,8 @@
           </div>
         </div>
         <div>
-          <div class="d-flex justify-content-between">
-            <div class="d-flex animate__animated animate__fadeInLeft">
+          <div class="d-flex text-wrap justify-content-between">
+            <div class="d-flex animate__animated animate__fadeInLeft" v-if="user?.isAuthenticated">
               <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
               <AddToVault />
               <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
@@ -94,7 +94,7 @@
                 aria-expanded="false"
               >
                 <span
-                  class="m-2 d-flex align-items-center animate__animated animate__fadeInRight"
+                  class="m-2 d-flex text-wrap align-items-center animate__animated animate__fadeInRight"
                 >
                   <img
                     :src="keep?.creator?.picture"
@@ -112,7 +112,7 @@
                   class="-rounded bg-info text-center selectable p-0 border-0 dotHover rounded"
                   @click="pushToProfile()"
                 >
-                  <h4 class="bg-info" v-if="keep?.creator?.id != account?.id">
+                  <h4 class="bg-info mb-0 p-1 rounded" v-if="keep?.creator?.id != account?.id">
                     Visit Profile
                   </h4>
                   <h5 class="bg-info rounded mb-0 p-1" v-else>Go to Account</h5>
@@ -151,7 +151,6 @@ export default {
     return {
       editable,
       router,
-
       saved: computed(() =>
         AppState.vKeepIds.find((v) => v.creatorId == AppState.account?.id)
       ),

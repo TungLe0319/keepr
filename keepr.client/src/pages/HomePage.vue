@@ -2,7 +2,7 @@
   <div class="container">
     <!-- <PaginationStyle /> -->
     <SearchBar />
-    <div class="bricks my-2">
+    <div class="bricks my-3">
       <TransitionGroup
         name=""
         enterActiveClass="animate__fadeIn animate__animated"
@@ -58,10 +58,8 @@ export default {
         let bottomOfWindow =
           document.documentElement.scrollTop + window.innerHeight ===
           document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
-          if (AppState.paginationOn == false) {
-            getKeepsByScroll();
-          }
+        if (bottomOfWindow ) {
+          getKeepsByScroll();
         }
       };
     }

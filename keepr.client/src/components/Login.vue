@@ -1,5 +1,5 @@
 <template>
-  <span class="navbar-text">
+  <span class="navbar-text me-2">
     <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
       v-if="!user.isAuthenticated">
       Login
@@ -55,8 +55,8 @@ export default {
 
 <style lang="scss" scoped>
 .pImg{
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
 box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 </style>

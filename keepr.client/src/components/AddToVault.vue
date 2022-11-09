@@ -8,30 +8,23 @@
       aria-expanded="false"
       aria-controls="collapseExample"
     >
-      <i
-        class="mdi mdi-playlist-plus fs-3 text-purple dotHover p-1 selectable rounded"
-        ><small>Save</small>
-      </i>
+       <p class="mb-0 fs-4 text-purple dotHover p-1 selectable rounded">Save</p>
     </button>
   </form>
-  <div v-if="keep?.vaultKeepId" >
+  <div v-if="route.name == 'Vault'" class="">
     <button
-      class="btn border-0 mb-2 animate__animated animate__fadeIn"
+      class="btn border-0  mb-2 animate__animated animate__fadeIn"
       @click="removeFromVault()"
     >
-      <i
-        class="mdi mdi-playlist-remove fs-3 text-purple dotHover p-1 selectable rounded"
-        ><small>Remove</small></i
-      >
+     <p class="d-flex mb-0 fs-4 text-purple dotHover p-1 selectable rounded"><i class="mdi mdi-cancel"></i> Remove</p>
     </button>
   </div>
-  <div 
-
+  <div
     class="collapse position-absolute end-100 bottom-50 rounded bShadow3"
     id="testMenu"
   >
     <h6
-      class="mb-0 p-2 text-center bg-warning bShadow2 rounded-top no-select markoOne"
+      class="mb-0 p-2 text-center bg-warning rounded-top no-select markoOne"
     >
       Save to vault
     </h6>

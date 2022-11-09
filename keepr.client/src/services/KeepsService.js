@@ -8,10 +8,13 @@ class KeepsService {
   async setActive(keep) {
     AppState.activeKeep = keep;
     let id = keep.id;
-    await api.get(`api/keeps/${id}`);
-    // AppState.activeKeep = res.data
-    // console.log(res.data);
-    // console.log(AppState.activeKeep);
+    let vKeepId = keep.vaultKeepId;
+    const res = await api.get(`api/keeps/${id}`);
+
+    AppState.activeKeep = new Keep(res.data);
+    if (vKeepId) {
+      AppState.activeKeep.vaultKeepId = vKeepId;
+    }
     let account = AppState.account;
     if (AppState.activeKeep.creator.id != account.id) {
       AppState.activeKeep.views++;
@@ -68,12 +71,12 @@ class KeepsService {
   }
   async editKeep(keepData) {
     // console.log(keepData);
-    
+
     const res = await api.put(`api/keeps/${keepData.id}`, keepData);
     // console.log(res.data);
     let updated = new Keep(res.data);
     AppState.activeKeep = updated;
-    Modal.getOrCreateInstance('#activeKeep').show()
+    Modal.getOrCreateInstance("#activeKeep").show();
     let index = AppState.keeps.findIndex((k) => {
       k.id == keepData.id;
     });

@@ -48,7 +48,7 @@
               data-bs-dismiss="modal"
             >
               <h6 v-if="editForm">Submit Edit</h6>
-              <h3 v-else>Create Vault</h3>
+              <h3 v-else>Create Keep</h3>
             </button>
           </div>
         </form>
@@ -123,6 +123,7 @@ export default {
       async handleSubmit() {
         try {
           await keepsService.createKeep(editable.value);
+          editable.value = {}
         } catch (error) {
           Pop.error(error, "[createKeep]");
         }

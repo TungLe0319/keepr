@@ -20,6 +20,8 @@ public class VaultKeepsService
   {
     //TODO clean up
     Vault vault = _vaultRepo.GetById(vaultKeep.VaultId);
+    Keep keep = _keepRepo.GetById(vaultKeep.KeepId);
+    keep.Kept ++;
     if (vault == null)
     {
       throw new Exception("Invalid [example]");
@@ -69,6 +71,7 @@ public class VaultKeepsService
   {
 
     VaultKeep vaultKeep = GetById(vaultKeepId);
+    Keep keep = _keepRepo.GetById(vaultKeep.KeepId);
     if (vaultKeep == null)
     {
       throw new Exception("Invalid vaultKeep Id");

@@ -1,6 +1,6 @@
 <template>
   <div class="container animate__animated animate__fadeIn">
-    <div class="row">
+    <div class="row mt-3 ">
       <div class="col-md-12 text-center mt-2 position-relative">
         <div class="card border-0 animate__animated animate__fadeIn">
           <img
@@ -15,7 +15,7 @@
             class="img-fluid coverImg bShadow rounded skeleton-loader"
           />
           <div
-            class="card-img-overlay d-flex justify-content-center align-items-end"
+            class="card-img-overlay d-flex  justify-content-center align-items-end"
           >
             <div
               v-if="profile?.picture"
@@ -34,9 +34,9 @@
         </div>
       </div>
       <div
-        class="col-md-12 d-flex flex-column justify-content-center align-items-center"
+        class="col-md-12 d-flex flex-column mt-5 justify-content-center align-items-center"
       >
-        <div class="col-md-12 justify-content-end d-flex mt-3 px-3">
+        <div class="col-md-10 justify-content-end  mt-5 d-flex  px-3">
           <div class="btn-group dropstart">
             <i
             v-if="profile?.id == account?.id"
@@ -44,12 +44,12 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             ></i>
-             <div v-else class="d-flex align-items-center">
+             <!-- <div class="d-flex align-items-center">
         
          
               <i title="back to previous page" class="mdi mdi-rewind fs-1 text-dark" @click="$router.go(-1)"></i>
         
-          </div>
+          </div> -->
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
               <li
                 class="dotHover rounded p-2 text-center"
@@ -81,22 +81,45 @@
       </div>
     </div>
     <!-- ------------------VAULTS AND KEEPS------------------------------------------------ -->
-    <div class="row">
-      <div class="col-md-12 text-dark">
-        <h3>Vaults</h3>
+     <div class="row">
+      <div class="col-md-12 text-dark text-center">
+        <button
+          @click="scrollDown()"
+          class="btn text-dark "
+          :class="focusedBtn1 ==false? 'focusedBtn' : ''"
+          data-bs-toggle="collapse"
+          data-bs-target="#vaultCollapse"
+        >
+          <h3>Vaults</h3>
+        </button>
+        <button
+          @click="scrollDown()"
+  class="btn text-dark"
+            :class="focusedBtn1 ==true? 'focusedBtn' : ''"
+          data-bs-toggle="collapse"
+          data-bs-target="#keepCollapse"
+        >
+          <h3>Keeps</h3>
+        </button>
       </div>
-      <div class="row scrollX">
-        <div class="col-md-4" v-for="v in vaults" :key="v.id">
-          <VaultCard :vault="v" v-if="!v.isPrivate" />
+      <div
+        class="collapse animate__animated animate__fadeInLeft show"
+        id="vaultCollapse"
+      >
+          <div class="col-md-12 border-bottom  mt-2 mb-3 border-2 bg-dark"></div>
+        <div class="row">
+          <div class="col-md-3" v-for="v in vaults" :key="v.id">
+            <VaultCard :vault="v" />
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-12 mt-4 text-dark">
-      <h3>Keeps</h3>
-    </div>
-    <div class="bricks">
-      <div class="my-3" v-for="k in keeps" :key="k.id">
-        <KeepCard :keep="k" />
+    <div class="collapse animate__animated animate__fadeInLeft" id="keepCollapse">
+      <div class="col-md-12 p-1 border-bottom border-dark mt-2 mb-3 border-3"></div>
+      <div class="bricks ">
+        <div class="my-3" v-for="k in keeps" :key="k.id">
+          <KeepCard :keep="k" />
+        </div>
       </div>
     </div>
   </div>
@@ -151,6 +174,7 @@ export default {
     return {
       route,
       router,
+         focusedBtn1: computed(() => AppState.focusedBtn1),
       keeps: computed(() => AppState.profileKeeps),
       account: computed(() => AppState.account),
       profile: computed(() => AppState.activeProfile),
@@ -158,6 +182,9 @@ export default {
       toggleCreateForm() {
         AppState.vaultEditForm = false;
         console.log(AppState.vaultEditForm);
+      },
+          scrollDown() {
+    AppState.focusedBtn1 = !AppState.focusedBtn1
       },
     };
   },
@@ -171,7 +198,8 @@ export default {
   --animate-delay: 1s;
 }
 .coverImg {
-  height: 300px;
+  height: 250px;
+  object-position: center;
 
   object-fit: cover;
 }
