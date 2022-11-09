@@ -1,7 +1,5 @@
 <template>
-  <div class="card ps-2 pe-5"
-  :class="test? 'disabled no-select' : ''"
-  >
+  <div class="card ps-2 pe-5" :class="test ? 'disabled no-select' : ''">
     <div class="py-2 d-flex align-items-center">
       <img
         :src="vault.img"
@@ -45,8 +43,13 @@ export default {
       theme: computed(() =>
         AppState.account.theme == false ? "#5d595917" : "#e0d1d1cf"
       ),
-      test : computed(() => AppState.vKeepIds?.find(v=> v?.vaultId == props.vault?.id && v?.keepId == AppState.activeKeep?.id)),
-
+      test: computed(() =>
+        AppState.vKeepIds?.find(
+          (v) =>
+            v?.vaultId == props.vault?.id &&
+            v?.keepId == AppState.activeKeep?.id
+        )
+      ),
     };
   },
 };

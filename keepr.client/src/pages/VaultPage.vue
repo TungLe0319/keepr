@@ -185,7 +185,8 @@ export default {
 
       async deleteVaultKeep() {
         try {
-          let id = this.vault.id;
+          let id = AppState.activeKeep.id
+          
           await vaultKeepService.deleteVaultKeep(id);
         } catch (error) {
           Pop.error(error, "[]");

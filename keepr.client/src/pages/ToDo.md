@@ -16,4 +16,7 @@ only have one single keep
 
 
 create modal needs to say create keep
-private vaults on account page have offset heights
+create vault form dark mode
+private vaults on account page have offset height
+deleteVaultKeep needs fixing
+logo

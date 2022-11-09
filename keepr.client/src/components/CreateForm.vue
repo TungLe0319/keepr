@@ -25,7 +25,7 @@
       </div>
       <div class="my-3">
         <button
-          class="btn p-2 dotHover text-light bg-dark"
+          class="btn p-2 dotHover text-dark"
           type="submit"
           data-bs-dismiss="modal"
 
