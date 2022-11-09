@@ -12,8 +12,8 @@ export class Keep {
     this.createdAt = data.createdAt;
     this.updatedAt = data.updatedAt;
     // this.vaulted=data.vaulted || false
-    this.vaultId = data.vaultId || this.vaultId
-    this.vaultKeepId = data.vaultKeepId || delete this.vaultKeepId
-    this.vaultKeepCreatorId = data.vaultKeepCreatorId || delete this.vaultKeepCreatorId
+    this.vaultId = data.vaultId || null
+    this.vaultKeepId = data.vaultKeepId || null
+    this.vaultKeepCreatorId = data.vaultKeepCreatorId || null
   }
 }

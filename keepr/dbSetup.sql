@@ -25,7 +25,7 @@ CREATE TABLE
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name varchar(255) NOT NULL,
         description TEXT NOT NULL,
-        img VARCHAR(255),
+        img VARCHAR(500),
         isPrivate TINYINT DEFAULT 0,
         creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE

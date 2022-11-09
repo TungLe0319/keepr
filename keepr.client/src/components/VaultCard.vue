@@ -8,10 +8,10 @@
       <img :src="vault?.img" alt="" title="keep" class="img-fluid  rounded" />
       <div class="card-img-overlay p-1 border-none d-flex justify-content-between align-items-end">
         <span>
-          <p class="mb-0 vaultName  text-light">{{ vault?.name }}</p>
+          <p class="mb-0 vaultName  text-constantLight">{{ vault?.name }}</p>
         </span>
         <span v-if="vault?.isPrivate">
-          <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight "></i>
+          <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight vaultName "></i>
   
         </span>
       </div>

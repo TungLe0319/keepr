@@ -16,21 +16,25 @@
         >
           <div class="mt-3 inputBox">
             <label for="name">Name</label>
-            <input type="text" required name="name" v-model="editable.name" />
+            <input type="text" required name="name"
+            class="text-dark" v-model="editable.name" />
           </div>
           <div class="mt-3 inputBox">
             <label for="img">Image</label>
-            <input type="url" required name="img" v-model="editable.img" />
+            <input type="url" required name="img"
+            class="text-dark" v-model="editable.img" />
           </div>
-          <div class="mt-3 inputBox">
+         <div class="mt-3">
             <label for="description">Description</label>
-            <input
-              type="text"
-              required
-              name="description"
-              v-model="editable.description"
-            />
-          </div>
+            <div class="form-floating mt-2">
+              <textarea
+                v-model="editable.description"
+                class="form-control"
+                placeholder="describe your vault"
+                style="height: 100px"
+              ></textarea>
+            </div>
+            </div>
 
           <div class="mt-3">
             <label class="me-3">Private</label>
@@ -192,7 +196,7 @@ export default {
 input:checked{
   width: 30px;
   height: 30px;
-  transition: all 0.5s ease;
+  transition: all 0.5s;
 }
 
 .formTitle{

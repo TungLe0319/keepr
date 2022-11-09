@@ -1,18 +1,35 @@
 <template>
   <div
-    class="card rounded border-0 my-1"
+    class="card rounded-5 border-0 my-1"
     @click="setActive()"
     data-bs-toggle="modal"
     data-bs-target="#activeKeep"
     v-if="keep"
   >
+       <span
+       v-if="keep?.vaultKeepId"
+          class="position-absolute top-0 end-0 m-1  deleteBtn"
+
+        >
+          <img
+            id="favImg"
+            src="https://cdn-icons-png.flaticon.com/512/458/458594.png"
+            alt="delete Icon"
+            class=" "
+            @click="removeVaultKeep()"
+            height="20"
+            width="20"
+        :title=" 'Remove' + keep?.name.toString()  "
+          />
+        </span>
+
     <!-- <i class="mdi mdi-delete fs-2 position-absolute deleteBtn"> </i> -->
     <img
       v-if="keep?.img"
       :src="keep?.img"
       alt=""
       title="keep"
-      class="img-fluid rounded"
+      class="img-fluid rounded-5"
     />
     
     <img
@@ -86,6 +103,11 @@ export default {
   transition: all 0.5s ease;
 }
 
+.deleteBtn:hover{
+  transition: all 1.75s ease;
+  transform: scale(2);
+
+}
 .card {
   transition: all 0.5s ease;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;

@@ -10,12 +10,12 @@ body {
   transition: all 1s ease;
 }
 * {
-  
 }
 
-.swal2-modal{
-
+.swal2-modal {
 }
+
+
 
 #app {
   display: flex;
@@ -27,9 +27,8 @@ body {
   font-family: "Marko One", serif;
 }
 .monoton {
-
-    font-family: "Marko One", serif;
-  font-size: 6.5rem;
+  font-family: "Marko One", serif;
+  font-size: 4rem;
 
   opacity: 0.75;
 
@@ -49,7 +48,7 @@ body {
 }
 .formTitle {
   font-size: 100px;
- user-select: none;
+  user-select: none;
   -webkit-text-stroke: 1px #282828;
   text-shadow: 0px 4px 4px #282828;
 }
@@ -75,7 +74,7 @@ select {
   }
 }
 
-.z-index-top{
+.z-index-top {
   z-index: 9;
 }
 
@@ -83,6 +82,16 @@ form:invalid button[type="submit"] {
   filter: grayscale(1);
   pointer-events: none;
 }
+
+.selectHover {
+  transition: all 0.25s ease;
+}
+.selectHover:hover {
+  transition: all 0.25s ease;
+  filter: brightness(80%);
+
+}
+
 .dotHover {
   transition: all 0.5s ease;
 }
@@ -110,8 +119,8 @@ form:invalid button[type="submit"] {
     0 1px 8px 0 rgba(0, 0, 0, 0.12);
 }
 .focusedBtn {
-  background: linear-gradient(to bottom right, #ffbb00, #ff5e00);
-  border-radius: 0px;
+
+
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
@@ -122,15 +131,13 @@ form:invalid button[type="submit"] {
   line-height: 2.5;
   outline: transparent;
   text-align: center;
-  text-decoration: none;
+  text-decoration: underline;
   transition: all 0.25s ease-in-out;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
-    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
-    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+
 }
 
 .modal-body {
@@ -157,8 +164,8 @@ form:invalid button[type="submit"] {
 .text-Shadow {
   text-shadow: #474747 3px 5px 2px;
 }
-.txt-Shadow{
-       text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.766);
+.txt-Shadow {
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.766);
 }
 .text-Shadow2 {
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
@@ -166,15 +173,16 @@ form:invalid button[type="submit"] {
 .boxShadow {
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
-.bShadow2{
+.bShadow2 {
   transition: all 0.5 ease;
-box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -63px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -63px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
-.bShadow3{
-box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+.bShadow3 {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
-
 
 .boxShadowHeavy {
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
@@ -182,7 +190,7 @@ box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 
 .scrollX {
   border-radius: 4px;
-height:auto;
+  height: auto;
   flex-wrap: nowrap;
   overflow-x: auto;
   white-space: nowrap;
@@ -203,17 +211,15 @@ height:auto;
   transition: all 1.5s ease;
   box-shadow: 0.25px 0.25px 10px rgba(243, 236, 236, 0.308);
 }
-.inputBox input:invalid{
+.inputBox input:invalid {
   border: 0;
   border-bottom: 4px solid rgb(237, 144, 144);
   border-radius: 0;
-
 }
-.inputBox input:valid{
-    border: 0;
+.inputBox input:valid {
+  border: 0;
   border-bottom: 4px solid rgb(124, 227, 136);
   border-radius: 0;
-
 }
 .inputBox span {
   position: absolute;
@@ -242,12 +248,6 @@ height:auto;
 }
 
 // ------------
-
-
-
-
-
-
 
 /* CSS */
 .button-57 {
@@ -350,10 +350,9 @@ height:auto;
     padding: 13px 50px 13px;
   }
 
-
-  .formTitle{
+  .formTitle {
     font-size: 24px;
   }
 }
 
-@med
+@med;

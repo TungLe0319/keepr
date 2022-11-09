@@ -6,7 +6,7 @@
       </button>
     </router-link>
     <button
-      class="navbar-toggler border-0 dotHover my-3  "
+      class="navbar-toggler border-0 dotHover my-3"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarText"
@@ -14,32 +14,50 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-         <span class="navbar-toggler-icon "></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div
       class="collapse navbar-collapse justify-content-between"
       id="navbarText"
     >
       <div class="d-flex align-items-center justify-content-around">
-        <button
-          class="btn dotHover text-dark my-1"
-          data-bs-toggle="modal"
-          data-bs-target="#createForm"
-          @click="toggleCreateForm()"
-        >
-          <h4 class="markoOne mb-0">Create</h4>
-        </button>
-        <ToggleTheme />
+        <div>
+        
+          <div class="dropdown d-flex dotHover p-1 rounded">
+         
+            <button
+              class="btn d-flex px-1"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+             <h4 class="markoOne mb-0 d-flex align-items-center">Create       <i class="mdi mdi-triangle-small-down fs-3"></i></h4>
+       
+          </button>
+            <ul class="dropdown-menu  p-0 bg-info">
+              <li
+                    class="text-center  rounded p-1 markoOne dropdown-item "
+                  data-bs-toggle="modal"
+                  data-bs-target="#createForm"
+                  @click="toggleCreateForm()">
+              Keep
+              </li>
+              <li class="text-center selectHover rounded p-1 markoOne dropdown-item"> Vault</li>
+            
+            </ul>
+          </div>
+        </div>
+
+        <!-- <ToggleTheme /> -->
         <i
-        v-if="route.name == 'Home'"
+          v-if="route.name == 'Home'"
           class="mdi mdi-magnify fs-1 dotHover text-dark mx-1 px-1 rounded"
           id="button-addon2"
           data-bs-toggle="collapse"
           data-bs-target="#collapseSearchBar"
           title="Search"
         ></i>
-      <Login class="d-md-none "/>
-
+        <Login class="d-md-none" />
       </div>
       <img
         src="../assets/img/Keepr logo.png"
@@ -104,7 +122,7 @@ import Login from "./Login.vue";
 import ToggleTheme from "./ToggleTheme.vue";
 export default {
   setup() {
-    const route = useRoute()
+    const route = useRoute();
     return {
       // theme: computed(() => AppState.account?.theme),
       route,

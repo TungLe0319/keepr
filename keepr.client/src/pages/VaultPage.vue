@@ -1,7 +1,7 @@
 <template>
   <div class="container animate__animated animate__fadeIn" v-if="vault">
-    <div class="row">
-      <div class="col-md-12 text-center mt-2">
+    <div class="row justify-content-center ">
+      <div class="col-md-10 text-center mt-2">
         <div class="card border-0">
           <img
             v-if="vault?.img"
@@ -161,11 +161,7 @@ export default {
       vault: computed(() => AppState?.activeVault),
       private: computed(() => AppState.activeVault?.isPrivate == true),
       owner: computed(() => AppState.activeVault?.creator?.id == AppState.user?.id),
-     ownerAndPrivate: computed(
-        () =>
-          AppState.user?.id == AppState.activeVault?.creator?.id &&
-          AppState.activeVault?.isPrivate == true
-      ),
+  
       async deleteVault() {
         try {
           if (
@@ -186,7 +182,7 @@ export default {
       async deleteVaultKeep() {
         try {
           let id = AppState.activeKeep.id
-          
+
           await vaultKeepService.deleteVaultKeep(id);
         } catch (error) {
           Pop.error(error, "[]");
@@ -212,7 +208,7 @@ export default {
   --animate-delay: 1s;
 }
 .lgText {
-  font-size: 80px !important;
+  font-size: 60px !important;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
 
 }
@@ -221,7 +217,7 @@ export default {
 }
 
 .coverImg {
-  height: 300px;
+  height: 200px;
 
   object-fit: cover;
 }

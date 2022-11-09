@@ -14,7 +14,7 @@
       </i>
     </button>
   </form>
-  <div>
+  <div v-if="keep?.vaultKeepId" >
     <button
       class="btn border-0 mb-2 animate__animated animate__fadeIn"
       @click="removeFromVault()"
@@ -25,7 +25,8 @@
       >
     </button>
   </div>
-  <div
+  <div 
+
     class="collapse position-absolute end-100 bottom-50 rounded bShadow3"
     id="testMenu"
   >
@@ -38,7 +39,7 @@
       <AccountVaultList
         :vault="vault"
         v-for="vault in accountVaults"
-        :key="vault.id"
+        :key="vault?.id"
         @click="addToVault(vault)"
       />
     </div>
@@ -125,7 +126,7 @@ export default {
       async removeFromVault() {
         try {
           if (await Pop.confirm()) {
-            console.log(this.alreadyVaulted);
+            // console.log(this.alreadyVaulted);
             await vaultKeepService.deleteVaultKeep(
               AppState.activeKeep.vaultKeepId
             );
