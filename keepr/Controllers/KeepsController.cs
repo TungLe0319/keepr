@@ -67,6 +67,21 @@ public class KeepsController : ControllerBase
     }
   }
 
+  [HttpGet("search")]
+  public ActionResult<List<Keep>> GetAllKeepsBySearchQuery([FromQuery] int offSet)
+  {
+    try
+    {
+
+      List<Keep> keep = _keepService.GetAllKeepsBySearch();
+      return Ok(keep);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
   [HttpGet("{keepId}")]
 
   public async Task<ActionResult<Keep>> GetById(int keepId)

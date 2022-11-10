@@ -34,9 +34,9 @@
         </div>
       </div>
       <div
-        class="col-md-12 d-flex flex-column justify-content-center align-items-center"
+        class="col-md-12 d-flex flex-column justify-content-center mt-5 mt-md-2 align-items-center"
       >
-        <div class="col-md-10 justify-content-end d-flex mt-3 px-3">
+        <div class="col-md-10 justify-content-end d-flex mt-5 mt-md-3 px-3">
           <div class="btn-group dropstart">
             <i
               class="mdi mdi-dots-horizontal ms-3 fs-1 px-1 dotHover rounded selectable text-dark"

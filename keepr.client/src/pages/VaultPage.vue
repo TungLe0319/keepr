@@ -19,13 +19,22 @@
             class="card-img-overlay d-flex justify-content-center align-items-end"
           >
             <div class="text-center markoOne">
-              <h1 class="lgText text-constantLight no-select" title="Vault name">{{ vault?.name }}</h1>
-              <h3 class="byText text-constantLight no-select"> by {{vault?.creator?.name?.split("@")[0]}} </h3>
+              <h1
+                class="lgText text-constantLight no-select"
+                title="Vault name"
+              >
+                {{ vault?.name }}
+              </h1>
+              <h3 class="byText text-constantLight no-select">
+                by {{ vault?.creator?.name?.split("@")[0] }}
+              </h3>
             </div>
-             <span v-if="vault?.isPrivate">
-          <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight ms-4 lgText" title="Currently in one of your private vaults"></i>
-  
-        </span>
+            <span v-if="vault?.isPrivate">
+              <i
+                class="mdi mdi-shield-lock-outline fs-1 text-constantLight ms-4 lgText"
+                title="Currently in one of your private vaults"
+              ></i>
+            </span>
           </div>
         </div>
       </div>
@@ -33,17 +42,16 @@
         class="col-md-12 d-flex flex-column justify-content-center align-items-center"
       >
         <div class="col-md-10 justify-content-end d-flex mt-3 mb-1 px-3">
-          <div class="d-flex align-items-center me-2"> 
-
-<img :src="vault?.creator?.picture" alt="" width="40" height="40" class="rounded-circle dotHover no-select" :title="vault?.creator?.name" >
-
+          <div class="d-flex align-items-center me-2">
+            <img
+              :src="vault?.creator?.picture"
+              alt=""
+              width="60"
+              height="60"
+              class="rounded-circle dotHover no-select"
+              :title="vault?.creator?.name"
+            />
           </div>
-          <!-- <div class="d-flex align-items-center">
-        
-         
-              <i title="back to previous page" class="mdi mdi-rewind fs-1 text-dark dotHover btn p-0 px-1 border-0" @click="$router?.go(-1)"></i>
-        
-          </div> -->
           <div class="btn-group dropstart">
             <i
               v-if="owner"
@@ -52,7 +60,7 @@
               aria-expanded="false"
               title="Vault options"
             ></i>
-       
+
             <ul class="dropdown-menu rounded bg-info bShadow py-0 border-0">
               <li
                 class="dotHover rounded p-2 text-center"
@@ -77,7 +85,7 @@
             <h1>{{ keeps?.length }}</h1>
           </span>
           <span class="ms-2">
-            <h1 class="monoton text-dark ">keeps</h1>
+            <h1 class="monoton text-dark">keeps</h1>
           </span>
         </div>
       </div>
@@ -118,37 +126,30 @@ import Pop from "../utils/Pop.js";
 export default {
   setup() {
     onMounted(() => {
-      
       getVaultById();
       getKeepsByVaultId();
-      
     });
-    onAuthLoaded(()=>{
-      
-      // getVaultById();
-      // getKeepsByVaultId();
-    })
     async function getKeepsByVaultId() {
       try {
-        
         await vaultsService.getKeepsByVaultId(route.params.id);
       } catch (error) {
-        // router.push({ name: "Home" });
-        // Pop.error(error, "[getKeepsByVaultId]");
-         Pop.toast(`<img src="https://media.tenor.com/j1U9chTe2_0AAAAi/nope-finger-wag.gif" height="80" width="80" > this is Private`);
-         logger.error(error)
-        router.go(-1)
+        Pop.toast(
+          `<img src="https://media.tenor.com/j1U9chTe2_0AAAAi/nope-finger-wag.gif" height="80" width="80" > this is Private`
+        );
+        logger.error(error);
+        router.go(-1);
       }
     }
     async function getVaultById() {
       try {
         await vaultsService.getVaultById(route.params.id);
-        console.log("[creatorId]",AppState.activeVault.creator.id);
-        console.log("[userId]",AppState.user.id);
+        console.log("[creatorId]", AppState.activeVault.creator.id);
+        console.log("[userId]", AppState.user.id);
       } catch (error) {
-        Pop.toast(`<img src="https://media.tenor.com/j1U9chTe2_0AAAAi/nope-finger-wag.gif" height="80" width="80" > this is Private`);
+        Pop.toast(
+          `<img src="https://media.tenor.com/j1U9chTe2_0AAAAi/nope-finger-wag.gif" height="80" width="80" > this is Private`
+        );
         logger.error(error);
-        // router.push({ name: "Home" });
       }
     }
     const route = useRoute();
@@ -161,8 +162,10 @@ export default {
       account: computed(() => AppState.account),
       vault: computed(() => AppState?.activeVault),
       private: computed(() => AppState.activeVault?.isPrivate == true),
-      owner: computed(() => AppState.activeVault?.creator?.id == AppState.user?.id),
-  
+      owner: computed(
+        () => AppState.activeVault?.creator?.id == AppState.user?.id
+      ),
+
       async deleteVault() {
         try {
           if (
@@ -182,7 +185,7 @@ export default {
 
       async deleteVaultKeep() {
         try {
-          let id = AppState.activeKeep.id
+          let id = AppState.activeKeep.id;
 
           await vaultKeepService.deleteVaultKeep(id);
         } catch (error) {
@@ -193,9 +196,6 @@ export default {
       toggleEditForm() {
         AppState.vaultEditForm = true;
       },
-      push() {
-        router.push({ name: "Home" });
-      },
     };
   },
   components: { VaultCard, PopperTip },
@@ -203,21 +203,19 @@ export default {
 </script>
 
 <style scoped>
-
-.container{
-    --animate-duration: 500ms;
+.container {
+  --animate-duration: 500ms;
   --animate-delay: 1s;
 }
 .lgText {
   font-size: 60px !important;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
-
 }
-.byText{
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
+.byText {
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.459);
 }
-.privateIcon{
- font-size: 80px !important;
+.privateIcon {
+  font-size: 80px !important;
 }
 
 .coverImg {

@@ -45,6 +45,7 @@
               <li
                  data-bs-toggle="modal"
                   data-bs-target="#vaultForm"
+                  @click="toggleCreateVault()"
               class="text-center selectHover rounded p-1 markoOne dropdown-item"> Vault</li>
             
             </ul>
@@ -52,14 +53,14 @@
         </div>
 
         <!-- <ToggleTheme /> -->
-        <!-- <i
+        <i
           v-if="route.name == 'Home'"
           class="mdi mdi-magnify fs-1 dotHover text-dark mx-1 px-1 rounded"
           id="button-addon2"
           data-bs-toggle="collapse"
           data-bs-target="#collapseSearchBar"
           title="Search"
-        ></i> -->
+        ></i>
         <Login class="d-md-none " />
       </div>
       <img
@@ -136,6 +137,9 @@ export default {
         // AppState.activeKeep = {}
         AppState.keepEditForm = false;
       },
+      toggleCreateVault(){
+        AppState.vaultEditForm = false
+      }
     };
   },
   components: { Login },

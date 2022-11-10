@@ -67,49 +67,6 @@
         class="d-none d-md-block"
         title="keepr Logo"
       />
-      <!-- <ul class="navbar-nav d-flex">
-        <li class="d-flex align-items-center">
-          <button
-            class="btn dotHover"
-            data-bs-toggle="modal"
-            data-bs-target="#createForm"
-            @click="toggleCreateForm()"
-          >
-            <h4 class="markoOne mb-0">Create</h4>
-          </button>
-        </li>
-        <li class="mx-1">
-          <button class="btn dotHover" @click="toggleTheme()">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/5005/5005681.png"
-              alt="theme Button"
-              width="40"
-              height="40"
-            />
-   
-          </button>
-        </li>
-        <li class="">
-          <button
-            class="btn dotHover"
-            type="submit"
-            id="button-addon2"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseSearchBar"
-            title="Search"
-          >
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/751/751463.png"
-              alt=""
-              width="40"
-              height="40"
-            />
-          </button>
-        </li>
-  
-      </ul> -->
-
-      <!-- LOGIN COMPONENT HERE -->
       <Login class="d-none d-md-block" />
     </div>
   </nav>
@@ -124,7 +81,6 @@ export default {
   setup() {
     const route = useRoute();
     return {
-      // theme: computed(() => AppState.account?.theme),
       route,
       toggleCreateForm() {
         // AppState.activeKeep = {}

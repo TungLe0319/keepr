@@ -2,13 +2,22 @@
   <div class="modal-body p-0 bg-warning" v-if="keep">
     <div class="row">
       <!--  :style="{backgroundImage:   `url(${keep?.img})`}" -->
-      <div class="col-md-6 animate__animated animate__fadeIn">
-        <img
-          :src="keep?.img"
-          alt=""
-          title="keep"
-          class="rounded img-fluid h-100 image"
-        />
+      <div class="col-md-6 animate__animated animate__fadeIn d-flex justify-content-center">
+        <div
+           :class="fullCoverImg? 'expand my-5 rounded-5':''">
+
+          <img
+            :src="keep?.img"
+            alt=""
+            title="keep"
+             :class="fullCoverImg? 'fullCoverImg rounded-5':'img-fluid h-100 image rounded-start'"
+          />
+          <div class="">
+          <i @click="toggleImageScale()"
+         
+          class="mdi mdi-arrow-expand-all fs-2 text-dark"></i>
+          </div>
+        </div>
       </div>
       <div class="col-md-6 d-flex flex-column justify-content-between">
         <div class="d-flex justify-content-center mt-2 align-items-center">
@@ -151,6 +160,7 @@ export default {
     return {
       editable,
       router,
+      fullCoverImg: computed(()  => AppState.fullCoverImg),
       saved: computed(() =>
         AppState.vKeepIds.find((v) => v.creatorId == AppState.account?.id)
       ),
@@ -175,7 +185,6 @@ export default {
       },
       toggleEditForm() {
         AppState.keepEditForm = true;
-        // console.log(AppState.keepEditForm);
       },
       pushToProfile() {
         Modal.getOrCreateInstance("#activeKeep").hide();
@@ -189,6 +198,9 @@ export default {
           });
         document.documentElement.scrollTop = 0;
       },
+      toggleImageScale(){
+        AppState.fullCoverImg = !AppState.fullCoverImg
+      }
     };
   },
   components: { AddToVault, AccountVaultList },
@@ -196,6 +208,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+
 .modal-body {
   --animate-duration: 500ms;
   --animate-delay: 1s;
@@ -214,8 +229,25 @@ export default {
 .collapse {
   height: 800px;
 }
+
+.expand {
+padding: 0;
+width: 500px;
+
+height: 500px;
+display: flex;
+justify-content: center;
+}
 .image {
   object-fit: cover;
+  object-position: center;
+  transition: all 0.25 ease;
+}
+.fullCoverImg{
+  object-fit: contain;
+  height: 400px;
+  width: 400px;
+  transition: all  0.25s ease;
 }
 .test {
 }

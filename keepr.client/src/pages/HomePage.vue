@@ -56,9 +56,10 @@ export default {
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
-          document.documentElement.offsetHeight;
-        if (bottomOfWindow ) {
+          document.documentElement.scrollTop + (window.innerHeight +100);
+        let whatEver = document.documentElement.offsetHeight;
+        if (bottomOfWindow >= whatEver ) {
+
           getKeepsByScroll();
         }
       };

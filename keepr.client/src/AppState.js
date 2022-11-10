@@ -36,4 +36,5 @@ export const AppState = reactive({
   paginationOn: false,
   darkTheme :false,
   focusedBtn1: false,
+  fullCoverImg:false,
 });

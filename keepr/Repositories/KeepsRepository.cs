@@ -80,6 +80,27 @@ public class KeepsRepository : BaseRepo
     }, new {id}).ToList();
   }
 
+  internal List<Keep> GetAllKeepsBySearch()
+  {
+    var sql = @"
+           SELECT 
+           k. *,
+           COUNT(vKeep.id) AS Kept,
+           a.*
+           FROM keeps k
+           JOIN accounts a ON a.id = k.creatorId
+           LEFT JOIN vaultKeeps vKeep ON vKeep.keepId = k.id
+           GROUP BY k.id
+                ; ";
+    return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
+     {
+       keep.Creator = profile;
+
+       return keep;
+     }).ToList();
+
+  }
+
   internal List<Keep> GetAllKeeps(int offSet)
   {
     var sql = @"

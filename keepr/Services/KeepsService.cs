@@ -66,6 +66,13 @@ public class KeepsService
     return _keepRepo.GetAllKeeps(offSet);
   }
 
+  internal List<Keep> GetAllKeepsBySearch()
+  {
+
+    return _keepRepo.GetAllKeepsBySearch();
+  }
+
+
   internal Keep EditKeep(Keep keepData, string userId)
   {
     Keep original = GetById(keepData.Id, userId);

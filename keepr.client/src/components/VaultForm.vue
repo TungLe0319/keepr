@@ -53,8 +53,8 @@
               type="submit"
               data-bs-dismiss="modal"
             >
-             <h6 v-if="editForm">EditVault</h6>
-             <h6 v-else>CreateForm</h6>
+             <h6 v-if="editForm">Edit Vault</h6>
+             <h6 v-else>Create Vault</h6>
             </button>
           </div>
         </form>
@@ -104,32 +104,16 @@ import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 
 export default {
-  props: {},
-  setup(props) {
+  setup() {
     const editable = ref({});
-    const testForm = ref({
-      img: "https://mediadrumworld.com/wp-content/uploads/2019/01/MDRUM_Bank_Vault-3.jpg",
-      description:
-        " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque error animi quasi, a distinctio, nulla temporibus delectus minus quis suscipit ducimus, accusamus consequuntur assumenda. Alias.",
-      name: "Vault Test",
-      isPrivate: false,
-    });
     onMounted(() => {});
-    watchEffect(() => {
-        
-        editable.value = { ...AppState.activeVault };
-   
-      // editable.value = [...AppState.activeVault]
-    });
-
     return {
       editable,
       editForm: computed(() => AppState.vaultEditForm ),
       async handleCreate() {
         try {
-          // console.log(editable.value);
-
           await vaultsService.createVault(editable.value);
+          editable.value = {}
           router.push({name:"Vault",params:{id:AppState.activeVault.id}})
           Modal.getOrCreateInstance("#activeKeep").hide()
         } catch (error) {

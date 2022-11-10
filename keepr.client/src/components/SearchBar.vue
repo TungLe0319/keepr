@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-end align-items-center mt-2 sticky-top">
     <div class="collapse" id="collapseSearchBar">
       <div class="card bg-dark" style="width: 300px">
-        <form @keyup="searchByName()" class="">
+        <form @submit.prevent="searchByName()" class="">
           <div class="d-flex align-items-center">
             <input
               v-model="editable"

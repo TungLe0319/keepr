@@ -210,6 +210,8 @@ export default {
   border-radius: 50%;
   width: 200px;
   height: 200px;
+  object-fit: cover;
+  object-position: center;
 }
 .bricks {
   columns: 4;
