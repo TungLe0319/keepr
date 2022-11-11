@@ -37,6 +37,9 @@ internal Account GetById(string userId){
     original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
     original.CoverImg = editData.CoverImg ?? original.CoverImg;
     original.Theme = editData.Theme ?? original.Theme;
+    original.Twitter = editData.Twitter ?? original.Twitter;
+    original.Twitter = editData.Instagram ?? original.Instagram;
+    original.Twitter = editData.FaceBook ?? original.FaceBook;
     return _repo.Edit(original);
   }
 

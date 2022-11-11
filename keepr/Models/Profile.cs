@@ -7,4 +7,9 @@ public class Profile
   public string CoverImg { get; set; } = "https://www.thoughtco.com/thmb/EKnmgoAr_X4TrIpxBiPYu9lao9U=/2000x1333/filters:fill(auto,1)/GettyImages-468963673-5ad40ad2fa6bcc0036add08a.jpg";
   public string Picture { get; set; }
   public bool? Theme { get; set; } = false;
+
+  public string Instagram {get;set;}
+  public string FaceBook {get;set;}
+  public string Twitter {get;set;}
+  
 }

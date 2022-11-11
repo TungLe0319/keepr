@@ -26,6 +26,18 @@
             <label for=""> Cover Image</label>
           <input type="url" v-model="editable.coverImg" class=" " />
         </div>
+          <div class="inputBox my-4">
+            <label for="">Instagram</label>
+          <input type="url" v-model="editable.instagram" class=" " />
+        </div>
+          <div class="inputBox my-4">
+            <label for=""> Facebook</label>
+          <input type="url" v-model="editable.facebook" class=" " />
+        </div>
+          <div class="inputBox my-4">
+            <label for=""> Twitter</label>
+          <input type="url" v-model="editable.twitter" class=" " />
+        </div>
       </div>
 
       <div class="col-md-6 justify-content-center d-flex">

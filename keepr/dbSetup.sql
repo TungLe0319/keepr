@@ -14,7 +14,7 @@ CREATE TABLE
  
 --  ALTER TABLE accounts ADD COLUMN(
   
---  theme TINYINT DEFAULT 0
+--  Instagram VARCHAR(255) 
 --  );
  
  

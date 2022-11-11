@@ -7,5 +7,8 @@ export class Account {
     // TODO add additional properties if needed
     this.coverImg = data.coverImg
     this.theme = data.theme || false
+    this.twitter= data.twitter
+    this.instagram = data.instagram
+    this.facebook = data.facebook
   }
 }

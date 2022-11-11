@@ -42,7 +42,11 @@ public class AccountsRepository
               name = @Name,
               picture = @Picture,
               coverImg = @CoverImg,
-              theme = @Theme
+              theme = @Theme,
+              instagram = @Instagram,
+              twitter = @Twitter,
+              facebook = @Facebook
+
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;
