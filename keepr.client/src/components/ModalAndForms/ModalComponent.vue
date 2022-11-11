@@ -19,9 +19,9 @@
 
 <script>
 import { computed, ref, watchEffect } from "vue";
-import { AppState } from "../AppState";
-import { accountService } from "../services/AccountService.js";
-import Pop from "../utils/Pop.js";
+import { AppState } from "../../AppState";
+import { accountService } from "../../services/AccountService.js";
+import Pop from "../../utils/Pop.js";
 export default {
   setup() {
     const editable = ref({});

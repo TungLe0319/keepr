@@ -33,11 +33,11 @@ class KeepsService {
     const res = await api.get("api/keeps/search");
     // console.log(query);
     AppState.keeps = res.data.map((k) => new Keep(k));
-         console.log('[keeps]',res.data);
+        //  console.log('[keeps]',res.data);
          AppState.keeps = AppState.keeps.filter((k) =>
          k.name.toUpperCase().includes(query.toUpperCase())
          );
-         console.log(AppState.keeps);
+        //  console.log(AppState.keeps);
     // console.log(AppState.offSet);
   }
 

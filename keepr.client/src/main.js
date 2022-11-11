@@ -8,12 +8,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { registerGlobalComponents } from './registerGlobalComponents'
 import { router } from './router'
-
+import { VueMasonryPlugin } from "vue-masonry";
 const root = createApp(App)
 registerGlobalComponents(root)
 
 
-
-root
-  .use(router)
-  .mount('#app')
+root.use(router).use(VueMasonryPlugin).mount("#app");

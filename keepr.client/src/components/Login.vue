@@ -29,6 +29,18 @@
           </ul>
         </div>
       </div>
+
+
+
+  <button class="btnposition-relative" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAuth" aria-expanded="false" aria-controls="collapseExample">
+  More
+  </button>
+
+<div class="collapse position-absolute" id="collapseAuth" style="z-index: 9">
+  <div class="card card-body">
+    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+  </div>
+</div>
     </div>
   </span>
 </template>

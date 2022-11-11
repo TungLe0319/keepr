@@ -3,7 +3,7 @@
     <!-- <PaginationStyle /> -->
     <SearchBar />
     <div class="bricks my-3">
-      <TransitionGroup
+      <!-- <TransitionGroup
         name=""
         enterActiveClass="animate__fadeIn animate__animated"
         leaveActiveClass="animate__fadeOut animate__animated"
@@ -12,7 +12,15 @@
           <KeepCard :keep="k" />
         </div>
       </TransitionGroup>
-    </div>
+    </div> -->
+
+<div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
+  <div v-masonry-tile class="item" v-for="k in keeps" :key="k.id">
+           <KeepCard :keep="k" />
+  </div>
+</div>
+
+  </div>
   </div>
 </template>
 

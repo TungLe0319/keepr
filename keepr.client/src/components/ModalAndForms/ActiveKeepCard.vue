@@ -140,14 +140,14 @@ import { computed } from "@vue/reactivity";
 import { Modal } from "bootstrap";
 import { onMounted, ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
-import { AppState } from "../AppState.js";
-import { Keep } from "../models/Keep.js";
-import { keepsService } from "../services/KeepsService.js";
-import { logger } from "../utils/Logger.js";
-import Pop from "../utils/Pop.js";
-import AccountVaultList from "./AccountVaultList.vue";
-import AddToVault from "./AddToVault.vue";
-import ShareCard from "./ShareCard.vue";
+import { AppState } from "../../AppState.js";
+import { Keep } from "../../models/Keep.js";
+import { keepsService } from "../../services/KeepsService.js";
+import { logger } from "../../utils/Logger.js";
+import Pop from "../../utils/Pop.js";
+import AccountVaultList from "../AccountVaultList.vue";
+import AddToVault from "../AddToVault.vue";
+import ShareCard from "../ShareCard.vue";
 export default {
   props: {
     keep: { type: Keep, required: true },

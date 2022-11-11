@@ -32,13 +32,13 @@
 import { Modal } from "bootstrap"
 import { computed } from 'vue'
 import { AppState } from './AppState'
-import AccountForm from "./components/AccountForm.vue"
-import ActiveKeepCard from "./components/ActiveKeepCard.vue"
+import AccountForm from "./components/ModalAndForms/AccountForm.vue"
+import ActiveKeepCard from "./components/ModalAndForms/ActiveKeepCard.vue"
 import ExampleForm from "./components/CreateForm.vue"
 import FooterNav from "./components/FooterNav.vue"
-import ModalComponent from "./components/ModalComponent.vue"
+import ModalComponent from "./components/ModalAndForms/ModalComponent.vue"
 import Navbar from './components/Navbar.vue'
-import VaultForm from "./components/VaultForm.vue"
+import VaultForm from "./components/ModalAndForms/VaultForm.vue"
 
 export default {
   setup() {
