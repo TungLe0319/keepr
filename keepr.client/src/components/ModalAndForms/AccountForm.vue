@@ -38,6 +38,10 @@
             <label for=""> Twitter</label>
           <input type="url" v-model="editable.twitter" class=" " />
         </div>
+          <div class="inputBox my-4">
+            <label for=""> Twitter</label>
+          <input type="url" v-model="editable.pinterest" class=" " />
+        </div>
       </div>
 
       <div class="col-md-6 justify-content-center d-flex">

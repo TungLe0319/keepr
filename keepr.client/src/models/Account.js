@@ -10,5 +10,6 @@ export class Account {
     this.twitter= data.twitter
     this.instagram = data.instagram
     this.facebook = data.facebook
+    this.pinterest=data.pinterest
   }
 }

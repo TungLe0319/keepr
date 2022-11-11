@@ -15,15 +15,19 @@
     id="collapseShare"
   >
     <div class="card card-body bg-warning p-0 px-1 border-0 mt-2">
-      <!-- <div class="d-flex p-2">
-        <img
-          class="dotHover rounded-circle"
-          src="https://cdn-icons-png.flaticon.com/512/1377/1377257.png"
-          alt="pinterest icon"
-          height="40"
-          width="40"
-          title="share to pinterest"
-        />
+      <div class="d-flex p-2">
+     
+        
+          <img
+            class="dotHover rounded-circle"
+            src="https://cdn-icons-png.flaticon.com/512/1377/1377257.png"
+            alt="pinterest icon"
+            height="40"
+            width="40"
+            title="share to pinterest"
+            
+          />
+   
         <img
           class="dotHover rounded-5"
           src="https://cdn-icons-png.flaticon.com/512/2504/2504903.png"
@@ -49,8 +53,8 @@
           width="40"
           title="share through email"
         />
-      </div> -->
-      <!-- <div class="border-bottom border-3 border-dark"></div> -->
+      </div>
+      <div class="border-bottom border-3 border-dark"></div>
       <div class="d-flex p-2">
         <i
           class="dotHover rounded   mdi mdi-link-variant fs-1 text-dark"
@@ -83,6 +87,7 @@ export default {
 
     return {
       editable,
+      account:computed(() => AppState.account),
       copyLink() {
         AppState.activeKeep.img;
         navigator.clipboard.writeText(AppState.activeKeep.img);

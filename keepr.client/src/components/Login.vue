@@ -4,7 +4,7 @@
       v-if="!user.isAuthenticated">
       Login
     </button>
-    <div v-else>
+    <div v-else class="d-flex">
       <div class="dropdown dropstart my-2 my-lg-0 ">
         <div type="button" class=" border-0 " data-bs-toggle="dropdown"
           aria-expanded="false">
@@ -15,8 +15,17 @@
             <img src="" alt="account photo"  class="rounded-circle elevation-3 pImg skeleton-loader" />
           </div>
         </div>
-        <div class="dropdown-menu dropdown-menu-lg-left p-0 " aria-labelledby="authDropdown">
-          <ul class="list-group ">
+      </div>
+
+
+
+  <button class="btn position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAuth" aria-expanded="false" aria-controls="collapseExample">
+  <i class="mdi mdi-arrow-down-box"></i>
+  </button>
+
+<div class="collapse position-absolute top-100" id="collapseAuth" style="z-index: 9">
+  <div class="card card-body text-dark p-0">
+   <ul class="list-group ">
             <router-link :to="{ name: 'Account' }">
               <li class="list-group-item ">
                 Manage Account
@@ -27,18 +36,6 @@
               logout
             </li>
           </ul>
-        </div>
-      </div>
-
-
-
-  <button class="btnposition-relative" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAuth" aria-expanded="false" aria-controls="collapseExample">
-  More
-  </button>
-
-<div class="collapse position-absolute" id="collapseAuth" style="z-index: 9">
-  <div class="card card-body">
-    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
   </div>
 </div>
     </div>

@@ -8,13 +8,16 @@ CREATE TABLE
         name varchar(255) COMMENT 'User Name',
         email varchar(255) COMMENT 'User Email',
         picture varchar(255) COMMENT 'User Picture',
-        coverImg VARCHAR(255)
+        Pinterest VARCHAR(255),
+        Facebook VARCHAR(255),
+        Twitter VARCHAR(255),
+        Instagram VARCHAR(255)
     ) default charset utf8 COMMENT '';
 
  
 --  ALTER TABLE accounts ADD COLUMN(
   
---  Instagram VARCHAR(255) 
+--  Pinterest VARCHAR(255) 
 --  );
  
  

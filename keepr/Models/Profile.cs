@@ -11,5 +11,7 @@ public class Profile
   public string Instagram {get;set;}
   public string FaceBook {get;set;}
   public string Twitter {get;set;}
-  
+
+  public string Pinterest {get;set;}
+
 }
