@@ -53,14 +53,14 @@
         </div>
 
         <!-- <ToggleTheme /> -->
-        <i
+        <!-- <i
           v-if="route.name == 'Home'"
           class="mdi mdi-magnify fs-1 dotHover text-dark mx-1 px-1 rounded"
           id="button-addon2"
           data-bs-toggle="collapse"
           data-bs-target="#collapseSearchBar"
           title="Search"
-        ></i>
+        ></i> -->
         <Login class="d-md-none " />
       </div>
       <img

@@ -2,22 +2,15 @@
   <div class="modal-body p-0 bg-warning" v-if="keep">
     <div class="row">
       <!--  :style="{backgroundImage:   `url(${keep?.img})`}" -->
-      <div class="col-md-6 animate__animated animate__fadeIn d-flex justify-content-center">
-        <div
-           :class="fullCoverImg? 'expand my-5 rounded-5':''">
-
+      <div class="col-md-6 animate__animated animate__fadeIn ">
+  
           <img
             :src="keep?.img"
             alt=""
             title="keep"
-             :class="fullCoverImg? 'fullCoverImg rounded-5':'img-fluid h-100 image rounded-start'"
+          class="img-fluid image rounded-start"
           />
-          <div class="">
-          <i @click="toggleImageScale()"
-         
-          class="mdi mdi-arrow-expand-all fs-2 text-dark"></i>
-          </div>
-        </div>
+      
       </div>
       <div class="col-md-6 d-flex flex-column justify-content-between">
         <div class="d-flex justify-content-center mt-2 align-items-center">
@@ -240,7 +233,7 @@ justify-content: center;
 }
 .image {
   object-fit: cover;
-  object-position: center;
+ 
   transition: all 0.25 ease;
 }
 .fullCoverImg{
