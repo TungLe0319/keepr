@@ -37,6 +37,52 @@
         class="col-md-12 d-flex flex-column justify-content-center mt-5 mt-md-2 align-items-center"
       >
         <div class="col-md-10 justify-content-end d-flex mt-5 mt-md-3 px-3">
+              <div class=" p-2">
+     
+        
+          <img
+            class="dotHover rounded-circle "
+            src="https://cdn-icons-png.flaticon.com/512/1377/1377257.png"
+            alt="pinterest icon"
+            height="40"
+            width="40"
+            title="share to pinterest"
+          
+          />
+   
+        <img
+          class="dotHover rounded-5 ms-2"
+          src="https://cdn-icons-png.flaticon.com/512/2504/2504903.png"
+          alt="facebook icon"
+          height="40"
+          width="40"
+          title="share to facebook"
+         
+        />
+  
+
+       <img
+         class="dotHover rounded-4 ms-2"
+         src="https://cdn-icons-png.flaticon.com/512/1409/1409946.png"
+         alt="instagram icon"
+         height="40"
+         width="40"
+         title="share to instagram"
+      
+       />
+      
+        
+      
+
+        <img
+          class="dotHover rounded-circle ms-2"
+          src="https://cdn-icons-png.flaticon.com/512/552/552486.png"
+          alt="email icon"
+          height="40"
+          width="40"
+          title="share through email"
+        />
+      </div>
           <div class="btn-group dropstart">
             <i
               class="mdi mdi-dots-horizontal ms-3 fs-1 px-1 dotHover rounded selectable text-dark"
