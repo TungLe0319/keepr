@@ -27,7 +27,7 @@ class KeepsService {
     // AppState.offSet += keeps.length
     AppState.keeps = res.data.map((k) => new Keep(k));
     // console.log(AppState.offSet);
-    console.log(AppState.keeps);
+    // console.log(AppState.keeps);
   }
   async getKeepsByQuery(query) {
     const res = await api.get("api/keeps/search");

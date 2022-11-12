@@ -93,10 +93,10 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted, ref, watchEffect } from "vue";
-import { AppState } from "../AppState.js";
-import { keepsService } from "../services/KeepsService.js";
-import { logger } from "../utils/Logger.js";
-import Pop from "../utils/Pop.js";
+import { AppState } from "../../AppState.js";
+import { keepsService } from "../../services/KeepsService.js";
+import { logger } from "../../utils/Logger.js";
+import Pop from "../../utils/Pop.js";
 
 export default {
   props: {},
@@ -110,11 +110,6 @@ export default {
     });
     onMounted(() => {});
     watchEffect(() => {
-      if (AppState.activeKeep) {
-        editable.value.img = AppState.activeKeep.img || "";
-        editable.value.name = AppState.activeKeep.name || "";
-        editable.value.description = AppState.activeKeep.description || "";
-      }
     });
 
     return {

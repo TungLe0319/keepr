@@ -20,7 +20,7 @@
 
 
   <button class="btn position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAuth" aria-expanded="false" aria-controls="collapseExample">
-  <i class="mdi mdi-arrow-down-box"></i>
+  <i class="mdi mdi-arrow-down-box text-dark"></i>
   </button>
 
 <div class="collapse position-absolute top-100" id="collapseAuth" style="z-index: 9">

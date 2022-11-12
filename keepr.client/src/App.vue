@@ -34,7 +34,7 @@ import { computed } from 'vue'
 import { AppState } from './AppState'
 import AccountForm from "./components/ModalAndForms/AccountForm.vue"
 import ActiveKeepCard from "./components/ModalAndForms/ActiveKeepCard.vue"
-import ExampleForm from "./components/CreateForm.vue"
+import ExampleForm from "./components/ModalAndForms/CreateForm.vue"
 import FooterNav from "./components/FooterNav.vue"
 import ModalComponent from "./components/ModalAndForms/ModalComponent.vue"
 import Navbar from './components/Navbar.vue'
