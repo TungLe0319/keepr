@@ -133,7 +133,7 @@ export default {
       },
       toggleCreateVault() {
         AppState.vaultEditForm = false;
-        console.log(AppState.vaultEditForm);
+     //   console.log(AppState.vaultEditForm);
       },
     };
   },

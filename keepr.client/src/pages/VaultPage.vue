@@ -143,8 +143,8 @@ export default {
     async function getVaultById() {
       try {
         await vaultsService.getVaultById(route.params.id);
-        console.log("[creatorId]", AppState.activeVault.creator.id);
-        console.log("[userId]", AppState.user.id);
+       // console.log("[creatorId]", AppState.activeVault.creator.id);
+     //   console.log("[userId]", AppState.user.id);
       } catch (error) {
         Pop.toast(
           `<img src="https://media.tenor.com/j1U9chTe2_0AAAAi/nope-finger-wag.gif" height="80" width="80" > this is Private`

@@ -181,7 +181,7 @@ export default {
       vaults: computed(() => AppState.profileVaults),
       toggleCreateForm() {
         AppState.vaultEditForm = false;
-        console.log(AppState.vaultEditForm);
+    //    console.log(AppState.vaultEditForm);
       },
           scrollDown() {
     AppState.focusedBtn1 = !AppState.focusedBtn1

@@ -44,7 +44,7 @@ export default {
           await keepsService.getKeepsByQuery(editable.value)
         } catch (error) {
           logger.error("[searchByQuery]", error);
-          console.error("dfd", error);
+        //  console.error("dfd", error);
         }
       },
     };

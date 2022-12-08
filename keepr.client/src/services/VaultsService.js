@@ -14,10 +14,10 @@ class VaultsService {
   }
   async getAllVaults() {
     const res = await api.get("api/vaults");
-    console.log("[vaults]", res.data);
+ //   console.log("[vaults]", res.data);
     let vaults = res.data.map((v) => new Vault(v));
     AppState.vaults = [...AppState.vaults, vaults];
-    console.log(AppState.vaults);
+ //   console.log(AppState.vaults);
   }
 
   async getVaultById(id) {
@@ -29,7 +29,7 @@ class VaultsService {
   async createVault(vaultData) {
     // console.log(vaultData);
     const res = await api.post("api/vaults", vaultData);
-    console.log('[vaults]',res.data);
+  //  console.log('[vaults]',res.data);
     let newVault = new Vault(res.data);
     AppState.activeVault = newVault
     // router.push({name:'Vault', params:{id: newVault.id}})
@@ -38,7 +38,7 @@ class VaultsService {
   async editVault(vaultData) {
     let id = vaultData.id
     const res = await api.put(`api/vaults/${id}`, vaultData);
-         console.log('[vaults]',res.data);
+     //    console.log('[vaults]',res.data);
       
    let newVault = new Vault(res.data);
    AppState.activeVault = newVault
@@ -65,7 +65,7 @@ class VaultsService {
     
     const res = await api.get(`api/vaults/${id}/keeps`)
     AppState.vaultedKeeps = res.data.map(v=> new VaultedKeep(v))
-    AppState.vaultedKeeps.forEach( x => console.log(x.vaultKeepId))
+  //  AppState.vaultedKeeps.forEach( x => console.log(x.vaultKeepId))
         //  console.log('[vaultKeeps]',res.data);
         //  console.log(AppState.vaultedKeeps);
   }

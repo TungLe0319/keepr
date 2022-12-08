@@ -211,7 +211,7 @@ export default {
       toggleCreateForm() {
         AppState.activeVault = {};
         AppState.vaultEditForm = false;
-        console.log(AppState.vaultEditForm);
+     //   console.log(AppState.vaultEditForm);
       },
       scrollDown() {
     AppState.focusedBtn1 = !AppState.focusedBtn1
