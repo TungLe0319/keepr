@@ -59,14 +59,14 @@
         ></i> -->
         <Login class="d-md-none" />
       </div>
-      <img
+      <!-- <img
         src="../assets/img/Keepr logo.png"
         alt="keepr Logo"
         width="70"
         height="60"
         class="d-none d-md-block"
         title="keepr Logo"
-      />
+      /> -->
       <Login class="d-none d-md-block" />
     </div>
   </nav>
