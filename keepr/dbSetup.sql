@@ -1,4 +1,4 @@
--- Active: 1666715468048@@SG-curved-roast-6734-6831-mysql-master.servers.mongodirector.com@3306@MyFirstDatabase
+-- Active: 1669159198083@@bobocat.mysql.database.azure.com@3306@tungkeepr
 
 CREATE TABLE
     IF NOT EXISTS accounts(
