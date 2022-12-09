@@ -2,8 +2,8 @@
   <div class="container">
     <!-- <PaginationStyle /> -->
     <SearchBar />
- 
-      <!-- <TransitionGroup
+
+    <!-- <TransitionGroup
         name=""
         enterActiveClass="animate__fadeIn animate__animated"
         leaveActiveClass="animate__fadeOut animate__animated"
@@ -13,21 +13,24 @@
         </div>
       </TransitionGroup>
     </div> -->
-<div class="container">
-
-  <div v-masonry="" class="d-flex justify-content-center" transition-duration="0.3s" item-selector=".item">
-    <div v-masonry-tile class="item p-2  " v-for="k in keeps" :key="k.id">
-             <KeepCard :keep="k" />
+    <div class="container">
+      <div
+        v-masonry=""
+        class="d-flex justify-content-center"
+        transition-duration="0.3s"
+        item-selector=".item"
+      >
+        <div v-masonry-tile class="item p-2" v-for="k in keeps" :key="k.id">
+          <KeepCard :keep="k" />
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<!-- 
+    <!-- 
 <div class="row ms-1 me-2 mt-1 g-4 no-y-over" v-masonry transition-duration="0.3s" item-selector=".item">
     <KeepCard v-for="k in keeps" :keep="k" :key="k.id" v-masonry-tile class="item  " />
 
 
 </div> -->
-
   </div>
 </template>
 
@@ -71,10 +74,9 @@ export default {
     function infiniteScroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + (window.innerHeight +20);
+          document.documentElement.scrollTop + (window.innerHeight + 20);
         let whatEver = document.documentElement.offsetHeight;
-        if (bottomOfWindow >= whatEver ) {
-
+        if (bottomOfWindow >= whatEver) {
           getKeepsByScroll();
         }
       };
@@ -90,7 +92,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.item{
+.item {
   max-width: 250px;
 }
 .keepCards {
@@ -114,10 +116,8 @@ export default {
 }
 
 @media only screen and (max-width: 768px) {
- 
-.item{
-  width: 170px;
-}
-
+  .item {
+    width: 170px;
+  }
 }
 </style>
