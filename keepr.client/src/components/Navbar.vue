@@ -63,14 +63,14 @@
         ></i> -->
         <Login class="d-md-none " />
       </div>
-      <!-- <img
-        src="../assets/img/Keepr logo.png"
+      <img
+        src="../assets/img/Keeprlogo.png"
         alt="keepr Logo"
         width="70"
         height="60"
         class="d-none d-md-block"
         title="keepr Logo"
-      /> -->
+      />
       <!-- <ul class="navbar-nav d-flex">
         <li class="d-flex align-items-center">
           <button
