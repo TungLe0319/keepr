@@ -12,7 +12,7 @@ class AccountService {
       const res = await api.get("/account");
       AppState.account = res.data;
       // console.log(AppState.account);
-      console.log(res.data);
+     //  console.log(res.data);
     } catch (err) {
       logger.error("HAVE YOU STARTED YOUR SERVER YET???", err);
     }
@@ -45,7 +45,7 @@ class AccountService {
     // console.log(res.data);
     // let vaults = res.data.map(v=> new Vault(v))
 
-console.log(res.data);
+// console.log(res.data);
     AppState.accountVaults = res.data.map((v) => new Vault(v));
     // console.log(AppState.accountVaults);
   }
