@@ -1,5 +1,8 @@
 <template>
-  <div class="card ps-2 rounded pe-5 my-1" :class="test ? 'bg-dark no-select disabled ' : ''">
+  <div
+    class="card ps-2 rounded pe-5 my-1"
+    :class="test ? 'bg-dark no-select disabled ' : ''"
+  >
     <div class="py-2 d-flex align-items-center">
       <img
         :src="vault.img"
@@ -59,11 +62,11 @@ export default {
 .card {
   background: transparent;
   border: 0;
-  transition: all 0.25s ease;
+  transition: all 0.5s ease;
 }
 .save {
   opacity: 0;
-  transition: all 0.25s ease;
+  transition: all 0.5s ease;
   position: absolute;
   right: -12px;
 }

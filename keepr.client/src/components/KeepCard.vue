@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card rounded-4  border-0 "
+    class="card rounded-4 border-0"
     @click="setActive()"
     data-bs-toggle="modal"
     data-bs-target="#activeKeep"
@@ -85,7 +85,6 @@ export default {
   transform: scale(2);
 }
 .card {
-
   transition: all 0.5s ease;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   .cardName {
@@ -107,7 +106,7 @@ export default {
     z-index: 9999;
     color: rgb(194, 139, 219);
     opacity: 1;
-    transition: all 0.25s ease;
+    transition: all 0.5s ease;
     transform: scale();
   }
 }

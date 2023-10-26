@@ -1,30 +1,41 @@
 <template>
-
   <div class="modal-body position-relative bg-warning">
     <div class="position-absolute bottom-100 end-50">
-      <div v-if="editForm" class=" markoOne d-flex justify-content-center align-items-center text-dark formTitle">
-        <h1  class="me-md- formTitle ">EDIT </h1>
-
+      <div
+        v-if="editForm"
+        class="markoOne d-flex justify-content-center align-items-center text-dark formTitle"
+      >
+        <h1 class="me-md- formTitle">EDIT</h1>
       </div>
-      <h1  class=" formTitle" v-else>Create</h1>
+      <h1 class="formTitle" v-else>Create</h1>
     </div>
     <div class="row">
       <div class="col-md-6">
         <form
-          @submit.prevent="editForm ?    handleEdit() : handleCreate()"
+          @submit.prevent="editForm ? handleEdit() : handleCreate()"
           class=""
         >
           <div class="mt-3 inputBox">
             <label for="name">Name</label>
-            <input type="text" required name="name"
-            class="text-dark" v-model="editable.name" />
+            <input
+              type="text"
+              required
+              name="name"
+              class="text-dark"
+              v-model="editable.name"
+            />
           </div>
           <div class="mt-3 inputBox">
             <label for="img">Image</label>
-            <input type="url" required name="img"
-            class="text-dark" v-model="editable.img" />
+            <input
+              type="url"
+              required
+              name="img"
+              class="text-dark"
+              v-model="editable.img"
+            />
           </div>
-         <div class="mt-3">
+          <div class="mt-3">
             <label for="description">Description</label>
             <div class="form-floating mt-2">
               <textarea
@@ -34,7 +45,7 @@
                 style="height: 100px"
               ></textarea>
             </div>
-            </div>
+          </div>
 
           <div class="mt-3">
             <label class="me-3">Private</label>
@@ -53,8 +64,8 @@
               type="submit"
               data-bs-dismiss="modal"
             >
-             <h6 v-if="editForm">Edit Vault</h6>
-             <h6 v-else>Create Vault</h6>
+              <h6 v-if="editForm">Edit Vault</h6>
+              <h6 v-else>Create Vault</h6>
             </button>
           </div>
         </form>
@@ -77,10 +88,14 @@
             <span>
               <h5 class="mb-0 fw-bold text-light ms-1">{{ editable?.name }}</h5>
             </span>
-              <span v-if="editable?.isPrivate" class="animate__animated animate__fadeIn">
-          <i class="mdi mdi-shield-lock-outline fs-1 text-constantLight "></i>
-  
-        </span>
+            <span
+              v-if="editable?.isPrivate"
+              class="animate__animated animate__fadeIn"
+            >
+              <i
+                class="mdi mdi-shield-lock-outline fs-1 text-constantLight"
+              ></i>
+            </span>
           </div>
         </div>
         <div class="text-dark mt-3 animate__animated animate__fadeIn">
@@ -109,22 +124,24 @@ export default {
     onMounted(() => {});
     return {
       editable,
-      editForm: computed(() => AppState.vaultEditForm ),
+      editForm: computed(() => AppState.vaultEditForm),
       async handleCreate() {
         try {
           await vaultsService.createVault(editable.value);
-          editable.value = {}
-          router.push({name:"Vault",params:{id:AppState.activeVault.id}})
-          Modal.getOrCreateInstance("#activeKeep").hide()
+          editable.value = {};
+          router.push({
+            name: "Vault",
+            params: { id: AppState.activeVault.id },
+          });
+          Modal.getOrCreateInstance("#activeKeep").hide();
         } catch (error) {
           Pop.error(error, "[createKeep]");
         }
       },
       async handleEdit() {
         try {
-          editable.value.id = AppState.activeVault.id
+          editable.value.id = AppState.activeVault.id;
           await vaultsService.editVault(editable.value);
-         
         } catch (error) {
           Pop.error(error, "[createKeep]");
         }
@@ -173,17 +190,15 @@ export default {
   letter-spacing: 0.2em;
   transition: all 1s ease;
 }
-.editText{
-
-  
+.editText {
 }
-input:checked{
+input:checked {
   width: 30px;
   height: 30px;
   transition: all 0.5s;
 }
 
-.formTitle{
+.formTitle {
   font-size: 100px;
 }
 .card {

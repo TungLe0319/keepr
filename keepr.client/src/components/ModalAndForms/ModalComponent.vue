@@ -109,6 +109,7 @@ export default {
   transition: all 1s ease;
 }
 .modal {
+  max-width: 100vw;
   background: rgb(144, 119, 160);
   background: linear-gradient(
     90deg,
@@ -116,5 +117,6 @@ export default {
     rgba(250, 252, 226, 0.6695089285714286) 100%
   );
   backdrop-filter: blur(4px);
+  padding-right: 0px;
 }
 </style>

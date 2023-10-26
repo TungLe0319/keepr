@@ -109,8 +109,7 @@ export default {
       name: "What a beautiful world",
     });
     onMounted(() => {});
-    watchEffect(() => {
-    });
+    watchEffect(() => {});
 
     return {
       editable,
@@ -118,7 +117,7 @@ export default {
       async handleSubmit() {
         try {
           await keepsService.createKeep(editable.value);
-          editable.value = {}
+          editable.value = {};
         } catch (error) {
           Pop.error(error, "[createKeep]");
         }
@@ -156,7 +155,7 @@ export default {
 .card:hover {
   transform: scale(1.009);
   filter: brightness(95%);
-  transition: all 0.25s ease;
+  transition: all 0.5s ease;
   cursor: pointer;
 
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,

@@ -2,15 +2,13 @@
   <div class="modal-body p-0 bg-warning" v-if="keep">
     <div class="row">
       <!--  :style="{backgroundImage:   `url(${keep?.img})`}" -->
-      <div class="col-md-6 animate__animated animate__fadeIn ">
-  
-          <img
-            :src="keep?.img"
-            alt=""
-            title="keep"
+      <div class="col-md-6 animate__animated animate__fadeIn">
+        <img
+          :src="keep?.img"
+          alt=""
+          title="keep"
           class="img-fluid image rounded-start"
-          />
-      
+        />
       </div>
       <div class="col-md-6 d-flex flex-column justify-content-between">
         <div class="d-flex justify-content-center mt-2 align-items-center">
@@ -82,7 +80,10 @@
         </div>
         <div>
           <div class="d-flex text-wrap justify-content-between">
-            <div class="d-flex animate__animated animate__fadeInLeft" v-if="user?.isAuthenticated">
+            <div
+              class="d-flex animate__animated animate__fadeInLeft"
+              v-if="user?.isAuthenticated"
+            >
               <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
               <AddToVault />
               <!-- ----------------------NOTE ADD TO VAULT---------------------------------- -->
@@ -114,7 +115,10 @@
                   class="-rounded bg-info text-center selectable p-0 border-0 dotHover rounded"
                   @click="pushToProfile()"
                 >
-                  <h4 class="bg-info mb-0 p-1 rounded" v-if="keep?.creator?.id != account?.id">
+                  <h4
+                    class="bg-info mb-0 p-1 rounded"
+                    v-if="keep?.creator?.id != account?.id"
+                  >
                     Visit Profile
                   </h4>
                   <h5 class="bg-info rounded mb-0 p-1" v-else>Go to Account</h5>
@@ -153,7 +157,7 @@ export default {
     return {
       editable,
       router,
-      fullCoverImg: computed(()  => AppState.fullCoverImg),
+      fullCoverImg: computed(() => AppState.fullCoverImg),
       saved: computed(() =>
         AppState.vKeepIds.find((v) => v.creatorId == AppState.account?.id)
       ),
@@ -191,9 +195,9 @@ export default {
           });
         document.documentElement.scrollTop = 0;
       },
-      toggleImageScale(){
-        AppState.fullCoverImg = !AppState.fullCoverImg
-      }
+      toggleImageScale() {
+        AppState.fullCoverImg = !AppState.fullCoverImg;
+      },
     };
   },
   components: { AddToVault, AccountVaultList },
@@ -201,9 +205,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
-
 .modal-body {
   --animate-duration: 500ms;
   --animate-delay: 1s;
@@ -224,23 +225,23 @@ export default {
 }
 
 .expand {
-padding: 0;
-width: 500px;
+  padding: 0;
+  width: 500px;
 
-height: 500px;
-display: flex;
-justify-content: center;
+  height: 500px;
+  display: flex;
+  justify-content: center;
 }
 .image {
   object-fit: cover;
- 
+
   transition: all 0.25 ease;
 }
-.fullCoverImg{
+.fullCoverImg {
   object-fit: contain;
   height: 400px;
   width: 400px;
-  transition: all  0.25s ease;
+  transition: all 0.5s ease;
 }
 .test {
 }

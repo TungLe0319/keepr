@@ -39,6 +39,9 @@
     "editor.codeActionsOnSave": {
       "source.fixAll": true
     },
-    "cSpell.words": ["vaultkeeps"]
+    "cSpell.words": [
+      "vaultkeeps"
+    ],
+    "nuxt.isNuxtApp": false
   }
 }
