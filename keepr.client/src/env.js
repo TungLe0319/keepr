@@ -1,7 +1,7 @@
 export const dev = window.location.origin.includes('localhost');
 export const baseURL = dev
   ? "https://localhost:7045"
-  : "https://keepr-project-demo.onrender.com";
+  : "https://keeper.tung.devopportunities.dev/";
 export const useSockets = false;
 export const domain = 'bcwtungle.us.auth0.com';
 export const audience = 'https://bcw-cocobeans.com';
